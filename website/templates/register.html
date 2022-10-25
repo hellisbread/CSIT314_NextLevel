@@ -1,0 +1,17 @@
+<h1>Register user</h1>
+
+<form action="adduser/" method="post">
+    {% csrf_token %}
+    Full Name: <br>
+    <input name = "fullname">
+    <br><br>
+    Username: <br>
+    <input name = "username">
+    <br><br>
+    Password: <br>
+    <input name = "password">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<a href="../">Back to log in page</a>

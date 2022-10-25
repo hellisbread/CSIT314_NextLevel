@@ -1,0 +1,15 @@
+<h1>Login Page</h1>
+
+<form action="checkLogin/", method = "post">
+    {% csrf_token %}
+    Username: <br>
+    <input name = "username">
+    <br><br>
+    Password: <br>
+    <input name = "password">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<a href="register/">Sign up?</a> <br>
+<a href="db/">View Members</a>
