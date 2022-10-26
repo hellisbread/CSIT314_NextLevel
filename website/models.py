@@ -27,18 +27,6 @@ class Users(models.Model):
     def updateUser(self, email, username, password, Name):
         return self
 
-    # @classmethod
-    # def createUser(cls, fullname, username, password):
-    #     user = cls(fullname=fullname, username=username, password=password)
-    #     return user
-    
-    # def updateUser(self, fullname, username, password):
-    #     self.fullname = fullname
-    #     self.username = username
-    #     self.password = password
-
-    #     return self
-
 class SystemAdmin(User):
     verified = models.BooleanField(default = False)
     approved = models.BooleanField(default = False)
