@@ -1,14 +1,13 @@
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Users
 
 # log in page
 def index(request):
-    template = loader.get_template('index.html')
-    
-    return HttpResponse(template.render({}, request))
+
+    return render(request, 'index.html', {})
 
 def checkLogin(request):
     username = request.POST['username']

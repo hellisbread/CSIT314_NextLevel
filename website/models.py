@@ -15,11 +15,29 @@ class Users(models.Model):
     class Meta:
         db_table = 'user'
 
-    def addNewUser(self):
+    @classmethod
+    def createUser(cls, email, username, password, Name):
 
-        self.save()
+        newUser = cls(email=email, username=username,password=password,Name = Name)
+
+        newUser.save()
 
         return True
+
+    def updateUser(self, email, username, password, Name):
+        return self
+
+    # @classmethod
+    # def createUser(cls, fullname, username, password):
+    #     user = cls(fullname=fullname, username=username, password=password)
+    #     return user
+    
+    # def updateUser(self, fullname, username, password):
+    #     self.fullname = fullname
+    #     self.username = username
+    #     self.password = password
+
+    #     return self
 
 class SystemAdmin(User):
     verified = models.BooleanField(default = False)

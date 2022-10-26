@@ -1,19 +1,19 @@
-from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+
+from django.shortcuts import render, redirect
+
 from .models import Users
 
 def db(request):
     myusers = Users.objects.all().values()
-    template = loader.get_template('db.html')
     context = {'myusers':myusers}
 
-    return HttpResponse(template.render(context,request))
+    return render(request, 'db.html', context)
 
 def register(request):
-    template = loader.get_template('register.html')
-    
-    return HttpResponse(template.render({}, request))
+
+    return render(request, 'register.html', {})
 
 def addNewUser(request):
     new_fullname = request.POST['fullname']
@@ -23,14 +23,13 @@ def addNewUser(request):
     user = Users.createUser(new_fullname, new_username, new_password)
     user.save()
 
-    return HttpResponseRedirect(reverse('db'))
+    return redirect('db')
 
 def update(request,id):
     myuser = Users.objects.get(id=id)
-    template = loader.get_template('update.html')
     context = {'myuser':myuser}
 
-    return HttpResponse(template.render(context, request))
+    return render(request, 'update.html', context)
 
 def updateProfile(request, id):
     new_fullname = request.POST['fullname']
@@ -40,7 +39,7 @@ def updateProfile(request, id):
     user.updateUser(new_fullname, new_username, new_password)
     user.save()
 
-    return HttpResponseRedirect(reverse('db'))
+    return redirect('db')
 
     
      
