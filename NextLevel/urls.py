@@ -16,17 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from website import views, loginController
+from website import views, loginController, userController
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('', views.loginView, name='login'),
-    path('', views.index, name = 'index'),
-    path('db/', views.db, name='db'),
-    path('register/', views.register, name='register'),
-    path('register/adduser/', views.adduser, name = 'adduser'),
-    path('delete/<int:id>', views.delete, name = 'delete'),
-    path('update/<int:id>', views.update, name='update'),
-    path('update/updateprofile/<int:id>', views.updateprofile, name='update'),
+    path('', loginController.index, name = 'index'),
+    path('db/', userController.db, name='db'),
+    path('register/', userController.register, name='register'),
+    path('register/addNewUser/', userController.addNewUser, name = 'addNewUser'),
+    path('update/<int:id>', userController.update, name='update'),
+    path('update/updateProfile/<int:id>', userController.updateProfile, name='update'),
     path('checkLogin/', loginController.checkLogin, name='login'),
 ]
