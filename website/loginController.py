@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -14,10 +13,9 @@ def checkLogin(request):
     password = request.POST['password']
     myusers = Users.objects.values_list()
 
-    templateSuccess = loader.get_template('success.html')
     for x in myusers:
         if x[2] == username and x[3] == password:
-            return HttpResponse(templateSuccess.render({},request))
+            return redirect(request, 'success.html', {})
         
     messages.error(request, 'username or password is not correct')
     return redirect('index')

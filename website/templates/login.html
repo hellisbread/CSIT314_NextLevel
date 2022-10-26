@@ -32,43 +32,31 @@
                   <p>Login to your account</p>
                 </div>
 
-                <!--Error Messages-->
-                {% if messages %}
-                  {% for message in messages %}
-                    <p class="alert alert-{{ message.tags }}">
-                      {{ message }}
-                    </p>
-                  {% endfor %}
-                {% endif %}
-
-                {% csrf_token %}
-                <form action="checkLogin/" , method="post">
+                <form>
                     <div class="form-outline mb-4">
                         <label class="form-label" for="form2Example11">Username:</label>
                         <input type="email" id="form2Example11" class="form-control"
-                            placeholder="Username" name = "username"/>
+                            placeholder="Username" />
                     </div>
 
                     <div class="form-outline mb-4">
                         <label class="form-label" for="form2Example22">Password:</label>
                         <input type="password" id="form2Example22" class="form-control"
-                            placeholder="Password" name="password"/>
+                            placeholder="Password" />
                     </div>
 
                     <div class="text-center pt-1 mb-5 pb-1">
                         <button class="btn btn-block fa-lg btn-outline-secondary"
                             type="button">Login</button>
-                        <a class="text-muted forgot-password" href="#">Forgot password?</a>
+                        <a class="text-muted forgot-password" href="#!">Forgot password?</a>
                     </div>
 
                     <hr>
                     <div class="d-flex align-items-center justify-content-center pb-4 pt-2">
                         <p class="mb-0 me-2">Don't have an account?</p>
                         <a type="button" class="btn btn-block btn-outline-secondary"
-                            href="{% url 'register' %}">Register</a>
+                            href="register.html">Register</a>
                     </div>
-
-                    <a href="db/">View Members</a>
                 </form>
               </div>
             </div>

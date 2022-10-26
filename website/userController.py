@@ -35,6 +35,7 @@ def updateProfile(request, id):
     new_fullname = request.POST['fullname']
     new_username = request.POST['username']
     new_password = request.POST['password']
+    
     user = Users.objects.get(id=id)
     user.updateUser(new_fullname, new_username, new_password)
     user.save()
