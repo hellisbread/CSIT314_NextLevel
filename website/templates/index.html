@@ -41,11 +41,21 @@
                   {% endfor %}
                 {% endif %}
 
-                {% csrf_token %}
+                
                 <form action="checkLogin/" , method="post">
-                    <div class="form-outline mb-4">
+                  {% csrf_token %}
+                  <div class="form-outline mb-4">
+                    <select class="form-select" aria-label="Default select example" name="roleList" id="roleList">
+                      <option value="Author"> Author </option>
+                    <option value="Reviewer"> Reviewer </option>
+                    <option value="Conference Chair"> Conference Chair</option>
+                    <option value="System Admin"> System Admin </option>
+                    </select>
+                  </div>
+
+                      <div class="form-outline mb-4">
                         <label class="form-label" for="form2Example11">Username:</label>
-                        <input type="email" id="form2Example11" class="form-control"
+                        <input type="text" id="form2Example11" class="form-control"
                             placeholder="Username" name = "username"/>
                     </div>
 
@@ -56,8 +66,8 @@
                     </div>
 
                     <div class="text-center pt-1 mb-5 pb-1">
-                        <button class="btn btn-block fa-lg btn-outline-secondary"
-                            type="button">Login</button>
+                        <input class="btn btn-block fa-lg btn-outline-secondary"
+                            type="submit" value="Login"/>
                         <a class="text-muted forgot-password" href="#">Forgot password?</a>
                     </div>
 

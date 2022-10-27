@@ -1,17 +1,77 @@
 <h1>Register user</h1>
 
+{% for message in messages %}
+<div>{{ message }}</div> <br>
+{% endfor %}
+
 <form action="addNewUser/" method="post">
     {% csrf_token %}
-    Full Name: <br>
-    <input name = "fullname">
-    <br><br>
-    Username: <br>
-    <input name = "username">
-    <br><br>
-    Password: <br>
-    <input name = "password">
-    <br><br>
+
+    Role: <br />
+    <select name="roleList" id="roleList">
+        <option value="Author"> Author </option>
+        <option value="Reviewer"> Reviewer </option>
+        <option value="Conference Chair"> Conference Chair</option>
+        <option value="System Admin"> System Admin </option>
+    </select>
+
+    <div id="usernameInputField">
+        Username: <br>
+        <input name="username">
+        <br><br>
+    </div>
+
+    <div id="pwInputField">
+        Password: <br>
+        <input name="password">
+        <br><br>
+    </div>
+
+    <div id="emailInputField">
+        Email: <br>
+        <input name="email">
+        <br><br>
+    </div>
+
+    <div id="nameInputField">
+        Full Name: <br>
+        <input name="fullname">
+        <br><br>
+    </div>
+
+    <div id="maxPaperInputField" style="display:none">
+        Max Paper: <br>
+        <input name="maxpaper">
+        <br><br>
+    </div>
     <input type="submit" value="Submit">
+
 </form>
 
-<a href="../">Back to log in page</a>
+<a href="{% url 'index' %}">Back to log in page</a>
+
+
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    crossorigin="anonymous"></script>
+
+<!-- Script to hide fields base on role -->
+<script>
+    $('#roleList').on('change', function (){
+        if ($(this).val() === "Author") {
+            $("#nameInputField").show()
+            $("#maxPaperInputField").hide()
+        }
+        else if ($(this).val() === "Reviewer") {
+            $("#nameInputField").show()
+            $("#maxPaperInputField").show()
+        }
+        else if ($(this).val() === "Conference Chair") {
+            $("#nameInputField").show()
+            $("#maxPaperInputField").hide()
+        }
+        else if ($(this).val() === "System Admin") {
+            $("#nameInputField").hide()
+            $("#maxPaperInputField").hide()
+        }
+    });
+</script>
