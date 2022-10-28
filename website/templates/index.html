@@ -45,6 +45,7 @@
                 <form action="checkLogin/" , method="post">
                   {% csrf_token %}
                   <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11">Login as:</label>
                     <select class="form-select" aria-label="Default select example" name="roleList" id="roleList">
                       <option value="Author"> Author </option>
                     <option value="Reviewer"> Reviewer </option>
@@ -52,7 +53,7 @@
                     <option value="System Admin"> System Admin </option>
                     </select>
                   </div>
-
+<hr>
                       <div class="form-outline mb-4">
                         <label class="form-label" for="form2Example11">Username:</label>
                         <input type="text" id="form2Example11" class="form-control"
@@ -68,17 +69,15 @@
                     <div class="text-center pt-1 mb-5 pb-1">
                         <input class="btn btn-block fa-lg btn-outline-secondary"
                             type="submit" value="Login"/>
-                        <a class="text-muted forgot-password" href="#">Forgot password?</a>
+                        <!--<a class="text-muted forgot-password" href="#">Forgot password?</a>-->
                     </div>
-
-                    <hr>
-                    <div class="d-flex align-items-center justify-content-center pb-4 pt-2">
+                    <!--<div class="d-flex align-items-center justify-content-center pb-4 pt-2">
                         <p class="mb-0 me-2">Don't have an account?</p>
                         <a type="button" class="btn btn-block btn-outline-secondary"
                             href="{% url 'register' %}">Register</a>
-                    </div>
+                    </div>-->
 
-                    <a href="db/">View Members</a>
+                    <!--<a href="db/">View Members</a>-->
                 </form>
               </div>
             </div>
