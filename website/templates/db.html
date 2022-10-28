@@ -1,4 +1,4 @@
-<h1>Users</h1>
+<h1>Authors</h1>
 
 <table border = "1">
     <tr>
@@ -17,4 +17,64 @@
     {% endfor %}
 </table>
 
-<a href="{% url 'index'%}">Back to log in page</a>
+<h1>Authors</h1>
+
+<table border = "1">
+    <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Username</td>
+        <td>Password</td>
+    </tr>
+    {% for user in myusers%}
+    <tr>
+        <td><a href="../update/{{ user.id }}"> {{ user.id   }}</a></td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.password }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<h1>Authors</h1>
+
+<table border = "1">
+    <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Username</td>
+        <td>Password</td>
+    </tr>
+    {% for user in myusers%}
+    <tr>
+        <td><a href="../update/{{ user.id }}"> {{ user.id   }}</a></td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.password }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<h1>Authors</h1>
+
+<table border = "1">
+    <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Username</td>
+        <td>Password</td>
+    </tr>
+    {% for user in myusers%}
+    <tr>
+        <td><a href="../update/{{ user.id }}"> {{ user.id   }}</a></td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.password }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<a href="{% url 'logout'%}">Logout</a>

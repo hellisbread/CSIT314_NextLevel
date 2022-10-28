@@ -28,4 +28,5 @@ urlpatterns = [
     path('update/<int:id>', userController.update, name='update'),
     path('update/updateProfile/<int:id>', userController.updateProfile, name='update'),
     path('checkLogin/', loginController.checkLogin, name='login'),
+    path('logout/', views.Logout, name = 'logout'),
 ]
