@@ -21,10 +21,9 @@ def checkLogin(request):
         password = request.POST['password']
 
         if(selectedRole == "Author"):
-            authorUser = Author.objects.filter(username = username, password=password)
+            author = Author.getAuthor(username, password)
 
-            if(authorUser.exists()):
-                author = Author.objects.get(username = username, password = password)
+            if(author!=None):
 
                 request.session['AuthorLogged'] = author.username
 
@@ -37,10 +36,9 @@ def checkLogin(request):
             
         elif(selectedRole == "Reviewer"):
 
-            ReviewerUser = Reviewer.objects.filter(username = username, password=password)
+            reviewer = Reviewer.getReviewer(username, password)
 
-            if(ReviewerUser.exists()):
-                reviewer = Reviewer.objects.get(username = username, password = password)
+            if(reviewer!=None):
 
                 request.session['ReviewerLogged'] = reviewer.username
 
@@ -51,10 +49,9 @@ def checkLogin(request):
                 return redirect('index')
 
         elif(selectedRole == "Conference Chair"):
-            ConfUser = ConferenceChair.objects.filter(username = username, password=password)
+            Conf = ConferenceChair.getConferenceChair(username, password)
 
-            if(ConfUser.exists()):
-                Conf = ConferenceChair.objects.get(username = username, password = password)
+            if(Conf!=None):
 
                 request.session['ConfLogged'] = Conf.username
 
@@ -64,10 +61,9 @@ def checkLogin(request):
                 messages.error(request, "Invalid username or password.")
                 return redirect('index')
         elif(selectedRole == "System Admin"):
-            SysUser = SystemAdmin.objects.filter(username = username, password=password)
+            SysAdmin = SystemAdmin.getSystemAdmin(username, password)
 
-            if(SysUser.exists()):
-                SysAdmin = SystemAdmin.objects.get(username = username, password = password)
+            if(SysAdmin!=None):
 
                 request.session['SysAdminLogged'] = SysAdmin.username
 

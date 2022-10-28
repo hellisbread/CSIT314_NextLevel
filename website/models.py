@@ -1,10 +1,8 @@
-from asyncio.windows_events import NULL
-from audioop import maxpp
-from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your models here.
 class Users(models.Model):
@@ -49,6 +47,21 @@ class SystemAdmin(Users):
 
         return True
 
+    #Get specific system admin user
+    def getSystemAdmin(username, password):
+        try:
+            systemAdmin = SystemAdmin.objects.get(username=username,password=password)
+
+            return systemAdmin
+        except (SystemAdmin.DoesNotExist, ObjectDoesNotExist):
+            return None
+
+    #Get All System Admins
+    def getAllSystemAdmin():
+        system_list = SystemAdmin.objects.all().values()
+
+        return system_list
+
 class Author(Users):
     Name = models.CharField(max_length = 255)
 
@@ -66,6 +79,20 @@ class Author(Users):
         newAuthor.save()
 
         return True
+
+    #Get specific author user
+    def getAuthor(username, password):
+        try:
+            author = Author.objects.get(username=username,password=password)
+
+            return author
+        except (Author.DoesNotExist, ObjectDoesNotExist):
+            return None
+    
+    def getAllAuthor():
+        author_list = Author.objects.all().values()
+
+        return author_list
 
 class Reviewer(Users):
     maxPaper = models.IntegerField(default = 0)
@@ -86,6 +113,20 @@ class Reviewer(Users):
 
         return True
 
+    def getReviewer(username, password):
+        try:
+            reviewer = Reviewer.objects.get(username=username,password=password)
+
+            return reviewer
+        except (Reviewer.DoesNotExist, ObjectDoesNotExist):
+            return None
+    
+    def getAllReviewer():
+        reviewer_list = Reviewer.objects.all().values()
+
+        return reviewer_list
+    
+
 class ConferenceChair(Users):
     Name = models.CharField(max_length = 255)
 
@@ -100,6 +141,19 @@ class ConferenceChair(Users):
         newConfChair.save()
 
         return True
+    
+    def getConferenceChair(username, password):
+        try:
+            confChair = ConferenceChair.objects.get(username=username,password=password)
+
+            return confChair
+        except (ConferenceChair.DoesNotExist, ObjectDoesNotExist):
+            return None
+    
+    def getAllConferenceChair():
+        confChair_list = ConferenceChair.objects.all().values()
+
+        return confChair_list
 
 
 

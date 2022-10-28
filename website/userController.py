@@ -8,8 +8,13 @@ from django.core.validators import validate_email
 from .models import Users, Author, ConferenceChair, Reviewer, SystemAdmin
 
 def db(request):
-    myusers = Users.objects.all().values()
-    context = {'myusers':myusers}
+
+    Authors = Author.getAllAuthor()
+    ConfChairs = ConferenceChair.getAllConferenceChair()
+    Reviewers = Reviewer.getAllReviewer()
+    SysAdmins = SystemAdmin.getAllSystemAdmin()
+
+    context = {'authors':Authors,'confchairs':ConfChairs,'reviewers':Reviewers,'sysadmins':SysAdmins}
 
     return render(request, 'db.html', context)
 
