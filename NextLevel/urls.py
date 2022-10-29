@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from website import views, loginController, userController
+from website import views, loginController, userController, authorController, systemAdminController
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
@@ -29,4 +29,7 @@ urlpatterns = [
     path('update/updateProfile/<int:id>', userController.updateProfile, name='update'),
     path('checkLogin/', loginController.checkLogin, name='login'),
     path('logout/', views.Logout, name = 'logout'),
+    path('author/', authorController.authorPage, name = 'authorPage'),
+    path('submitPaper/', authorController.submitPaperPage, name ='submitPaperPage'),
+    path('systemAdmin/', systemAdminController.systemAdminPage, name = 'systemAdminPage')
 ]
