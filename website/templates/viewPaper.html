@@ -1,0 +1,38 @@
+<h1>View Paper</h1>
+
+{% if messages %} {% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %} {% endif %}
+
+<table border="1">
+  <tr>
+    <td>ID</td>
+    <td>Topic</td>
+    <td>Description</td>
+    <td>Submitted date</td>
+    <td>File Name</td>
+    <td>Author</td>
+  </tr>
+  {% for paper in papers %}
+  <tr>
+    <td>{{ paper.id }}</td>
+    <td>{{ paper.topic }}</td>
+    <td>{{ paper.description }}</td>
+    <td>{{ paper.submitted_date }}</td>
+    <td>
+      <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a>
+    </td>
+    <td>
+      {% for author in paper.authors.all %}
+      <li>ID: {{ author.id }} - Name: {{ author.name }}</li>
+      {% endfor %}
+    </td>
+    <td>
+      <a href="updateSubmittedPaper/{{ paper.id }}">update</a><br />
+      <a href="deleteSubmittedPaper/{{ paper.id }}">delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<a href="{% url 'authorPage' %}">Back to author page</a>

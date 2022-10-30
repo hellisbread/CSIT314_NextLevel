@@ -1,6 +1,6 @@
-<h1>Submit Paper</h1>
+<h1>Update Submitted Paper</h1>
 
-<form action="../submitPaperPage/" method="post" enctype="multipart/form-data">
+<form action="../updateSubmittedPaper/{{ paper.id }}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
 
   <p>Topic:</p>

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
 
 # Create your models here.
 class Users(models.Model):
@@ -63,18 +64,18 @@ class SystemAdmin(Users):
         return system_list
 
 class Author(Users):
-    Name = models.CharField(max_length = 255)
+    name = models.CharField(max_length = 255)
 
     class Meta(User.Meta):
         db_table = 'author'
 
     @classmethod
-    def createAuthor(cls, email, username, password, Name):
+    def createAuthor(cls, email, username, password, name):
 
-        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or Name.replace(" ","") == ""):
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
             return False
 
-        newAuthor = cls(email = email, username=username, password=password, Name = Name)
+        newAuthor = cls(email = email, username=username, password=password, name = name)
 
         newAuthor.save()
 
@@ -96,7 +97,7 @@ class Author(Users):
 
 class Reviewer(Users):
     maxPaper = models.IntegerField(default = 0)
-    Name = models.CharField(max_length = 255)
+    name = models.CharField(max_length = 255)
 
     class Meta(User.Meta):
         db_table = 'reviewer'
@@ -128,7 +129,7 @@ class Reviewer(Users):
     
 
 class ConferenceChair(Users):
-    Name = models.CharField(max_length = 255)
+    name = models.CharField(max_length = 255)
 
     class Meta(User.Meta):
         db_table = 'conference_chair'
@@ -155,8 +156,44 @@ class ConferenceChair(Users):
 
         return confChair_list
 
+class Paper(models.Model):
+    topic= models.CharField(max_length = 255)
+    description = models.CharField(max_length = 255)
+    submitted_date = models.DateTimeField(default = timezone.now)
+    fileName = models.CharField(max_length = 255)
+    saved_file = models.FileField()
+    authors = models.ManyToManyField(Author)
 
+    @classmethod
+    def createPaper(cls, topic, description, fileName, saved_file, authors):
+        paper= cls(topic = topic, description = description, fileName = fileName, saved_file = saved_file)
+        paper.save()
 
+        for author_id in authors:
+            author = Author.objects.get(id=author_id)
+            paper.authors.add(author)
+
+        return True
+    
+    def updatePaper(self, topic, description, fileName, saved_file, authors):
+        self.topic = topic
+        self.description = description
+        self.fileName = fileName
+        self.saved_file = saved_file
+        self.authors.clear()
+
+        for author_id in authors:
+            author = Author.objects.get(id=author_id)
+            self.authors.add(author)
+
+        self.save()
+
+        return True
+        
+    def getAllPaper():
+        paper_list = Paper.objects.all().values()
+
+        return paper_list
 
 
 

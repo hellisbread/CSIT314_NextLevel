@@ -30,6 +30,10 @@ urlpatterns = [
     path('checkLogin/', loginController.checkLogin, name='login'),
     path('logout/', views.Logout, name = 'logout'),
     path('author/', authorController.authorPage, name = 'authorPage'),
-    path('submitPaper/', authorController.submitPaperPage, name ='submitPaperPage'),
+    path('author/submitPaperPage/', authorController.submitPaperPage, name ='submitPaperPage'),
+    path('author/viewPaperPage/', authorController.viewPaperPage, name='viewPaperPage'),
+    path('author/viewPaperPage/deleteSubmittedPaper/<int:id>', authorController.deleteSubmittedPaper, name='deleteSubmittedPaper'),
+    path('author/viewPaperPage/readSubmittedPaper/<int:id>', authorController.readSubmittedPaper, name = 'readSubmittedPaper'),
+    path('author/viewPaperPage/updateSubmittedPaper/<int:id>', authorController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
     path('systemAdmin/', systemAdminController.systemAdminPage, name = 'systemAdminPage')
 ]
