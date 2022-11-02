@@ -1,0 +1,20 @@
+<h1>Update Author Profile</h1>
+
+<form method="post">
+  {% csrf_token %} Full name: <br />
+  <input name="fullname" value="{{ reviewer.name }}" />
+  <br /><br />
+  Email: <br />
+  <input name="email" value="{{ reviewer.email }}" />
+  <br /><br />
+  Username: <br />
+  <input name="username" value="{{ reviewer.username }}" />
+  <br /><br />
+  Password: <br />
+  <input name="password" value="{{ reviewer.password }}" />
+  <br /><br />
+  Max Papers: <br />
+  <input name="maxPaper" value="{{ reviewer.maxpaper }}" />
+  <br /><br />
+  <input type="submit" value="Submit" />
+</form>

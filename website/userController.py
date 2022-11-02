@@ -7,22 +7,8 @@ from django.core.validators import validate_email
 
 from .models import Users, Author, ConferenceChair, Reviewer, SystemAdmin
 
-def db(request):
-
-    Authors = Author.getAllAuthor()
-    ConfChairs = ConferenceChair.getAllConferenceChair()
-    Reviewers = Reviewer.getAllReviewer()
-    SysAdmins = SystemAdmin.getAllSystemAdmin()
-
-    context = {'authors':Authors,'confchairs':ConfChairs,'reviewers':Reviewers,'sysadmins':SysAdmins}
-
-    return render(request, 'db.html', context)
-
 def register(request):
 
-    return render(request, 'register.html', {})
-
-def addNewUser(request):
     if(request.POST):
         selectedRole = request.POST['roleList']
         username = request.POST['username']
@@ -78,7 +64,9 @@ def addNewUser(request):
             else:
                 messages.error(request, "Invalid input found. Please ensure all fields are filled.")
 
-    return redirect('register')
+        return redirect('register')
+
+    return render(request, 'register.html', {})
 
 def validateEmail(email) -> bool:
 
@@ -101,11 +89,97 @@ def validateUsername(username) -> bool:
     else:
         return True
 
-def update(request,id):
-    myuser = Users.objects.get(id=id)
-    context = {'myuser':myuser}
+def updateAuthors(request,id):
 
-    return render(request, 'update.html', context)
+    if(request.POST):
+
+        name = request.POST['fullname']
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+
+        success = Author.UpdateAuthorByID(id,email,username,password,name)
+
+        if(success):
+            messages.success(request, "Successfully updated Author ID: "+id)
+            return redirect('systemAdminPage')
+        else:
+            messages.error(request, "There was an error updating.")
+            return redirect('systemAdminPage')
+
+    else:
+        myauthor = Author.getAuthorByID(id)
+        context = {'author':myauthor}
+
+        return render(request, 'update_author.html', context)
+
+def updateReviewers(request,id):
+    if(request.POST):
+
+        name = request.POST['fullname']
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        maxPaper = request.POST['maxPaper']
+
+        success = Reviewer.UpdateReviewerByID(id,email,username,password,name,maxPaper)
+
+        if(success):
+            messages.success(request, "Successfully updated Reviewer ID: "+id)
+            return redirect('systemAdminPage')
+        else:
+            messages.error(request, "There was an error updating.")
+            return redirect('systemAdminPage')
+
+    else:
+        myreviewer = Reviewer.getReviewerByID(id)
+        context = {'reviewer':myreviewer}
+
+        return render(request, 'update_reviewer.html', context)
+
+def updateConfs(request,id):
+    if(request.POST):
+
+        name = request.POST['fullname']
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+
+        success = ConferenceChair.UpdateConferenceChairByID(id,email,username,password,name)
+
+        if(success):
+            messages.success(request, "Successfully updated Conference Chair ID: "+id)
+            return redirect('systemAdminPage')
+        else:
+            messages.error(request, "There was an error updating.")
+            return redirect('systemAdminPage')
+
+    else:
+        myconf = ConferenceChair.getConferenceChairByID(id)
+        context = {'conference':myconf}
+
+        return render(request, 'update_conference.html', context)
+
+def updateAdmins(request,id):
+    if(request.POST):
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+
+        success = SystemAdmin.UpdateSysAdminByID(id,email,username,password)
+
+        if(success):
+            messages.success(request, "Successfully updated System Admin ID: "+id)
+            return redirect('systemAdminPage')
+        else:
+            messages.error(request, "There was an error updating.")
+            return redirect('systemAdminPage')
+
+    else:
+        myadmin = SystemAdmin.getSystemAdminByID(id)
+        context = {'admin':myadmin}
+
+        return render(request, 'update_admin.html', context)
 
 def updateProfile(request, id):
 

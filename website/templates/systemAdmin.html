@@ -1,3 +1,116 @@
 <html>
   <a href="{% url 'register'%}">Register members</a>
+
+  <h1> Member List </h1>
+
+  <br/>
+
+    <!--Error Messages-->
+    {% if messages %}
+    {% for message in messages %}
+      <p><b>
+        {{ message }}
+    </b>
+      </p>
+    {% endfor %}
+  {% endif %}  
+
+  <br/>
+
+  <h1>Authors</h1>
+
+<table border = "1">
+    <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Full Name</td>
+        <td>Username</td>
+        <td>Password</td>
+        <td>Update</td>
+    </tr>
+    {% for author in authors%}
+    <tr>
+        <td>{{ author.id }}</td>
+        <td>{{ author.email }}</td>
+        <td>{{author.name}}</td>
+        <td>{{ author.username }}</td>
+        <td>{{ author.password }}</td>
+        <td><a href="../admin/update_author/{{ author.id }}"> Update </a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h1>Reviewers</h1>
+
+<table border = "1">
+    <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Full Name</td>
+        <td>Username</td>
+        <td>Password</td>
+        <td>Max Papers</td>
+        <td>Update</td>
+    </tr>
+    {% for reviewer in reviewers%}
+    <tr>
+        <td>{{ reviewer.id   }}</td>
+        <td>{{ reviewer.email }}</td>
+        <td>{{reviewer.name}}</td>
+        <td>{{ reviewer.username }}</td>
+        <td>{{ reviewer.password }}</td>
+        <td>{{reviewer.maxPaper}}</td>
+        <td><a href="../admin/update_reviewer/{{ reviewer.id }}"> Update </a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<h1>Conference Chairs</h1>
+
+<table border = "1">
+    <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Full Name</td>
+        <td>Username</td>
+        <td>Password</td>
+        <td>Update</td>
+    </tr>
+    {% for conf in confchairs%}
+    <tr>
+        <td>{{ conf.id   }}</td>
+        <td>{{ conf.email }}</td>
+        <td>{{conf.name}}</td>
+        <td>{{ conf.username }}</td>
+        <td>{{ conf.password }}</td>
+        <td><a href="../admin/update_conference/{{ conf.id }}"> Update </a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<h1>System Admin</h1>
+
+<table border = "1">
+    <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Username</td>
+        <td>Password</td>
+        <td>Update</td>
+    </tr>
+    {% for admin in sysadmins%}
+    <tr>
+        <td>{{ admin.id   }}</td>
+        <td>{{ admin.email }}</td>
+        <td>{{ admin.username }}</td>
+        <td>{{ admin.password }}</td>
+        <td><a href="../admin/update_admin/{{ admin.id }}"> Update</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<a href="{% url 'logout'%}">Logout</a>
 </html>

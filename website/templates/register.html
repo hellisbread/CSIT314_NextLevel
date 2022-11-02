@@ -4,7 +4,7 @@
 <div>{{ message }}</div> <br>
 {% endfor %}
 
-<form action="addNewUser/" method="post">
+<form action="create" method="post">
     {% csrf_token %}
 
     Role: <br />

@@ -1,0 +1,15 @@
+<h1>Update Admin Profile</h1>
+
+<form method="post">
+  {% csrf_token %}
+  Email: <br />
+  <input name="email" value="{{ admin.email }}" />
+  <br /><br />
+  Username: <br />
+  <input name="username" value="{{ admin.username }}" />
+  <br /><br />
+  Password: <br />
+  <input name="password" value="{{ admin.password }}" />
+  <br /><br />
+  <input type="submit" value="Submit" />
+</form>

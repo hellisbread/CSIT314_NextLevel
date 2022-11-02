@@ -1,6 +1,18 @@
 from django.shortcuts import render, redirect
 
+from .models import Author, ConferenceChair, Reviewer, SystemAdmin
+
 def systemAdminPage(request):
 
-    return render(request, 'systemAdmin.html', {})
+    Authors = Author.getAllAuthor()
+    ConfChairs = ConferenceChair.getAllConferenceChair()
+    Reviewers = Reviewer.getAllReviewer()
+    SysAdmins = SystemAdmin.getAllSystemAdmin()
+
+    context = {'authors':Authors,'confchairs':ConfChairs,'reviewers':Reviewers,'sysadmins':SysAdmins}
+
+    print(context)
+
+    return render(request, 'systemAdmin.html', context)
+
 

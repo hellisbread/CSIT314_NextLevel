@@ -48,10 +48,32 @@ class SystemAdmin(Users):
 
         return True
 
+    def UpdateSysAdminByID(id, email, username, password):
+
+        try:
+            admin = SystemAdmin.objects.get(id = id)
+            admin.email = email
+            admin.username = username
+            admin.password = password
+
+            admin.save()
+
+            return True
+        except (SystemAdmin.DoesNotExist, ObjectDoesNotExist):
+            return False
+
     #Get specific system admin user
     def getSystemAdmin(username, password):
         try:
             systemAdmin = SystemAdmin.objects.get(username=username,password=password)
+
+            return systemAdmin
+        except (SystemAdmin.DoesNotExist, ObjectDoesNotExist):
+            return None
+
+    def getSystemAdminByID(id):
+        try:
+            systemAdmin = SystemAdmin.objects.get(id=id)
 
             return systemAdmin
         except (SystemAdmin.DoesNotExist, ObjectDoesNotExist):
@@ -81,6 +103,21 @@ class Author(Users):
 
         return True
 
+    def UpdateAuthorByID(id, email, username, password, name):
+
+        try:
+            author = Author.objects.get(id = id)
+            author.email = email
+            author.username = username
+            author.password = password
+            author.name = name
+
+            author.save()
+
+            return True
+        except (Author.DoesNotExist, ObjectDoesNotExist):
+            return False
+
     #Get specific author user
     def getAuthor(username, password):
         try:
@@ -88,6 +125,14 @@ class Author(Users):
 
             return author
         except (Author.DoesNotExist, ObjectDoesNotExist):
+            return None
+
+    def getAuthorByID(id):
+        try:
+            author = Author.objects.get(id=id)
+
+            return author
+        except (Reviewer.DoesNotExist, ObjectDoesNotExist):
             return None
     
     def getAllAuthor():
@@ -103,20 +148,44 @@ class Reviewer(Users):
         db_table = 'reviewer'
 
     @classmethod
-    def createReviewer(cls, email, username, password, Name, maxPaper):
+    def createReviewer(cls, email, username, password, name, maxPaper):
 
         if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or Name.replace(" ","") == ""or maxPaper.replace(" ","") == ""):
             return False
 
-        newReviewer = cls(email = email, username=username, password=password, Name = Name, maxPaper = maxPaper)
+        newReviewer = cls(email = email, username=username, password=password, name = name, maxPaper = int(maxPaper))
 
         newReviewer.save()
 
         return True
+    
+    def UpdateReviewerByID(id, email, username, password, name, maxPaper):
+
+        try:
+            reviewer = Reviewer.objects.get(id = id)
+            reviewer.email = email
+            reviewer.username = username
+            reviewer.password = password
+            reviewer.name = name
+            reviewer.maxPaper = maxPaper
+
+            reviewer.save()
+
+            return True
+        except (Reviewer.DoesNotExist, ObjectDoesNotExist):
+            return False
 
     def getReviewer(username, password):
         try:
             reviewer = Reviewer.objects.get(username=username,password=password)
+
+            return reviewer
+        except (Reviewer.DoesNotExist, ObjectDoesNotExist):
+            return None
+
+    def getReviewerByID(id):
+        try:
+            reviewer = Reviewer.objects.get(id=id)
 
             return reviewer
         except (Reviewer.DoesNotExist, ObjectDoesNotExist):
@@ -127,7 +196,6 @@ class Reviewer(Users):
 
         return reviewer_list
     
-
 class ConferenceChair(Users):
     name = models.CharField(max_length = 255)
 
@@ -135,17 +203,40 @@ class ConferenceChair(Users):
         db_table = 'conference_chair'
 
     @classmethod
-    def CreateConferenceChair(cls, email, username, password, Name):
+    def CreateConferenceChair(cls, email, username, password, name):
 
-        newConfChair = cls(email = email, username=username, password=password, Name = Name)
+        newConfChair = cls(email = email, username=username, password=password, name = name)
 
         newConfChair.save()
 
         return True
+
+    def UpdateConferenceChairByID(id, email, username, password, name):
+
+        try:
+            conference = ConferenceChair.objects.get(id = id)
+            conference.email = email
+            conference.username = username
+            conference.password = password
+            conference.name = name
+
+            conference.save()
+
+            return True
+        except (ConferenceChair.DoesNotExist, ObjectDoesNotExist):
+            return False
     
     def getConferenceChair(username, password):
         try:
             confChair = ConferenceChair.objects.get(username=username,password=password)
+
+            return confChair
+        except (ConferenceChair.DoesNotExist, ObjectDoesNotExist):
+            return None
+    
+    def getConferenceChairByID(id):
+        try:
+            confChair = ConferenceChair.objects.get(id = id)
 
             return confChair
         except (ConferenceChair.DoesNotExist, ObjectDoesNotExist):

@@ -1,0 +1,17 @@
+<h1>Update Author Profile</h1>
+
+<form method="post">
+  {% csrf_token %} Full name: <br />
+  <input name="fullname" value="{{ conference.name }}" />
+  <br /><br />
+  Email: <br />
+  <input name="email" value="{{ conference.email }}" />
+  <br /><br />
+  Username: <br />
+  <input name="username" value="{{ conference.username }}" />
+  <br /><br />
+  Password: <br />
+  <input name="password" value="{{ conference.password }}" />
+  <br /><br />
+  <input type="submit" value="Submit" />
+</form>

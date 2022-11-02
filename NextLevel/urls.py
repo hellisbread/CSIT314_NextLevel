@@ -19,21 +19,22 @@ from django.urls import path
 from website import views, loginController, userController, authorController, systemAdminController
 
 urlpatterns = [
-    #path('admin/', admin.site.urls),
-    #path('', views.loginView, name='login'),
+    #General URL
     path('', loginController.index, name = 'index'),
-    path('db/', userController.db, name='db'),
-    path('register/', userController.register, name='register'),
-    path('register/addNewUser/', userController.addNewUser, name = 'addNewUser'),
-    path('update/<int:id>', userController.update, name='update'),
-    path('update/updateProfile/<int:id>', userController.updateProfile, name='update'),
     path('checkLogin/', loginController.checkLogin, name='login'),
     path('logout/', views.Logout, name = 'logout'),
+    #Authors URL
     path('author/', authorController.authorPage, name = 'authorPage'),
     path('author/submitPaperPage/', authorController.submitPaperPage, name ='submitPaperPage'),
     path('author/viewPaperPage/', authorController.viewPaperPage, name='viewPaperPage'),
     path('author/viewPaperPage/deleteSubmittedPaper/<int:id>', authorController.deleteSubmittedPaper, name='deleteSubmittedPaper'),
     path('author/viewPaperPage/readSubmittedPaper/<int:id>', authorController.readSubmittedPaper, name = 'readSubmittedPaper'),
     path('author/viewPaperPage/updateSubmittedPaper/<int:id>', authorController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
-    path('systemAdmin/', systemAdminController.systemAdminPage, name = 'systemAdminPage')
+    #System Admins URL
+    path('admin/', systemAdminController.systemAdminPage, name = 'systemAdminPage'),
+    path('admin/create',userController.register, name='register'),
+    path('admin/update_author/<int:id>', userController.updateAuthors, name='update_author'),
+    path('admin/update_reviewer/<int:id>', userController.updateReviewers, name='update_reviewer'),
+    path('admin/update_conference/<int:id>', userController.updateConfs, name='update_conference'),
+    path('admin/update_admin/<int:id>', userController.updateAdmins, name='update_admin'),
 ]
