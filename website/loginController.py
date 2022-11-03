@@ -6,7 +6,6 @@ from .models import Users, Author, ConferenceChair, Reviewer, SystemAdmin
 
 # log in page
 def index(request):
-
     return render(request, 'index.html', {})
 
 def checkLogin(request):
@@ -28,7 +27,7 @@ def checkLogin(request):
                 request.session['AuthorLogged'] = author.username
 
                 #Redirects to author index
-                return redirect('authorPage') #TOBEUPDATED
+                return redirect('authorPage')
 
             else:
                 messages.error(request, "Invalid username or password.")

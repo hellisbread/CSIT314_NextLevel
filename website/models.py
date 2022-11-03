@@ -52,7 +52,7 @@ class SystemAdmin(Users):
 
         if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
             return False
-            
+
         try:
             admin = SystemAdmin.objects.get(id = id)
             admin.email = email
@@ -301,12 +301,16 @@ class Paper(models.Model):
 
         return paper_list
 
-
 class Bidded_Paper(models.Model):
     reviewer_id = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0)
-    review = models.TextField(default="")
+    bid_date = models.DateTimeField(default = timezone.now)
+    submission_date = models.DateTimeField(default = timezone.now)
     status = models.CharField(max_length=255)
 
 
+class Review(models.Model):
+    paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
+    reviewer_name = models.CharField(max_length=255)
+    rating = models.IntegerField(default=0)
+    description = models.TextField()
