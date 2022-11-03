@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 def authorPage(request):
-    return render(request, 'author.html', {'author_id': id})
+    return render(request, 'author/author.html', {'author_id': id})
 
 def submitPaperPage(request):
     if request.method == 'POST':
@@ -27,11 +27,11 @@ def submitPaperPage(request):
     else:
         form = UploadFileForm()
         authors = Author.getAllAuthor()
-    return render(request, 'submitPaper.html', {'form': form, 'authors': authors})
+    return render(request, 'author/submitPaper.html', {'form': form, 'authors': authors})
 
 def viewPaperPage(request):
     papers = Paper.objects.all()
-    template = loader.get_template('viewPaper.html')
+    template = loader.get_template('author/viewPaper.html')
     context = {'papers' : papers}
 
     return HttpResponse(template.render(context, request))
@@ -43,7 +43,7 @@ def deleteSubmittedPaper(request, id):
 
 def readSubmittedPaper(request, id):
     paper = Paper.objects.get(id=id)
-    template = loader.get_template('readSubmittedPaper.html')
+    template = loader.get_template('author/readSubmittedPaper.html')
     text = paper.saved_file.read().decode()
 
     body = {'content': text}
@@ -72,4 +72,4 @@ def updateSubmittedPaper(request, id):
         authors = Author.getAllAuthor()
         paper = Paper.objects.get(id=id)
 
-    return render(request, 'updateSubmittedPaper.html', {'form': form, 'authors': authors, 'paper' : paper})
+    return render(request, 'author/updateSubmittedPaper.html', {'form': form, 'authors': authors, 'paper' : paper})

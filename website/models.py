@@ -287,4 +287,11 @@ class Paper(models.Model):
         return paper_list
 
 
+class Bidded_Paper(models.Model):
+    reviewer_id = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+    review = models.TextField(default="")
+    status = models.CharField(max_length=255)
+
 

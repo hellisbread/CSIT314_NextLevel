@@ -17,11 +17,11 @@ def register(request):
 
         if(validateEmail(email) == False):
             messages.error(request, "Invalid Email Found. Please ensure this email has not been used and is valid.")
-            register(request)
+            return redirect('register')
 
         if(validateUsername(username) == False):
             messages.error(request, "Invalid username. This username exists in the DB already.")
-            register(request)
+            return redirect('register')
 
         #Add user base on their roles
         if(selectedRole == "Author"):
@@ -66,28 +66,7 @@ def register(request):
 
         return redirect('register')
 
-    return render(request, 'register.html', {})
-
-def validateEmail(email) -> bool:
-
-    #Check if email exists in db
-    try:
-        if(Users.objects.filter(email = email).exists()):
-            return False
-    except ObjectDoesNotExist:
-        #Check if email is in the correct format
-        try:
-            validate_email(email)
-            return True
-        except ValidationError as e:
-            return False
-
-def validateUsername(username) -> bool:
-    #Check if username exists in DB
-    if(Users.objects.filter(username = username).exists()):
-        return False
-    else:
-        return True
+    return render(request, 'admin/create_user.html', {})
 
 def updateAuthors(request,id):
 
@@ -111,7 +90,7 @@ def updateAuthors(request,id):
         myauthor = Author.getAuthorByID(id)
         context = {'author':myauthor}
 
-        return render(request, 'update_author.html', context)
+        return render(request, 'admin/update_author.html', context)
 
 def updateReviewers(request,id):
     if(request.POST):
@@ -135,7 +114,7 @@ def updateReviewers(request,id):
         myreviewer = Reviewer.getReviewerByID(id)
         context = {'reviewer':myreviewer}
 
-        return render(request, 'update_reviewer.html', context)
+        return render(request, 'admin/update_reviewer.html', context)
 
 def updateConfs(request,id):
     if(request.POST):
@@ -158,7 +137,7 @@ def updateConfs(request,id):
         myconf = ConferenceChair.getConferenceChairByID(id)
         context = {'conference':myconf}
 
-        return render(request, 'update_conference.html', context)
+        return render(request, 'admin/update_conference.html', context)
 
 def updateAdmins(request,id):
     if(request.POST):
@@ -179,24 +158,30 @@ def updateAdmins(request,id):
         myadmin = SystemAdmin.getSystemAdminByID(id)
         context = {'admin':myadmin}
 
-        return render(request, 'update_admin.html', context)
-
-def updateProfile(request, id):
-
-    #Only if a POST has been initiated
-    if(request.POST):
-        new_fullname = request.POST['fullname']
-        new_username = request.POST['username']
-        new_password = request.POST['password']
-        
-        user = Users.objects.get(id=id)
-        user.updateUser(new_fullname, new_username, new_password)
-        user.save()
-
-        return redirect('db')
-
-    else:
-        return redirect('index')
+        return render(request, 'admin/update_admin.html', context)
 
     
+
+def validateEmail(email) -> bool:
+
+    #Check if email exists in db
+    try:
+        if(Users.objects.filter(email = email).exists()):
+            return False
+    except ObjectDoesNotExist:
+        #Check if email is in the correct format
+        try:
+            validate_email(email)
+            return True
+        except ValidationError as e:
+            return False
+
+def validateUsername(username) -> bool:
+    #Check if username exists in DB
+    if(Users.objects.filter(username = username).exists()):
+        return False
+    else:
+        return True
+
+
      

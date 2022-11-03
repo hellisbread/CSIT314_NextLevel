@@ -13,6 +13,6 @@ def systemAdminPage(request):
 
     print(context)
 
-    return render(request, 'systemAdmin.html', context)
+    return render(request, 'admin/systemAdmin.html', context)
 
 
