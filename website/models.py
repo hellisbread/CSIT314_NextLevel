@@ -50,7 +50,7 @@ class SystemAdmin(Users):
 
     def UpdateSysAdminByID(id, email, username, password):
 
-        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == ""):
             return False
 
         try:
