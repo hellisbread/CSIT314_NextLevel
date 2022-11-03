@@ -68,7 +68,7 @@ def register(request):
 
     return render(request, 'admin/create_user.html', {})
 
-def updateAuthors(request,id):
+def updateAuthors(request, id):
 
     if(request.POST):
 
@@ -80,7 +80,7 @@ def updateAuthors(request,id):
         success = Author.UpdateAuthorByID(id,email,username,password,name)
 
         if(success):
-            messages.success(request, "Successfully updated Author ID: "+id)
+            messages.success(request, "Successfully updated Author ID: " + str(id))
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
@@ -104,7 +104,7 @@ def updateReviewers(request,id):
         success = Reviewer.UpdateReviewerByID(id,email,username,password,name,maxPaper)
 
         if(success):
-            messages.success(request, "Successfully updated Reviewer ID: "+id)
+            messages.success(request, "Successfully updated Reviewer ID: " + str(id))
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
@@ -127,7 +127,7 @@ def updateConfs(request,id):
         success = ConferenceChair.UpdateConferenceChairByID(id,email,username,password,name)
 
         if(success):
-            messages.success(request, "Successfully updated Conference Chair ID: "+id)
+            messages.success(request, "Successfully updated Conference Chair ID: " + str(id))
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
@@ -148,7 +148,7 @@ def updateAdmins(request,id):
         success = SystemAdmin.UpdateSysAdminByID(id,email,username,password)
 
         if(success):
-            messages.success(request, "Successfully updated System Admin ID: "+id)
+            messages.success(request, "Successfully updated System Admin ID: " + str(id))
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
