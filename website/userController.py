@@ -15,11 +15,15 @@ def register(request):
         password = request.POST['password']
         email = request.POST['email']
 
-        if(validateEmail(email) == False):
-            messages.error(request, "Invalid Email Found. Please ensure this email has not been used and is valid.")
+        if(CheckEmailinDB(email) == False):
+            messages.error(request, "Invalid Email. This email exists in the DB already.")
             return redirect('register')
 
-        if(validateUsername(username) == False):
+        if(validateEmail(email) == False):
+            messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
+            return redirect('register')
+
+        if(CheckUsernameinDB(username) == False):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('register')
 
@@ -77,6 +81,14 @@ def updateAuthors(request, id):
         password = request.POST['password']
         email = request.POST['email']
 
+        if(CheckEmailinDB(email) == False):
+            messages.error(request, "Invalid Email Found. This email exists in the DB already.")
+            return redirect('update_author')
+
+        if(CheckUsernameinDB(username) == False):
+            messages.error(request, "Invalid username. This username exists in the DB already.")
+            return redirect('update_author')
+
         success = Author.UpdateAuthorByID(id,email,username,password,name)
 
         if(success):
@@ -84,7 +96,7 @@ def updateAuthors(request, id):
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
-            return redirect('systemAdminPage')
+            return redirect('update_author')
 
     else:
         myauthor = Author.getAuthorByID(id)
@@ -108,7 +120,7 @@ def updateReviewers(request,id):
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
-            return redirect('systemAdminPage')
+            return redirect('update_reviewer')
 
     else:
         myreviewer = Reviewer.getReviewerByID(id)
@@ -131,7 +143,7 @@ def updateConfs(request,id):
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
-            return redirect('systemAdminPage')
+            return redirect('update_conference')
 
     else:
         myconf = ConferenceChair.getConferenceChairByID(id)
@@ -152,7 +164,7 @@ def updateAdmins(request,id):
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
-            return redirect('systemAdminPage')
+            return redirect('update_admin')
 
     else:
         myadmin = SystemAdmin.getSystemAdminByID(id)
@@ -160,9 +172,14 @@ def updateAdmins(request,id):
 
         return render(request, 'admin/update_admin.html', context)
 
-    
 
-def validateEmail(email) -> bool:
+def CheckEmpty(input) -> bool:
+    if(input.replace(" ","")==""):
+        return False
+    else:
+        return True
+
+def CheckEmailinDB(email) -> bool:
 
     #Check if email exists in db
     try:
@@ -172,11 +189,23 @@ def validateEmail(email) -> bool:
         #Check if email is in the correct format
         try:
             validate_email(email)
+            print('good email!')
             return True
         except ValidationError as e:
+            print('error found!')
             return False
 
-def validateUsername(username) -> bool:
+def validateEmail(email) -> bool:
+
+    try:
+        validate_email(email)
+        print('good email!')
+        return True
+    except ValidationError as e:
+        print('error found!')
+        return False
+
+def CheckUsernameinDB(username) -> bool:
     #Check if username exists in DB
     if(Users.objects.filter(username = username).exists()):
         return False

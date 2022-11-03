@@ -1,5 +1,14 @@
 <h1>Update Author Profile</h1>
-
+<br/>
+    <!--Error Messages-->
+    {% if messages %}
+    {% for message in messages %}
+      <p><b>
+        {{ message }}
+    </b>
+      </p>
+    {% endfor %}
+  {% endif %}  
 <form method="post">
   {% csrf_token %} Full name: <br />
   <input name="fullname" value="{{ reviewer.name }}" />

@@ -1,4 +1,14 @@
 <h1>Update Admin Profile</h1>
+<br/>
+    <!--Error Messages-->
+    {% if messages %}
+    {% for message in messages %}
+      <p><b>
+        {{ message }}
+    </b>
+      </p>
+    {% endfor %}
+  {% endif %}  
 
 <form method="post">
   {% csrf_token %}

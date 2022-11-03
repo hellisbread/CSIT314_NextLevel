@@ -50,6 +50,9 @@ class SystemAdmin(Users):
 
     def UpdateSysAdminByID(id, email, username, password):
 
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+            return False
+            
         try:
             admin = SystemAdmin.objects.get(id = id)
             admin.email = email
@@ -105,6 +108,9 @@ class Author(Users):
 
     def UpdateAuthorByID(id, email, username, password, name):
 
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+            return False
+
         try:
             author = Author.objects.get(id = id)
             author.email = email
@@ -150,7 +156,7 @@ class Reviewer(Users):
     @classmethod
     def createReviewer(cls, email, username, password, name, maxPaper):
 
-        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or Name.replace(" ","") == ""or maxPaper.replace(" ","") == ""):
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""or maxPaper.replace(" ","") == ""):
             return False
 
         newReviewer = cls(email = email, username=username, password=password, name = name, maxPaper = int(maxPaper))
@@ -160,6 +166,9 @@ class Reviewer(Users):
         return True
     
     def UpdateReviewerByID(id, email, username, password, name, maxPaper):
+
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""or maxPaper.replace(" ","") == ""):
+            return False
 
         try:
             reviewer = Reviewer.objects.get(id = id)
@@ -205,6 +214,9 @@ class ConferenceChair(Users):
     @classmethod
     def CreateConferenceChair(cls, email, username, password, name):
 
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+            return False
+
         newConfChair = cls(email = email, username=username, password=password, name = name)
 
         newConfChair.save()
@@ -212,6 +224,9 @@ class ConferenceChair(Users):
         return True
 
     def UpdateConferenceChairByID(id, email, username, password, name):
+
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+            return False
 
         try:
             conference = ConferenceChair.objects.get(id = id)
