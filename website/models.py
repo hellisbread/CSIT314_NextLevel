@@ -267,7 +267,7 @@ class Paper(models.Model):
     description = models.CharField(max_length = 255)
     submitted_date = models.DateTimeField(default = timezone.now)
     fileName = models.CharField(max_length = 255)
-    saved_file = models.FileField()
+    saved_file = models.FileField(upload_to = 'website/files')
     authors = models.ManyToManyField(Author)
 
     @classmethod
