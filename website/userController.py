@@ -81,15 +81,17 @@ def updateAuthors(request, id):
         password = request.POST['password']
         email = request.POST['email']
 
-        if(CheckEmailinDB(email) == False):
+        myauthor = Author.getAuthorByID(id)
+
+        if(CheckEmailinDB(email) == False and email!=myauthor.email):
             messages.error(request, "Invalid Email. This email exists in the DB already.")
             return redirect('update_author', id=id)
 
-        if(validateEmail(email) == False):
+        if(validateEmail(email) == False and email!=myauthor.email):
             messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
             return redirect('update_author', id=id)
 
-        if(CheckUsernameinDB(username) == False):
+        if(CheckUsernameinDB(username) == False and username!=myauthor.username):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('update_author', id=id)
 
@@ -117,15 +119,17 @@ def updateReviewers(request,id):
         email = request.POST['email']
         maxPaper = request.POST['maxPaper']
 
-        if(CheckEmailinDB(email) == False):
+        myreviewer = Reviewer.getReviewerByID(id)
+
+        if(CheckEmailinDB(email) == False and email!=myreviewer.email):
             messages.error(request, "Invalid Email. This email exists in the DB already.")
             return redirect('update_reviewer', id=id)
 
-        if(validateEmail(email) == False):
+        if(validateEmail(email) == False and email!=myreviewer.email):
             messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
             return redirect('update_reviewer', id=id)
 
-        if(CheckUsernameinDB(username) == False):
+        if(CheckUsernameinDB(username) == False and username!=myreviewer.username):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('update_reviewer', id=id)
 
@@ -152,15 +156,17 @@ def updateConfs(request,id):
         password = request.POST['password']
         email = request.POST['email']
 
-        if(CheckEmailinDB(email) == False):
+        myconf = ConferenceChair.getConferenceChairByID(id)
+
+        if(CheckEmailinDB(email) == False and email!=myconf.email):
             messages.error(request, "Invalid Email. This email exists in the DB already.")
             return redirect('update_conference', id=id)
 
-        if(validateEmail(email) == False):
+        if(validateEmail(email) == False and email!=myconf.email):
             messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
             return redirect('update_conference', id=id)
 
-        if(CheckUsernameinDB(username) == False):
+        if(CheckUsernameinDB(username) == False and username!=myconf.username):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('update_conference', id=id)
 
@@ -185,15 +191,17 @@ def updateAdmins(request,id):
         password = request.POST['password']
         email = request.POST['email']
 
-        if(CheckEmailinDB(email) == False):
+        myadmin = SystemAdmin.getSystemAdminByID(id)
+
+        if(CheckEmailinDB(email) == False and email!=myadmin.email):
             messages.error(request, "Invalid Email. This email exists in the DB already.")
             return redirect('update_admin', id=id)
 
-        if(validateEmail(email) == False):
+        if(validateEmail(email) == False and email!=myadmin.email):
             messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
             return redirect('update_admin', id=id)
 
-        if(CheckUsernameinDB(username) == False):
+        if(CheckUsernameinDB(username) == False and username!=myadmin.username):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('update_admin', id=id)
 
