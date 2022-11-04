@@ -82,12 +82,16 @@ def updateAuthors(request, id):
         email = request.POST['email']
 
         if(CheckEmailinDB(email) == False):
-            messages.error(request, "Invalid Email Found. This email exists in the DB already.")
-            return redirect('update_author')
+            messages.error(request, "Invalid Email. This email exists in the DB already.")
+            return redirect('update_author', id=id)
+
+        if(validateEmail(email) == False):
+            messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
+            return redirect('update_author', id=id)
 
         if(CheckUsernameinDB(username) == False):
             messages.error(request, "Invalid username. This username exists in the DB already.")
-            return redirect('update_author')
+            return redirect('update_author', id=id)
 
         success = Author.UpdateAuthorByID(id,email,username,password,name)
 
@@ -96,7 +100,7 @@ def updateAuthors(request, id):
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
-            return redirect('update_author')
+            return redirect('update_author', id=id)
 
     else:
         myauthor = Author.getAuthorByID(id)
@@ -113,6 +117,18 @@ def updateReviewers(request,id):
         email = request.POST['email']
         maxPaper = request.POST['maxPaper']
 
+        if(CheckEmailinDB(email) == False):
+            messages.error(request, "Invalid Email. This email exists in the DB already.")
+            return redirect('update_reviewer', id=id)
+
+        if(validateEmail(email) == False):
+            messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
+            return redirect('update_reviewer', id=id)
+
+        if(CheckUsernameinDB(username) == False):
+            messages.error(request, "Invalid username. This username exists in the DB already.")
+            return redirect('update_reviewer', id=id)
+
         success = Reviewer.UpdateReviewerByID(id,email,username,password,name,maxPaper)
 
         if(success):
@@ -120,7 +136,7 @@ def updateReviewers(request,id):
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
-            return redirect('update_reviewer')
+            return redirect('update_reviewer', id=id)
 
     else:
         myreviewer = Reviewer.getReviewerByID(id)
@@ -136,6 +152,18 @@ def updateConfs(request,id):
         password = request.POST['password']
         email = request.POST['email']
 
+        if(CheckEmailinDB(email) == False):
+            messages.error(request, "Invalid Email. This email exists in the DB already.")
+            return redirect('update_conference', id=id)
+
+        if(validateEmail(email) == False):
+            messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
+            return redirect('update_conference', id=id)
+
+        if(CheckUsernameinDB(username) == False):
+            messages.error(request, "Invalid username. This username exists in the DB already.")
+            return redirect('update_conference', id=id)
+
         success = ConferenceChair.UpdateConferenceChairByID(id,email,username,password,name)
 
         if(success):
@@ -143,7 +171,7 @@ def updateConfs(request,id):
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
-            return redirect('update_conference')
+            return redirect('update_conference', id=id)
 
     else:
         myconf = ConferenceChair.getConferenceChairByID(id)
@@ -157,6 +185,18 @@ def updateAdmins(request,id):
         password = request.POST['password']
         email = request.POST['email']
 
+        if(CheckEmailinDB(email) == False):
+            messages.error(request, "Invalid Email. This email exists in the DB already.")
+            return redirect('update_admin', id=id)
+
+        if(validateEmail(email) == False):
+            messages.error(request, "Invalid Email. Please ensure the email is in the valid format.")
+            return redirect('update_admin', id=id)
+
+        if(CheckUsernameinDB(username) == False):
+            messages.error(request, "Invalid username. This username exists in the DB already.")
+            return redirect('update_admin', id=id)
+
         success = SystemAdmin.UpdateSysAdminByID(id,email,username,password)
 
         if(success):
@@ -164,7 +204,7 @@ def updateAdmins(request,id):
             return redirect('systemAdminPage')
         else:
             messages.error(request, "There was an error updating.")
-            return redirect('update_admin')
+            return redirect('update_admin', id=id)
 
     else:
         myadmin = SystemAdmin.getSystemAdminByID(id)
