@@ -305,8 +305,15 @@ class Bidded_Paper(models.Model):
     reviewer_id = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     bid_date = models.DateTimeField(default = timezone.now)
-    submission_date = models.DateTimeField(default = timezone.now)
-    status = models.CharField(max_length=255)
+    submission_date = models.DateTimeField(default = None, null=True)
+    status = models.CharField(max_length=255, default = "0")
+
+    @classmethod
+    def createBiddedPaper(cls, reviewer, paper, bid_date, status):
+        bidded_paper = cls(reviewer_id = reviewer, paper = paper, bid_date = bid_date, status = status)
+        bidded_paper.save()
+
+        return True
 
 
 class Review(models.Model):
@@ -314,3 +321,10 @@ class Review(models.Model):
     reviewer_name = models.CharField(max_length=255)
     rating = models.IntegerField(default=0)
     description = models.TextField()
+
+    @classmethod
+    def createReview(cls, paper, reviewer_name, rating, description):
+        review = cls(paper = paper, reviewer_name = reviewer_name, rating = rating, description = description)
+        review.save()
+
+        return True
