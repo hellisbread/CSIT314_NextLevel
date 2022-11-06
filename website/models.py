@@ -314,6 +314,11 @@ class Bidded_Paper(models.Model):
         bidded_paper.save()
 
         return True
+    
+    def getAllBiddedPaperByID(id):
+        bid_list = Bidded_Paper.objects.filter(reviewer_id = id).values()
+
+        return bid_list
 
 
 class Review(models.Model):

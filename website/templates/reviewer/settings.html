@@ -1,0 +1,16 @@
+<h1> Reviewer Settings </h1>
+
+<a href="../reviewer/bid_paper.html">Bid Paper</a>
+<a href="../reviewer/view_bidded_papers.html">View currently bidded papers</a>
+<a href="../reviewer/view_papers_to_review.html">View papers awaiting review</a>
+<a href="../reviewer/settings.html">Settings</a>
+<a href="{% url 'logout'%}">logout</a>
+
+
+<form method="post">
+    {% csrf_token %}
+    <p>Max Papers: </p>
+    <input name="maxpaper" value="{{ author.maxpaper }}" />
+    <br /><br />
+    <input type="submit" value="Submit" />
+  </form>

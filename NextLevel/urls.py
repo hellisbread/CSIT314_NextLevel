@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from website import views, loginController, userController, authorController, systemAdminController
+from website import views, loginController, userController, authorController, systemAdminController, reviewerController
 
 urlpatterns = [
     #General URL
@@ -37,4 +37,10 @@ urlpatterns = [
     path('admin/update_reviewer/<int:id>', userController.updateReviewers, name='update_reviewer'),
     path('admin/update_conference/<int:id>', userController.updateConfs, name='update_conference'),
     path('admin/update_admin/<int:id>', userController.updateAdmins, name='update_admin'),
+    #Reviewer URL
+    path('reviewer/', reviewerController.reviewerPage, name ='reviewerPage'),
+    path('reviewer/bid/', reviewerController.bidPaper, name='bidPaper'),
+    path('reviewer/settings/', reviewerController.settings, name='settings'),
+    path('reviewer/papers/', reviewerController.biddedPaperPage, name='biddedPaper'),
+    
 ]
