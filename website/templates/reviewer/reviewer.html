@@ -1,5 +1,9 @@
 <h1>Overview of Reviewer Page</h1>
 
+{% for message in messages %}
+<div>{{ message }}</div> <br>
+{% endfor %}
+
 <a href="/reviewer/bid/">Bid Paper</a>
 <a href="/reviewer/papers/">View papers</a>
 <a href="/reviewer/settings/">Settings</a>

@@ -40,7 +40,16 @@ def settings(request):
     return render(request, 'reviewer/settings.html', {})
 
 def biddedPaperPage(request):
-    return render(request, 'reviewer/view_bidded_papers.html', {})
+
+    reviewer_id = request.session['ReviewerLogged']
+
+    bid_list = Bidded_Paper.getAllBiddedPaperByID(reviewer_id)
+
+    context = {'bid_list':bid_list}
+
+    print(context)
+
+    return render(request, 'reviewer/view_bidded_papers.html', context)
 
 def reviewPage(request, id):
     return render(request, 'reviewer/review_paper.html', {})

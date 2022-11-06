@@ -329,7 +329,10 @@ class Bidded_Paper(models.Model):
         return True
     
     def getAllBiddedPaperByID(id):
-        bid_list = Bidded_Paper.objects.filter(reviewer = id).values()
+
+        reviewer = Reviewer.getReviewerByID(id)
+
+        bid_list = Bidded_Paper.objects.filter(reviewer = reviewer).values()
 
         return bid_list
 

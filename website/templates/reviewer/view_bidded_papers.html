@@ -2,33 +2,22 @@
 
 <table border="1">
     <tr>
-      <td>ID</td>
-      <td>Topic</td>
-      <td>Description</td>
-      <td>Submitted date</td>
-      <td>File Name</td>
-      <td>Author</td>
-      <td>Bid</td>
+      <td>BID ID</td>
+      <td>Paper ID</td>
+      <td>Bid Date</td>
+      <td>Submission Date</td>
+      <td>Status</td>
     </tr>
-    {% for paper in papers %}
+    {% for bid in bid_list %}
     <tr>
-      <td>{{ paper.id }}</td>
-      <td>{{ paper.topic }}</td>
-      <td>{{ paper.description }}</td>
-      <td>{{ paper.submitted_date }}</td>
-      <td>
-        <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a>
-      </td>
-      <td>
-        {% for author in paper.authors.all %}
-        <li>ID: {{ author.id }} - Name: {{ author.name }}</li>
-        {% endfor %}
-      </td>
-      <td><a href="">Bid</a></td>
+      <td>{{ bid.id }}</td>
+      <td>{{ bid.paper_id}}</td>
+      <td>{{ bid.bid_date }}</td>
+      <td>{{ bid.submission_date }}</td>
+      <td>{{ bid.status }}</td>
     </tr>
     {% endfor %}
   </table>
-
   <hr/>
 
 <h1>Papers to be reviewed</h1>
