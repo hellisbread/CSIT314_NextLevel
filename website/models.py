@@ -295,6 +295,15 @@ class Paper(models.Model):
         self.save()
 
         return True
+
+    def getPaper(id):
+        try:
+            paper = Paper.objects.get(id = id)
+
+            return paper
+        except (Paper.DoesNotExist, ObjectDoesNotExist):
+            return None
+        
         
     def getAllPaper():
         paper_list = Paper.objects.all().values()
@@ -302,21 +311,25 @@ class Paper(models.Model):
         return paper_list
 
 class Bidded_Paper(models.Model):
-    reviewer_id = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     bid_date = models.DateTimeField(default = timezone.now)
     submission_date = models.DateTimeField(default = None, null=True)
     status = models.CharField(max_length=255, default = "0")
 
     @classmethod
-    def createBiddedPaper(cls, reviewer, paper, bid_date, status):
-        bidded_paper = cls(reviewer_id = reviewer, paper = paper, bid_date = bid_date, status = status)
+    def createBiddedPaper(cls, reviewer_id, paper, status):
+
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+        bidded_paper = cls(reviewer = reviewer, paper = paper, status = status)
+
         bidded_paper.save()
 
         return True
     
     def getAllBiddedPaperByID(id):
-        bid_list = Bidded_Paper.objects.filter(reviewer_id = id).values()
+        bid_list = Bidded_Paper.objects.filter(reviewer = id).values()
 
         return bid_list
 

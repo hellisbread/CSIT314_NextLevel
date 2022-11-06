@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.utils import timezone
 
 from .models import Users, Reviewer, Paper, Bidded_Paper
 
@@ -10,11 +11,21 @@ def bidPaper(request):
 
     paper_list = Paper.getAllPaper()
 
-    context ={'papers':paper_list}
+    context = {'papers':paper_list}
 
     return render(request, 'reviewer/bid_paper.html', context)
 
 def addBidPaper(request, id):
+
+    reviewer_id = request.session['ReviewerLogged']
+
+    paper = Paper.getPaper(id)
+
+    success = Bidded_Paper.createBiddedPaper(reviewer_id, paper, "0")
+
+    if(success):
+        messages.success(request, "Successfully bidded for paper - "+paper.topic)
+        return redirect('reviewerPage')
 
     return render(request, 'reviewer/bid_paper.html', {})
 

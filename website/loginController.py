@@ -24,7 +24,7 @@ def checkLogin(request):
 
             if(author!=None):
 
-                request.session['AuthorLogged'] = author.username
+                request.session['AuthorLogged'] = author
 
                 #Redirects to author index
                 return redirect('authorPage')
@@ -39,9 +39,9 @@ def checkLogin(request):
 
             if(reviewer!=None):
 
-                request.session['ReviewerLogged'] = reviewer.username
+                request.session['ReviewerLogged'] = reviewer.id
 
-                return redirect('db') #TOBEUPDATED
+                return redirect('reviewerPage') #TOBEUPDATED
 
             else:
                 messages.error(request, "Invalid username or password.")
@@ -52,7 +52,7 @@ def checkLogin(request):
 
             if(Conf!=None):
 
-                request.session['ConfLogged'] = Conf.username
+                request.session['ConfLogged'] = Conf
 
                 return redirect('db') #TOBEUPDATED
 
@@ -64,7 +64,7 @@ def checkLogin(request):
 
             if(SysAdmin!=None):
 
-                request.session['SysAdminLogged'] = SysAdmin.username
+                request.session['SysAdminLogged'] = SysAdmin
 
                 return redirect('systemAdminPage') #TOBEUPDATED
 
