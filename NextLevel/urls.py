@@ -40,7 +40,9 @@ urlpatterns = [
     #Reviewer URL
     path('reviewer/', reviewerController.reviewerPage, name ='reviewerPage'),
     path('reviewer/bid/', reviewerController.bidPaper, name='bidPaper'),
+    path('reviewer/bid/add/<int:id>', reviewerController.addBidPaper, name='addBidPaper'),
     path('reviewer/settings/', reviewerController.settings, name='settings'),
     path('reviewer/papers/', reviewerController.biddedPaperPage, name='biddedPaper'),
+    path('reviewer/paper/review/<int:id>',reviewerController.reviewPage,name='reviewPaper')
     
 ]

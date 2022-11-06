@@ -1,19 +1,29 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .models import Users, Reviewer
+from .models import Users, Reviewer, Paper, Bidded_Paper
 
 def reviewerPage(request):
-    return render(request, 'reviewer.html', {})
+    return render(request, 'reviewer/reviewer.html', {})
 
 def bidPaper(request):
-    return render(request, 'bid_paper.html', {})
+
+    paper_list = Paper.getAllPaper()
+
+    context ={'papers':paper_list}
+
+    return render(request, 'reviewer/bid_paper.html', context)
+
+def addBidPaper(request, id):
+
+    return render(request, 'reviewer/bid_paper.html', {})
+
 
 def settings(request):
-    return render(request, 'settings.html', {})
+    return render(request, 'reviewer/settings.html', {})
 
 def biddedPaperPage(request):
-    return render(request, 'view_bidded_papers.html', {})
+    return render(request, 'reviewer/view_bidded_papers.html', {})
 
-def toReviewPaperPage(request):
-    return render(request, 'view_papers_to_review.html', {})
+def reviewPage(request, id):
+    return render(request, 'reviewer/review_paper.html', {})

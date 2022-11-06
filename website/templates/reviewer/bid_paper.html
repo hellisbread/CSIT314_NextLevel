@@ -1,3 +1,8 @@
+<a href="/reviewer/bid/">Bid Paper</a>
+<a href="/reviewer/papers/">View papers</a>
+<a href="/reviewer/settings/">Settings</a>
+<a href="{% url 'logout'%}">logout</a>
+
 <h1>Bid For a paper</h1>
 
 <table border="1">
@@ -8,7 +13,7 @@
       <td>Submitted date</td>
       <td>File Name</td>
       <td>Author</td>
-      <td>Bid</td>
+      <td>Actions</td>
     </tr>
     {% for paper in papers %}
     <tr>
@@ -16,15 +21,9 @@
       <td>{{ paper.topic }}</td>
       <td>{{ paper.description }}</td>
       <td>{{ paper.submitted_date }}</td>
-      <td>
-        <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a>
-      </td>
-      <td>
-        {% for author in paper.authors.all %}
-        <li>ID: {{ author.id }} - Name: {{ author.name }}</li>
-        {% endfor %}
-      </td>
-      <td><a href="">Bid</a></td>
+      <td>{{ paper.fileName }}</td>
+      <td></td>
+      <td><a href="./add_bid/{{paper.id}}">Bid</a></td>
     </tr>
     {% endfor %}
-  </table>
+</table>
