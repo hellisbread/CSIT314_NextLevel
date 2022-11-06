@@ -24,7 +24,7 @@ def checkLogin(request):
 
             if(author!=None):
 
-                request.session['AuthorLogged'] = author
+                request.session['AuthorLogged'] = author.id
 
                 #Redirects to author index
                 return redirect('authorPage')
@@ -52,7 +52,7 @@ def checkLogin(request):
 
             if(Conf!=None):
 
-                request.session['ConfLogged'] = Conf
+                request.session['ConfLogged'] = Conf.id
 
                 return redirect('db') #TOBEUPDATED
 
@@ -64,7 +64,7 @@ def checkLogin(request):
 
             if(SysAdmin!=None):
 
-                request.session['SysAdminLogged'] = SysAdmin
+                request.session['SysAdminLogged'] = SysAdmin.id
 
                 return redirect('systemAdminPage') #TOBEUPDATED
 
