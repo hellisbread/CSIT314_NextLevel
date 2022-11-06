@@ -74,6 +74,7 @@
                                     <input type="text" class="form-control" placeholder = "Enter the topic " 
                                         aria-label="Topic:" aria-describedby="basic-addon1">
                                 </div> 
+                            </br>
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1" style = "font-weight: bold; font-size: large;">Description:</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Description of paper"></textarea>
@@ -81,15 +82,20 @@
                             </div>
             
                         <div class="card" style="float: left; margin-left: 50px; background: rgba(255, 255, 255,0); border: 0ch;">
-                            <span style = "font-weight: bold; font-size: large;">Upload paper here:</span>
-                        </br> </br>
-                            <span style = "font-size: 80px;"><i class="fa-solid fa-file"></i></span>
-                            </br>
-                        </br>
+                            <span style = "font-weight: bold; font-size: large;">Upload paper here:</span> </br>
+                            <!-- <span style = "font-size: 40px;"><i class="fa-solid fa-file"></i></span> -->
                             <div class="form-group" style="background: rgba(255, 255, 255,0); border: 0ch;">
                                 <input type="file" class="form-control-file" id="exampleFormControlFile1"
                                     style="width: fit-content;">
                             </div>
+                        </br>
+                            <span style = "font-weight: bold; font-size: large;">Choose author(s): </span>
+                            <select name = "authors" id = "authors" multiple>
+                                <option value = "1">Author Oney</option>
+                                <option value = "1">Author Two</option>
+                                <option value = "1">???</option>
+                                <option value = "1">Author 1</option>
+                            </select>
                         </br>
                         </div>
                     </div>
