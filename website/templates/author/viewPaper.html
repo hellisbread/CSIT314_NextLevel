@@ -10,6 +10,7 @@
     <td>Topic</td>
     <td>Description</td>
     <td>Submitted date</td>
+    <td>Uploaded by</td>
     <td>File Name</td>
     <td>Author</td>
   </tr>
@@ -19,6 +20,7 @@
     <td>{{ paper.topic }}</td>
     <td>{{ paper.description }}</td>
     <td>{{ paper.submitted_date }}</td>
+    <td>Author ID {{ paper.uploaded_by }}</td>
     <td>
       <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a>
     </td>
