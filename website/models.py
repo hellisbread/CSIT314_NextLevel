@@ -312,6 +312,16 @@ class Paper(models.Model):
 
         return paper_list
 
+    def getAllUnbiddedPaper(reviewer_id):
+
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+        bid_list = Bidded_Paper.objects.filter(reviewer = reviewer).values_list('paper_id', flat=True)
+
+        paper_list = Paper.objects.exclude(id__in=list(bid_list))
+
+        return paper_list
+
 class Bidded_Paper(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)

@@ -9,9 +9,14 @@ def reviewerPage(request):
 
 def bidPaper(request):
 
-    paper_list = Paper.getAllPaper()
+    reviewer_id = request.session['ReviewerLogged']
+
+    paper_list = Paper.getAllUnbiddedPaper(reviewer_id)
+
 
     context = {'papers':paper_list}
+
+    print(context)
 
     return render(request, 'reviewer/bid_paper.html', context)
 
