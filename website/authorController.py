@@ -8,13 +8,15 @@ def authorPage(request):
     return render(request, 'author/author.html', {'author_id': id})
 
 def submitPaperPage(request):
+    author_id = request.session['AuthorLogged']
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         topic = request.POST['topic']
         description = request.POST['description']
         file = request.FILES['file']
         authors = request.POST.getlist('authors')
-        success = Paper.createPaper(topic, description, str(file), file, authors)
+        authors.append(author_id)
+        success = Paper.createPaper(topic, description, str(file), file, authors, author_id)
         if(success):
             messages.success(request, "Successfully created Paper.")
         else:
@@ -24,13 +26,22 @@ def submitPaperPage(request):
 
     else:
         form = UploadFileForm()
-        authors = Author.getAllAuthor()
+        authors = Author.objects.exclude(id=author_id)
 
     return render(request, 'author/submitPaper.html', {'form': form, 'authors': authors})
 
 def viewPaperPage(request):
     papers = Paper.objects.all()
-    context = {'papers' : papers}
+    author_id = request.session['AuthorLogged']
+    
+    paper_list = []
+    for paper in papers:
+        authors = paper.authors.all()
+        for author in authors:
+            if author.id == author_id:
+                paper_list.append(paper)
+
+    context = {'papers' : paper_list}
 
     return render(request, 'author/viewPaper.html', context)
 

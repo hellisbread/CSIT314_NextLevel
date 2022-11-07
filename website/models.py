@@ -269,10 +269,12 @@ class Paper(models.Model):
     fileName = models.CharField(max_length = 255)
     saved_file = models.FileField(upload_to = 'website/files')
     authors = models.ManyToManyField(Author)
+    uploaded_by = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, default = "Not Accessed")
 
     @classmethod
-    def createPaper(cls, topic, description, fileName, saved_file, authors):
-        paper= cls(topic = topic, description = description, fileName = fileName, saved_file = saved_file)
+    def createPaper(cls, topic, description, fileName, saved_file, authors, uploaded_by):
+        paper= cls(topic = topic, description = description, fileName = fileName, saved_file = saved_file, uploaded_by = uploaded_by)
         paper.save()
 
         for author_id in authors:
