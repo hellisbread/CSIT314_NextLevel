@@ -54,7 +54,7 @@ def checkLogin(request):
 
                 request.session['ConfLogged'] = Conf.id
 
-                return redirect('db') #TOBEUPDATED
+                return redirect('conferenceChairPage') #TOBEUPDATED
 
             else:
                 messages.error(request, "Invalid username or password.")

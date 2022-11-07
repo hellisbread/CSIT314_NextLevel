@@ -330,6 +330,10 @@ class Bidded_Paper(models.Model):
 
         return True
     
+    def getAllBiddedPaper():
+        biddedPaper_list = Bidded_Paper.objects.all().values() 
+        return biddedPaper_list
+        
     def getAllBiddedPaperByID(id):
 
         reviewer = Reviewer.getReviewerByID(id)

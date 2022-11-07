@@ -1,0 +1,20 @@
+<h1>View Bidded Paper</h1>
+
+<table border="1">
+    <tr>
+      <td>BID ID</td>
+      <td>Paper ID</td>
+      <td>Bid Date</td>
+      <td>Candidates</td>
+      <td>Assigned to</td>
+    </tr>
+    {% for bid in bid_list %}
+    <tr>
+      <td>{{ bid.id }}</td>
+      <td>{{ bid.paper_id}}</td>
+      <td>{{ bid.bid_date }}</td>
+      <td>{{ bid.submission_date }}</td>
+      <td>{{ bid.reviewer }}</td>
+    </tr>
+    {% endfor %}
+  </table>
