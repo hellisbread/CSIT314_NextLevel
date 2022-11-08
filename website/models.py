@@ -352,7 +352,6 @@ class Bidded_Paper(models.Model):
 
         return bid_list
 
-
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=255)

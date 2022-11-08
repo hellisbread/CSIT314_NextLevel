@@ -2,17 +2,17 @@
 
 <table border="1">
     <tr>
-      <td>BID ID</td>
       <td>Paper ID</td>
-      <td>Bid Date</td>
       <td>Candidates</td>
       <td>Assigned to</td>
     </tr>
-    {% for bid in bid_list %}
+    {% for paper in paper_id_list %}
     <tr>
-      <td>{{ bid.id }}</td>
-      <td>{{ bid.paper_id}}</td>
-      <td>{{ bid.bid_date }}</td>
+      <td>{{ paper.paper_id }}</td>
+      <td>{% for c in paper.candidate %}
+            <a href="">{{ c }}</a>
+          {% endfor %}
+      </td>
     </tr>
     {% endfor %}
   </table>
