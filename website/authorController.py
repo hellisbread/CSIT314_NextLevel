@@ -31,15 +31,8 @@ def submitPaperPage(request):
     return render(request, 'author/submitPaper.html', {'form': form, 'authors': authors})
 
 def viewPaperPage(request):
-    papers = Paper.objects.all()
     author_id = request.session['AuthorLogged']
-    
-    paper_list = []
-    for paper in papers:
-        authors = paper.authors.all()
-        for author in authors:
-            if author.id == author_id:
-                paper_list.append(paper)
+    paper_list = Paper.objects.all().filter(authors__in=[author_id])
 
     context = {'papers' : paper_list}
 
