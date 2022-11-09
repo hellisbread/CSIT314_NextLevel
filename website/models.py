@@ -199,6 +199,14 @@ class Reviewer(Users):
             return reviewer
         except (Reviewer.DoesNotExist, ObjectDoesNotExist):
             return None
+
+    def getMaxPaperByID(id):
+        try:
+            reviewer = Reviewer.objects.get(id=id)
+
+            return reviewer.maxPaper
+        except (Reviewer.DoesNotExist, ObjectDoesNotExist):
+            return None
     
     def getAllReviewer():
         reviewer_list = Reviewer.objects.all().values()
@@ -328,6 +336,7 @@ class Bidded_Paper(models.Model):
     bid_date = models.DateTimeField(default = timezone.now)
     submission_date = models.DateTimeField(default = None, null=True)
     status = models.CharField(max_length=255, default = "0")
+    #0 = Unassigned 1 = Assigned 2 = Review Complete
 
     @classmethod
     def createBiddedPaper(cls, reviewer_id, paper, status):
@@ -344,11 +353,27 @@ class Bidded_Paper(models.Model):
         biddedPaper_list = Bidded_Paper.objects.all().values() 
         return biddedPaper_list
         
-    def getAllBiddedPaperByID(id):
+    def getAllUnassignedPaperByID(id):
 
         reviewer = Reviewer.getReviewerByID(id)
 
-        bid_list = Bidded_Paper.objects.filter(reviewer = reviewer).values()
+        bid_list = Bidded_Paper.objects.filter(reviewer = reviewer).filter(status='0').values()
+
+        return bid_list
+
+    def getAllAssignedPaperByID(id):
+
+        reviewer = Reviewer.getReviewerByID(id)
+
+        bid_list = Bidded_Paper.objects.filter(reviewer = reviewer).filter(status='1').values()
+
+        return bid_list
+
+    def getAllReviewedPaperByID(id):
+
+        reviewer = Reviewer.getReviewerByID(id)
+
+        bid_list = Bidded_Paper.objects.filter(reviewer = reviewer).filter(status='2').values()
 
         return bid_list
 

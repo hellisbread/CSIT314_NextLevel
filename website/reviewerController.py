@@ -13,7 +13,6 @@ def bidPaper(request):
 
     paper_list = Paper.getAllUnbiddedPaper(reviewer_id)
 
-
     context = {'papers':paper_list}
 
     print(context)
@@ -48,7 +47,7 @@ def biddedPaperPage(request):
 
     reviewer_id = request.session['ReviewerLogged']
 
-    bid_list = Bidded_Paper.getAllBiddedPaperByID(reviewer_id)
+    bid_list = Bidded_Paper.getAllUnassignedPaperByID(reviewer_id)
 
     context = {'bid_list':bid_list}
 
