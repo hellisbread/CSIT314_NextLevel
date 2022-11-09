@@ -1,0 +1,21 @@
+<h1>Allocate Paper to Reviewer</h1>
+
+<a href="/conferenceChair/viewBiddedPaper/">view bidded paper</a>
+<a href="{% url 'logout'%}">logout</a>
+
+<form action= "../allocatePaper/{{ paper.id }}"method="post">
+    {% csrf_token %}
+    <p>Topic: {{ paper.topic }}</p>
+    <p>Description: {{ paper.description }}</p>
+    <ul>
+    {% for author in paper.authors.all %}
+        <li>Author ID {{author.id}}</li>
+    {% endfor %}
+    </ul>
+    <p>Choose one reviewer:</p>
+    {% for reviewer in reviewer_id_list %}
+        <input type="radio" name="chosenReviewerID", value="{{reviewer.0}}">
+        <label for="">Reviewer ID {{reviewer.0}}</label> <br>
+    {% endfor %}
+  <p><input type="submit" value="Allocate" /></p>
+</form>

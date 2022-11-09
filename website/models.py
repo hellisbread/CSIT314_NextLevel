@@ -349,6 +349,12 @@ class Bidded_Paper(models.Model):
 
         return True
     
+    def updateStatus(self, status):
+        self.status = status
+        self.save()
+        
+        return self
+    
     def getAllBiddedPaper():
         biddedPaper_list = Bidded_Paper.objects.all().values() 
         return biddedPaper_list
