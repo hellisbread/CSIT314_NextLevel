@@ -6,11 +6,19 @@
 <a href="{% url 'logout'%}">logout</a>
 
 <br/>
+<!--Error Messages-->
+{% if messages %}
+{% for message in messages %}
+<p class="alert alert-{{ message.tags }}">
+  {{ message }}
+</p>
+{% endfor %}
+{% endif %}
 
-<form method="post">
+<form method="post" action="./update">
     {% csrf_token %}
     <p>Max Papers: </p>
-    <input name="maxpaper" value="{{ author.maxpaper }}" />
+    <input name="maxpaper" value="{{ max_paper }}" />
     <br /><br />
     <input type="submit" value="Submit" />
 </form>
