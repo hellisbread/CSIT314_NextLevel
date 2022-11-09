@@ -405,8 +405,7 @@ class Bidded_Paper(models.Model):
         except(Bidded_Paper.DoesNotExist, ObjectDoesNotExist):
 
             return False
-
-        
+       
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=255)
@@ -420,7 +419,11 @@ class Review(models.Model):
 
         return True
 
-    
+    def updateReview(id, rating, description):
+        return False
+
+    def getAllReviewByPaperID(id):
+        return False
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
@@ -434,3 +437,9 @@ class Comment(models.Model):
         comment.save()
 
         return True
+
+    def updateReview(id, rating, description):
+        return False
+
+    def getAllCommentByReviewID(id):
+        return False
