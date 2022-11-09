@@ -410,6 +410,7 @@ class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=255)
     rating = models.IntegerField(default=0)
+    title = models.CharField(max_length=255, default="")
     description = models.TextField()
 
     @classmethod
@@ -420,6 +421,9 @@ class Review(models.Model):
         return True
 
     def updateReview(id, rating, description):
+        return False
+
+    def deleteReview(id):
         return False
 
     def getAllReviewByPaperID(id):
@@ -438,7 +442,10 @@ class Comment(models.Model):
 
         return True
 
-    def updateReview(id, rating, description):
+    def updateComment(id, rating, description):
+        return False
+
+    def deleteComment(id):
         return False
 
     def getAllCommentByReviewID(id):
