@@ -396,6 +396,17 @@ class Bidded_Paper(models.Model):
 
         return bid_list
 
+    def deleteBiddedPaperByID(id):
+        try:
+            biddedPaper = Bidded_Paper.objects.get(id=id)
+            biddedPaper.delete()
+
+            return True
+        except(Bidded_Paper.DoesNotExist, ObjectDoesNotExist):
+
+            return False
+
+        
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=255)
@@ -406,5 +417,20 @@ class Review(models.Model):
     def createReview(cls, paper, reviewer_name, rating, description):
         review = cls(paper = paper, reviewer_name = reviewer_name, rating = rating, description = description)
         review.save()
+
+        return True
+
+    
+
+class Comment(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    commenter = models.CharField(max_length=255)
+    rating = models.IntegerField(default=0)
+    description = models.TextField()
+
+    @classmethod
+    def createComment(cls, review, commenter, rating, description):
+        comment = cls(review = review, commenter = commenter, rating = rating, description = description)
+        comment.save()
 
         return True
