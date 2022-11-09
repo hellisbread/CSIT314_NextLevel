@@ -11,9 +11,11 @@ def bidPaper(request):
 
     reviewer_id = request.session['ReviewerLogged']
 
+    maxPaper = Reviewer.getMaxPaperByID(reviewer_id)
+
     paper_list = Paper.getAllUnbiddedPaper(reviewer_id)
 
-    context = {'papers':paper_list}
+    context = {'papers':paper_list, 'max_paper': maxPaper}
 
     print(context)
 
