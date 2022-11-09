@@ -15,9 +15,9 @@
     <td>{{ paper.paper_id }}</td>
     <td>
       {% for r in paper.reviewer%}
-        <ul>
-          <li>Reviewer ID {{ r }}</li>
-        </ul>
+      <ul>
+        <li>Reviewer ID {{ r }}</li>
+      </ul>
       {% endfor %}
     </td>
     <td><a href="allocatePaper/{{paper.paper_id}}">allocate</a></td>
@@ -28,18 +28,22 @@
 <h2>Allocated</h2>
 <table border="1">
   <tr>
-  <td>Paper ID</td>
-  <td>Reviewer ID</td>
+    <td>Paper ID</td>
+    <td>Reviewer ID</td>
+    <td>View Reviewer Button</td>
   </tr>
   <tr>
     {% for paper in paper_id_list_allocated %}
     <td>{{ paper.paper_id }}</td>
     <td>
       {% for r in paper.reviewer%}
-        <ul>
-          <li>Reviewer ID {{ r }}</li>
-        </ul>
+      <ul>
+        <li>Reviewer ID {{ r }}</li>
+      </ul>
       {% endfor %}
+    </td>
+    <td>
+      <a href="#">View Reviewer</a>
     </td>
   </tr>
   {% endfor %}

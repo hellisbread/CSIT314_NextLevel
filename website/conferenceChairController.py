@@ -50,3 +50,9 @@ def allocatePaper(request, id):
         context = {'paper': paper, 'reviewer_id_list': reviewer_id_list}
         return render(request, 'conferenceChair/allocatePaper.html', context)
 
+def acceptReview():
+    pass
+
+def rejectReview():
+    pass
+
