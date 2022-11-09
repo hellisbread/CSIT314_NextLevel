@@ -13,13 +13,13 @@
       <td>Submission Date</td>
       <td>Status</td>
     </tr>
-    {% for bid in bid_list %}
+    {% for paper in unassigned_list %}
     <tr>
-      <td>{{ bid.id }}</td>
-      <td>{{ bid.paper_id}}</td>
-      <td>{{ bid.bid_date }}</td>
-      <td>{{ bid.submission_date }}</td>
-      <td>{{ bid.status }}</td>
+      <td>{{ paper.id }}</td>
+      <td>{{ paper.paper_id}}</td>
+      <td>{{ paper.bid_date }}</td>
+      <td>{{ paper.submission_date }}</td>
+      <td>{{ paper.status }}</td>
     </tr>
     {% endfor %}
   </table>
@@ -28,30 +28,45 @@
 <h1>Papers to be reviewed</h1>
 
 <table border="1">
-    <tr>
-      <td>ID</td>
-      <td>Topic</td>
-      <td>Description</td>
-      <td>Submitted date</td>
-      <td>File Name</td>
-      <td>Author</td>
-      <td>Bid</td>
-    </tr>
-    {% for paper in papers %}
-    <tr>
-      <td>{{ paper.id }}</td>
-      <td>{{ paper.topic }}</td>
-      <td>{{ paper.description }}</td>
-      <td>{{ paper.submitted_date }}</td>
-      <td>
-        <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a>
-      </td>
-      <td>
-        {% for author in paper.authors.all %}
-        <li>ID: {{ author.id }} - Name: {{ author.name }}</li>
-        {% endfor %}
-      </td>
-      <td><a href="">Review</a></td>
-    </tr>
-    {% endfor %}
-  </table>
+  <tr>
+    <td>BID ID</td>
+    <td>Paper ID</td>
+    <td>Bid Date</td>
+    <td>Submission Date</td>
+    <td>Status</td>
+    <td>Action</td>
+  </tr>
+  {% for paper in assigned_list %}
+  <tr>
+    <td>{{ paper.id }}</td>
+    <td>{{ paper.paper_id}}</td>
+    <td>{{ paper.bid_date }}</td>
+    <td>{{ paper.submission_date }}</td>
+    <td>{{ paper.status }}</td>
+    <td><a href="#">Review</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h1>Reviewed Papers</h1>
+
+<table border="1">
+  <tr>
+    <td>BID ID</td>
+    <td>Paper ID</td>
+    <td>Bid Date</td>
+    <td>Submission Date</td>
+    <td>Status</td>
+    <td>Action</td>
+  </tr>
+  {% for paper in completed_list %}
+  <tr>
+    <td>{{ paper.id }}</td>
+    <td>{{ paper.paper_id}}</td>
+    <td>{{ paper.bid_date }}</td>
+    <td>{{ paper.submission_date }}</td>
+    <td>{{ paper.status }}</td>
+    <td><a href="#">Edit Review</a></td>
+  </tr>
+  {% endfor %}
+</table>

@@ -47,9 +47,13 @@ def biddedPaperPage(request):
 
     reviewer_id = request.session['ReviewerLogged']
 
-    bid_list = Bidded_Paper.getAllUnassignedPaperByID(reviewer_id)
+    unassigned_list = Bidded_Paper.getAllUnassignedPaperByID(reviewer_id)
 
-    context = {'bid_list':bid_list}
+    assigned_list = Bidded_Paper.getAllAssignedPaperByID(reviewer_id)
+
+    completed_list = Bidded_Paper.getAllReviewedPaperByID(reviewer_id)
+
+    context = {'unassigned_list':unassigned_list,'assigned_list':assigned_list,'completed_list':completed_list}
 
     print(context)
 
