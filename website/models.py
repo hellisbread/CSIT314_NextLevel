@@ -176,7 +176,7 @@ class Reviewer(Users):
             reviewer.username = username
             reviewer.password = password
             reviewer.name = name
-            reviewer.maxPaper = maxPaper
+            reviewer.maxPaper = int(maxPaper)
 
             reviewer.save()
 
@@ -207,6 +207,19 @@ class Reviewer(Users):
             return reviewer.maxPaper
         except (Reviewer.DoesNotExist, ObjectDoesNotExist):
             return None
+
+    
+    def setMaxPaperByID(id, maxPaper):
+        try:
+            reviewer = Reviewer.objects.get(id=id)
+
+            reviewer.maxPaper = int(maxPaper)
+
+            reviewer.save()
+
+            return True
+        except (Reviewer.DoesNotExist, ObjectDoesNotExist):
+            return False
     
     def getAllReviewer():
         reviewer_list = Reviewer.objects.all().values()
