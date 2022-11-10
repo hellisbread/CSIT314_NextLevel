@@ -47,9 +47,9 @@ def readSubmittedPaper(request, id):
     paper = Paper.objects.get(id=id)
     text = paper.saved_file.read().decode("utf-8")
 
-    body = {'content': text}
+    context = {'content': text}
 
-    return render(request, 'author/readSubmittedPaper.html', body)
+    return render(request, 'author/readSubmittedPaper.html', context)
 
 def updateSubmittedPaper(request, id):
     if request.method == 'POST':

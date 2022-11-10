@@ -2,7 +2,10 @@
 
 <a href="/conferenceChair/viewBiddedPaper/">view bidded paper</a>
 <a href="{% url 'logout'%}">logout</a>
-
+{% for message in messages %}
+<div>{{ message }}</div>
+<br />
+{% endfor %}
 <h2>Need to be allocated</h2>
 <table border="1">
   <tr>
@@ -25,17 +28,12 @@
   {% endfor %}
 </table>
 
-{% for message in messages %}
-<div>{{ message }}</div>
-<br />
-{% endfor %}
-
 <h2>Allocated</h2>
 <table border="1">
   <tr>
     <td>Paper ID</td>
     <td>Reviewer ID</td>
-    <td>View Review Button</td>
+    <td>Unallocate button</td>
   </tr>
   <tr>
     {% for paper in paper_id_list_allocated %}
@@ -45,11 +43,59 @@
       <ul>
         <li>Reviewer ID {{ r }}</li>
       </ul>
-      {% endfor %}
+      
     </td>
     <td>
-      <a href="/conferenceChair/viewBiddedPaper/decidePaper/{{paper.paper_id}}">View Review</a>
+      <form action="../viewBiddedPaper/" method="post">
+        {% csrf_token %}
+        <input name="paper_id" value="{{ paper.paper_id }}" style="display: none" />
+        <input name="reviewer_id"  style="display: none" value="{{ r }}" />
+        <input type="submit" value="unallocate" name="unallocate">
+      </form>
     </td>
+  </tr>
+  {% endfor %}
+  {% endfor %}
+</table>
+
+<h2>Accepted or Reject</h2>
+<table border="1">
+  <tr>
+    <td>Paper ID</td>
+    <td>View Review Button</td>
+    <td>Topic</td>
+    <td>Description</td>
+    <td>File Name</td>
+    <td>Accept Button</td>
+    <td>Reject Button</td>
+  </tr>
+  {% for paper in papers %}
+  <tr>
+    <td>{{paper.id}}</td>
+    <td><a href="#">View Review</a></td>
+    <td>{{paper.topic}}</td>
+    <td>{{paper.description}}</td>
+    <td><a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a></td>
+    <form action="../viewBiddedPaper/" method="post">
+      {% csrf_token %}
+    <input name="paper_id" value="{{ paper.id }}" style="display: none" />
+    <td><input type="submit" value="Accept" name="accept"></td>
+    <td><input type="submit" value="Reject" name="reject"></td>
+    </form>
+  </tr>
+  {% endfor %}
+</table>
+
+<h2>Decision</h2>
+<table border="1">
+  <tr>
+    <td>Paper ID</td>
+    <td>Decision(Accept/Reject)</td>
+  </tr>
+  {% for paper in papers_decided %}
+  <tr>
+    <td>{{paper.id}}</td>
+    <td>{{paper.status }}</td>
   </tr>
   {% endfor %}
 </table>
