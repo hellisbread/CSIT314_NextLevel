@@ -1,17 +1,28 @@
 <h1>Update Admin Profile</h1>
-<br/>
-    <!--Error Messages-->
-    {% if messages %}
-    {% for message in messages %}
-      <p><b>
-        {{ message }}
-    </b>
-      </p>
-    {% endfor %}
-  {% endif %}  
+<br />
+<!--Error Messages-->
+{% if messages %}
+{% for message in messages %}
+<p><b>
+    {{ message }}
+  </b>
+</p>
+{% endfor %}
+{% endif %}
 
 <form method="post">
   {% csrf_token %}
+  Role: <br/>
+  <select name="roleList" id="roleList">
+    <option value="Author">Author</option>
+    <option value="Conference Chair">Conference Chair</option>
+    <option value="Reviewer">Reviewer</option>
+    <option value="System Admin" selected>System Admin</option>
+  </select>
+  <br/>
+  Full name: <br />
+  <input name="fullname" value="" id="nameInputField" style="display:none"/>
+  <br /><br />
   Email: <br />
   <input name="email" value="{{ admin.email }}" />
   <br /><br />
@@ -21,5 +32,33 @@
   Password: <br />
   <input name="password" value="{{ admin.password }}" />
   <br /><br />
+  Max Papers: <br />
+  <input name="maxPaper" value="0" id = "maxPaperInputField" style="display:none"/>
+  <br/><br/>
   <input type="submit" value="Submit" />
 </form>
+
+<script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Script to hide fields base on role -->
+    <script>
+      $("#roleList").on("change", function () {
+        if ($(this).val() === "Author") {
+          $("#nameInputField").show();
+          $("#maxPaperInputField").hide();
+        } else if ($(this).val() === "Reviewer") {
+          $("#nameInputField").show();
+          $("#maxPaperInputField").show();
+        } else if ($(this).val() === "Conference Chair") {
+          $("#nameInputField").show();
+          $("#maxPaperInputField").hide();
+        } else if ($(this).val() === "System Admin") {
+          $("#nameInputField").hide();
+          $("#maxPaperInputField").hide();
+        }
+      });
+</script>

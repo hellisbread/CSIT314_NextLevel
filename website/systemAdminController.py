@@ -9,10 +9,10 @@ from .models import Users, Author, ConferenceChair, Reviewer, SystemAdmin
 
 def systemAdminPage(request):
 
-    Authors = Author.getAllAuthor()
-    ConfChairs = ConferenceChair.getAllConferenceChair()
-    Reviewers = Reviewer.getAllReviewer()
-    SysAdmins = SystemAdmin.getAllSystemAdmin()
+    Authors = Author.getAllActiveAuthor()
+    ConfChairs = ConferenceChair.getAllActiveConferenceChair()
+    Reviewers = Reviewer.getAllActiveReviewer()
+    SysAdmins = SystemAdmin.getAllActiveSystemAdmin()
 
     context = {'authors':Authors,'confchairs':ConfChairs,'reviewers':Reviewers,'sysadmins':SysAdmins}
 
@@ -89,6 +89,7 @@ def updateAuthors(request, id):
 
     if(request.POST):
 
+        role = request.POST['roleList']
         name = request.POST['fullname']
         username = request.POST['username']
         password = request.POST['password']
@@ -96,6 +97,7 @@ def updateAuthors(request, id):
 
         myauthor = Author.getAuthorByID(id)
 
+        #Validations
         if(CheckEmailinDB(email) == False and email!=myauthor.email):
             messages.error(request, "Invalid Email. This email exists in the DB already.")
             return redirect('update_author', id=id)
@@ -108,8 +110,14 @@ def updateAuthors(request, id):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('update_author', id=id)
 
-        success = Author.UpdateAuthorByID(id,email,username,password,name)
+        #Updating
+        if(role=="Author"):
+            success = Author.UpdateAuthorByID(id,email,username,password,name)
+        else:
+            maxPaper = request.POST['maxPaper']
+            success = Author.UpdateRoleByID(id,email,username,password,name,maxPaper,role)
 
+        #Check Success
         if(success):
             messages.success(request, "Successfully updated Author ID: " + str(id))
             return redirect('systemAdminPage')
@@ -126,6 +134,7 @@ def updateAuthors(request, id):
 def updateReviewers(request,id):
     if(request.POST):
 
+        role = request.POST['roleList']
         name = request.POST['fullname']
         username = request.POST['username']
         password = request.POST['password']
@@ -146,7 +155,11 @@ def updateReviewers(request,id):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('update_reviewer', id=id)
 
-        success = Reviewer.UpdateReviewerByID(id,email,username,password,name,maxPaper)
+        #Updating
+        if(role=="Reviewer"):
+            success = Reviewer.UpdateReviewerByID(id,email,username,password,name, maxPaper)
+        else:
+            success = Reviewer.UpdateRoleByID(id,email,username,password,name,maxPaper,role)
 
         if(success):
             messages.success(request, "Successfully updated Reviewer ID: " + str(id))
@@ -164,6 +177,7 @@ def updateReviewers(request,id):
 def updateConfs(request,id):
     if(request.POST):
 
+        role = request.POST['roleList']
         name = request.POST['fullname']
         username = request.POST['username']
         password = request.POST['password']
@@ -183,7 +197,12 @@ def updateConfs(request,id):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('update_conference', id=id)
 
-        success = ConferenceChair.UpdateConferenceChairByID(id,email,username,password,name)
+        #Updating
+        if(role=="Conference Chair"):
+            success = ConferenceChair.UpdateConferenceChairByID(id,email,username,password,name)
+        else:
+            maxPaper = request.POST['maxPaper']
+            success = ConferenceChair.UpdateRoleByID(id,email,username,password,name,maxPaper,role)
 
         if(success):
             messages.success(request, "Successfully updated Conference Chair ID: " + str(id))
@@ -200,6 +219,7 @@ def updateConfs(request,id):
 
 def updateAdmins(request,id):
     if(request.POST):
+        role = request.POST['roleList']
         username = request.POST['username']
         password = request.POST['password']
         email = request.POST['email']
@@ -218,7 +238,14 @@ def updateAdmins(request,id):
             messages.error(request, "Invalid username. This username exists in the DB already.")
             return redirect('update_admin', id=id)
 
-        success = SystemAdmin.UpdateSysAdminByID(id,email,username,password)
+        #Updating
+        if(role=="System Admin"):
+            success = SystemAdmin.UpdateSysAdminByID(id,email,username,password)
+        else:
+            name = request.POST['fullname']
+            maxPaper = request.POST['maxPaper']
+
+            success = SystemAdmin.UpdateRoleByID(id,email,username,password,name,maxPaper,role)
 
         if(success):
             messages.success(request, "Successfully updated System Admin ID: " + str(id))

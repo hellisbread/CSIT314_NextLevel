@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils import timezone
 
-from .models import Users, Reviewer, Paper, Bidded_Paper
+from .models import Users, Reviewer, Paper, Bidded_Paper, Review, Comment
 
 def reviewerPage(request):
     return render(request, 'reviewer/reviewer.html', {})
@@ -98,6 +98,9 @@ def reviewPage(request, id):
 
 def createReview(request):
     if(request.POST):
+
+        success = Review.createReview()
+
         messages.success(request, "Successfully submitted your review. Thank you for your submission.")
         return redirect('reviewPage')
     else:

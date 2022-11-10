@@ -65,11 +65,45 @@ class SystemAdmin(Users):
             return True
         except (SystemAdmin.DoesNotExist, ObjectDoesNotExist):
             return False
+    
+    def UpdateRoleByID(id, email, username, password, name, maxPaper, role):
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+            return False
+
+        try:
+            admin = SystemAdmin.objects.get(id = id)
+            admin.setStatus("1")
+
+            if(role=="Reviewer"):
+                reviewer = Reviewer(users_ptr_id = id, name = name, maxPaper = maxPaper)
+                reviewer.username = username
+                reviewer.password = password
+                reviewer.email = email
+                reviewer.save()
+                
+            elif(role=="Author"):
+                author = Author(users_ptr_id = id, name = name)
+                author.username = username
+                author.password = password
+                author.email = email
+                author.save()
+
+            elif(role=="Conference Chair"):
+                conf = ConferenceChair(users_ptr_id = id, name=name)
+                conf.username = username
+                conf.password = password
+                conf.email = email
+                conf.save()
+
+            return True
+
+        except (SystemAdmin.DoesNotExist, ObjectDoesNotExist):
+            return False
 
     #Get specific system admin user
     def getSystemAdmin(username, password):
         try:
-            systemAdmin = SystemAdmin.objects.get(username=username,password=password)
+            systemAdmin = SystemAdmin.objects.get(username=username,password=password,status="0")
 
             return systemAdmin
         except (SystemAdmin.DoesNotExist, ObjectDoesNotExist):
@@ -88,6 +122,19 @@ class SystemAdmin(Users):
         system_list = SystemAdmin.objects.all().values()
 
         return system_list
+    
+    def getAllActiveSystemAdmin():
+        system_list = SystemAdmin.objects.filter(status="0").values()
+
+        return system_list
+    
+    def setStatus(self, status):
+        
+        self.status = status
+        
+        self.save()
+
+        return True
 
 class Author(Users):
     name = models.CharField(max_length = 255)
@@ -126,10 +173,44 @@ class Author(Users):
         except (Author.DoesNotExist, ObjectDoesNotExist):
             return False
 
+    def UpdateRoleByID(id, email, username, password, name,maxPaper, role):
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+            return False
+
+        try:
+            author = Author.objects.get(id=id)
+            author.setStatus("1")
+
+            if(role=="Reviewer"):
+                reviewer = Reviewer(users_ptr_id = id, name = name, maxPaper = maxPaper)
+                reviewer.username = username
+                reviewer.password = password
+                reviewer.email = email
+                reviewer.save()
+                
+            elif(role=="Conference Chair"):
+                conf = ConferenceChair(users_ptr_id = id, name=name)
+                conf.username = username
+                conf.password = password
+                conf.email = email
+                conf.save()
+
+            elif(role == "System Admin"):
+                admin = SystemAdmin(users_ptr_id=id)
+                admin.username = username
+                admin.password=password
+                admin.email = email
+                admin.save()
+
+            return True
+
+        except (Author.DoesNotExist, ObjectDoesNotExist):
+            return False
+
     #Get specific author user
     def getAuthor(username, password):
         try:
-            author = Author.objects.get(username=username,password=password)
+            author = Author.objects.get(username=username,password=password,status="0")
 
             return author
         except (Author.DoesNotExist, ObjectDoesNotExist):
@@ -147,6 +228,19 @@ class Author(Users):
         author_list = Author.objects.all().values()
 
         return author_list
+
+    def getAllActiveAuthor():
+        author_list = Author.objects.filter(status="0").values()
+
+        return author_list
+
+    def setStatus(self, status):
+        
+        self.status = status
+        
+        self.save()
+
+        return True
 
 class Reviewer(Users):
     maxPaper = models.IntegerField(default = 0)
@@ -187,9 +281,43 @@ class Reviewer(Users):
         except (Reviewer.DoesNotExist, ObjectDoesNotExist):
             return False
 
+    def UpdateRoleByID(id, email, username, password, name,maxPaper, role):
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+            return False
+
+        try:
+            reviewer = Reviewer.objects.get(id=id)
+            reviewer.setStatus("1")
+
+            if(role=="Author"):
+                author = Author(users_ptr_id = id, name = name)
+                author.username = username
+                author.password = password
+                author.email = email
+                author.save()
+
+            elif(role=="Conference Chair"):
+                conf = ConferenceChair(users_ptr_id = id, name=name)
+                conf.username = username
+                conf.password = password
+                conf.email = email
+                conf.save()
+
+            elif(role == "System Admin"):
+                admin = SystemAdmin(users_ptr_id=id)
+                admin.username = username
+                admin.password=password
+                admin.email = email
+                admin.save()
+
+            return True
+
+        except (Reviewer.DoesNotExist, ObjectDoesNotExist):
+            return False
+
     def getReviewer(username, password):
         try:
-            reviewer = Reviewer.objects.get(username=username,password=password)
+            reviewer = Reviewer.objects.get(username=username,password=password,status="0")
 
             return reviewer
         except (Reviewer.DoesNotExist, ObjectDoesNotExist):
@@ -210,8 +338,7 @@ class Reviewer(Users):
             return reviewer.maxPaper
         except (Reviewer.DoesNotExist, ObjectDoesNotExist):
             return None
-
-    
+   
     def setMaxPaperByID(id, maxPaper):
         try:
             reviewer = Reviewer.objects.get(id=id)
@@ -224,8 +351,19 @@ class Reviewer(Users):
         except (Reviewer.DoesNotExist, ObjectDoesNotExist):
             return False
     
+    def setStatus(self, status):
+        self.status = status
+        self.save()
+        
+        return True
+
     def getAllReviewer():
         reviewer_list = Reviewer.objects.all().values()
+
+        return reviewer_list
+    
+    def getAllActiveReviewer():
+        reviewer_list = Reviewer.objects.filter(status="0").values()
 
         return reviewer_list
     
@@ -265,10 +403,44 @@ class ConferenceChair(Users):
             return True
         except (ConferenceChair.DoesNotExist, ObjectDoesNotExist):
             return False
+
+    def UpdateRoleByID(id, email, username, password, name, maxPaper, role):
+        if(email.replace(" ","")=="" or username.replace(" ","") == "" or password.replace(" ","") == "" or name.replace(" ","") == ""):
+            return False
+
+        try:
+            conference = ConferenceChair.objects.get(id = id)
+            conference.setStatus("1")
+
+            if(role=="Reviewer"):
+                reviewer = Reviewer(users_ptr_id = id, name = name, maxPaper = maxPaper)
+                reviewer.username = username
+                reviewer.password = password
+                reviewer.email = email
+                reviewer.save()
+                
+            elif(role=="Author"):
+                author = Author(users_ptr_id = id, name = name)
+                author.username = username
+                author.password = password
+                author.email = email
+                author.save()
+
+            elif(role == "System Admin"):
+                admin = SystemAdmin(users_ptr_id=id)
+                admin.username = username
+                admin.password=password
+                admin.email = email
+                admin.save()
+
+            return True
+
+        except (ConferenceChair.DoesNotExist, ObjectDoesNotExist):
+            return False
     
     def getConferenceChair(username, password):
         try:
-            confChair = ConferenceChair.objects.get(username=username,password=password)
+            confChair = ConferenceChair.objects.get(username=username,password=password,status="0")
 
             return confChair
         except (ConferenceChair.DoesNotExist, ObjectDoesNotExist):
@@ -286,6 +458,17 @@ class ConferenceChair(Users):
         confChair_list = ConferenceChair.objects.all().values()
 
         return confChair_list
+
+    def getAllActiveConferenceChair():
+        confChair_list = ConferenceChair.objects.filter(status="0").values()
+
+        return confChair_list
+
+    def setStatus(self, status):
+        self.status = status
+        self.save()
+        
+        return True
 
 class Paper(models.Model):
     topic= models.CharField(max_length = 255)
