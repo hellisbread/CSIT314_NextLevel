@@ -416,23 +416,45 @@ class Bidded_Paper(models.Model):
        
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
-    reviewer_name = models.CharField(max_length=255)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
-    title = models.CharField(max_length=255, default="")
+    title = models.CharField(max_length=255, default="No Title")
     description = models.TextField()
 
     @classmethod
-    def createReview(cls, paper, reviewer_name, rating, title, description):
-        review = cls(paper = paper, reviewer_name = reviewer_name, rating = rating, title = title, description = description)
+    def createReview(cls, paper, reviewer, rating, title, description):
+        review = cls(paper = paper, reviewer = reviewer, rating = int(rating), title = title, description = description)
         review.save()
 
         return True
 
     def updateReview(id, rating, title, description):
-        return False
+
+        review = Review.getReview(id)
+
+        review.rating = int(rating)
+        review.title = title
+        review.description = description
+
+        review.save()
+
+        return True
 
     def deleteReview(id):
+
+        review = Review.getReview(id)
+
+
+
         return False
+
+    def getReview(id):
+        try:
+            review = Review.objects.get(id = id)
+
+            return review
+        except (Review.DoesNotExist, ObjectDoesNotExist):
+            return None
 
     def getAllReviewByPaperID(id):
         return False
