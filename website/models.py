@@ -414,13 +414,13 @@ class Review(models.Model):
     description = models.TextField()
 
     @classmethod
-    def createReview(cls, paper, reviewer_name, rating, description):
-        review = cls(paper = paper, reviewer_name = reviewer_name, rating = rating, description = description)
+    def createReview(cls, paper, reviewer_name, rating, title, description):
+        review = cls(paper = paper, reviewer_name = reviewer_name, rating = rating, title = title, description = description)
         review.save()
 
         return True
 
-    def updateReview(id, rating, description):
+    def updateReview(id, rating, title, description):
         return False
 
     def deleteReview(id):
