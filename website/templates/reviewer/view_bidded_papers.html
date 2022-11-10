@@ -43,7 +43,7 @@
     <td>{{ paper.bid_date }}</td>
     <td>{{ paper.submission_date }}</td>
     <td>{{ paper.status }}</td>
-    <td><a href="#">Review</a></td>
+    <td><a href="./review/{{ paper.id }}">Review</a></td>
   </tr>
   {% endfor %}
 </table>
@@ -66,7 +66,7 @@
     <td>{{ paper.bid_date }}</td>
     <td>{{ paper.submission_date }}</td>
     <td>{{ paper.status }}</td>
-    <td><a href="#">Edit Review</a></td>
+    <td><a href="./review/{{paper.id}}">View</a></td>
   </tr>
   {% endfor %}
 </table>

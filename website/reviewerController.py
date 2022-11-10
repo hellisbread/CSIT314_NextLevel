@@ -83,4 +83,13 @@ def biddedPaperPage(request):
     return render(request, 'reviewer/view_bidded_papers.html', context)
 
 def reviewPage(request, id):
-    return render(request, 'reviewer/review_paper.html', {})
+
+    reviewer_id = request.session['ReviewerLogged']
+
+    paper = Paper.getPaper(id)
+
+    context = {'paper':paper}
+
+    print(context)
+
+    return render(request, 'reviewer/review_paper.html', context)
