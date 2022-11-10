@@ -45,7 +45,7 @@ def deleteSubmittedPaper(request, id):
 
 def readSubmittedPaper(request, id):
     paper = Paper.objects.get(id=id)
-    text = paper.saved_file.read().decode()
+    text = paper.saved_file.read().decode("utf-8")
 
     body = {'content': text}
 
