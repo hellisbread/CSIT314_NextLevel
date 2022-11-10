@@ -47,6 +47,7 @@ urlpatterns = [
     #Conference Chair URL
     path('conferenceChair/', conferenceChairController.conferenceChairPage, name = 'conferenceChairPage'),
     path('conferenceChair/viewBiddedPaper/', conferenceChairController.viewBiddedPaperPage, name ='viewBiddedPaperPage'),
-    path('conferenceChair/viewBiddedPaper/allocatePaper/<int:id>',conferenceChairController.allocatePaper, name ='allocatePaper')
+    path('conferenceChair/viewBiddedPaper/allocatePaper/<int:id>',conferenceChairController.allocatePaper, name ='allocatePaper'),
+    path('conferenceChair/viewBiddedPaper/decidePaper/<int:id>', conferenceChairController.decidePaper, name='decidePaper')
     
 ]

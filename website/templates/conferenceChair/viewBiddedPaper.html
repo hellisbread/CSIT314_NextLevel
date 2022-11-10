@@ -35,7 +35,7 @@
   <tr>
     <td>Paper ID</td>
     <td>Reviewer ID</td>
-    <td>View Reviewer Button</td>
+    <td>View Review Button</td>
   </tr>
   <tr>
     {% for paper in paper_id_list_allocated %}
@@ -48,7 +48,7 @@
       {% endfor %}
     </td>
     <td>
-      <a href="#">View Reviewer</a>
+      <a href="/conferenceChair/viewBiddedPaper/decidePaper/{{paper.paper_id}}">View Review</a>
     </td>
   </tr>
   {% endfor %}

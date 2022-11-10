@@ -58,9 +58,16 @@ def allocatePaper(request, id):
         context = {'paper': paper, 'reviewer_id_list': reviewer_id_list}
         return render(request, 'conferenceChair/allocatePaper.html', context)
 
-def acceptReview():
-    pass
+def decidePaper(request, id):
+    if request.method == 'POST':
+        decision = request.POST['decision']
+        print(decision)
+        paper = Paper.objects.get(id=id)
+        context = {'paper': paper}
+        return render(request,'conferenceChair/decidePaper.html', context)
+    else:
+        paper = Paper.objects.get(id=id)
+        context = {'paper': paper}
+        return render(request,'conferenceChair/decidePaper.html', context)
 
-def rejectReview():
-    pass
 
