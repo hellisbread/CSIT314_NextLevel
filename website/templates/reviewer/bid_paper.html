@@ -24,7 +24,11 @@
       <td>{{ paper.description }}</td>
       <td>{{ paper.submitted_date }}</td>
       <td>{{ paper.fileName }}</td>
-      <td></td>
+      <td>
+        {% for author in paper.authors.all %}
+        <li>ID: {{ author.id }} - Name: {{ author.name }}</li>
+        {% endfor %}
+      </td>
       <td><a href="./add/{{paper.id}}">Bid</a></td>
     </tr>
     {% endfor %}

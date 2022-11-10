@@ -32,6 +32,7 @@ class Users(models.Model):
         return self
 
 class SystemAdmin(Users):
+    status = models.CharField(max_length = 1, default="0") #0:Active 1:Inactive
 
     class Meta(User.Meta):
         db_table = 'system_admin'
@@ -90,6 +91,7 @@ class SystemAdmin(Users):
 
 class Author(Users):
     name = models.CharField(max_length = 255)
+    status = models.CharField(max_length = 1, default="0") #0:Active 1:Inactive
 
     class Meta(User.Meta):
         db_table = 'author'
@@ -149,6 +151,7 @@ class Author(Users):
 class Reviewer(Users):
     maxPaper = models.IntegerField(default = 0)
     name = models.CharField(max_length = 255)
+    status = models.CharField(max_length = 1, default="0") #0:Active 1:Inactive
 
     class Meta(User.Meta):
         db_table = 'reviewer'
@@ -228,6 +231,7 @@ class Reviewer(Users):
     
 class ConferenceChair(Users):
     name = models.CharField(max_length = 255)
+    status = models.CharField(max_length = 1, default="0") #0:Active 1:Inactive
 
     class Meta(User.Meta):
         db_table = 'conference_chair'
