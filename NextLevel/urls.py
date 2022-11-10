@@ -31,11 +31,11 @@ urlpatterns = [
     path('author/viewPaperPage/updateSubmittedPaper/<int:id>', authorController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
     #System Admins URL
     path('admin/', systemAdminController.systemAdminPage, name = 'systemAdminPage'),
-    path('admin/create',userController.register, name='register'),
-    path('admin/update_author/<int:id>', userController.updateAuthors, name='update_author'),
-    path('admin/update_reviewer/<int:id>', userController.updateReviewers, name='update_reviewer'),
-    path('admin/update_conference/<int:id>', userController.updateConfs, name='update_conference'),
-    path('admin/update_admin/<int:id>', userController.updateAdmins, name='update_admin'),
+    path('admin/create',systemAdminController.register, name='register'),
+    path('admin/update_author/<int:id>', systemAdminController.updateAuthors, name='update_author'),
+    path('admin/update_reviewer/<int:id>', systemAdminController.updateReviewers, name='update_reviewer'),
+    path('admin/update_conference/<int:id>', systemAdminController.updateConfs, name='update_conference'),
+    path('admin/update_admin/<int:id>', systemAdminController.updateAdmins, name='update_admin'),
     #Reviewer URL
     path('reviewer/', reviewerController.reviewerPage, name ='reviewerPage'),
     path('reviewer/bid/', reviewerController.bidPaper, name='bidPaper'),
