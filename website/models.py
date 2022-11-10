@@ -506,6 +506,12 @@ class Paper(models.Model):
 
         return True
 
+    def updateStatus(self, status):
+        self.status = status
+        self.save()
+        
+        return True
+
     def getPaper(id):
         try:
             paper = Paper.objects.get(id = id)
@@ -553,7 +559,7 @@ class Bidded_Paper(models.Model):
         self.status = status
         self.save()
         
-        return self
+        return True
 
     def getBiddedPaper(id):
         try:
