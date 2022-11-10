@@ -367,6 +367,14 @@ class Bidded_Paper(models.Model):
         self.save()
         
         return self
+
+    def getBiddedPaper(id):
+        try:
+            biddedPaper = Bidded_Paper.objects.get(id = id)
+
+            return biddedPaper
+        except (Bidded_Paper.DoesNotExist, ObjectDoesNotExist):
+            return None
     
     def getAllBiddedPaper():
         biddedPaper_list = Bidded_Paper.objects.all().values() 

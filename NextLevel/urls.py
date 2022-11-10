@@ -44,6 +44,7 @@ urlpatterns = [
     path('reviewer/settings/update', reviewerController.updateSettings, name='updateSettings'),
     path('reviewer/papers/', reviewerController.biddedPaperPage, name='biddedPaper'),
     path('reviewer/papers/review/<int:id>',reviewerController.reviewPage,name='reviewPaper'),
+    path('reviewer/papers/review/create',reviewerController.createReview,name='createReview'),
     #Conference Chair URL
     path('conferenceChair/', conferenceChairController.conferenceChairPage, name = 'conferenceChairPage'),
     path('conferenceChair/viewBiddedPaper/', conferenceChairController.viewBiddedPaperPage, name ='viewBiddedPaperPage'),

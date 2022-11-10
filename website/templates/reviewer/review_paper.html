@@ -5,44 +5,49 @@
 
 <h1>Reviewing Paper</h1>
 
-<table border="1">
-    <tr>
-      <td>ID</td>
-      <td>Topic</td>
-      <td>Description</td>
-      <td>Submitted date</td>
-      <td>File Name</td>
-      <td>Author</td>
-      <td>Bid</td>
-    </tr>
-    {% for paper in papers %}
-    <tr>
-      <td>{{ paper.id }}</td>
-      <td>{{ paper.topic }}</td>
-      <td>{{ paper.description }}</td>
-      <td>{{ paper.submitted_date }}</td>
-      <td>
-        <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a>
-      </td>
-      <td>
-        {% for author in paper.authors.all %}
-        <li>ID: {{ author.id }} - Name: {{ author.name }}</li>
-        {% endfor %}
-      </td>
-      <td><a href="">Bid</a></td>
-    </tr>
-    {% endfor %}
-  </table>
-  <hr>
+<h4>Paper ID : {{paper.id}}</h4>
+<h4>Topic: {{paper.topic}}</h4>
+<p>Description: {{paper.description}}</p>
+<p>Download/View paper: <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a></p>
+<p>Submitted Date: {{paper.submitted_date}}</p>
+<p>Written by: <br />
+  {% for author in paper.authors.all %}
+  {{ author.name }}<br />
+  {% endfor %}
+</p>
 
-  <h1>Submit Your Review</h1>
+<hr>
 
-  <form method="POST">
-    
-  </form>
-  <hr>
+<h1>Submit Your Review</h1>
 
-  <h1>Current Posted Reviews</h1>
+<form action="./create"method="POST">
 
+  {% csrf_token %} 
+  Title: <br />
+  <input name="title" />
+  <br /><br />
+  Review Description: <br />
+  <input name="review description" />
+  <br /><br />
+  Rating (out of 5): <br />
+  <select name="rating">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <br /><br />
 
+  <input type="submit" value="Submit" />
 
+</form>
+<hr>
+
+<h1>Current Posted Reviews</h1>
+
+<h4>Title: </h4>
+<p>Description Here</p>
+<p>Rating: /5</p>
+<p> Comments </p>
