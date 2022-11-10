@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Bidded_Paper, Paper
+from .models import Bidded_Paper, Paper, Reviewer
 from django.contrib import messages
 
 def conferenceChairPage(request):
@@ -34,13 +34,21 @@ def allocatePaper(request, id):
     if request.method == 'POST':
         paper_id = id
         reviewer_id = request.POST['chosenReviewerID']
-        bidded_papers = Bidded_Paper.objects.filter(paper_id=paper_id).filter(reviewer_id=reviewer_id)
-        for bidded_paper in bidded_papers:
-            success = bidded_paper.updateStatus(1)
-            if(success):
-                messages.success(request, "successfully assigned.")
-            else:
-                messages.error(request, "unsucessfully assigned.")
+        
+        # check if number of paper < max paper
+        maxPaper = Reviewer.getMaxPaperByID(reviewer_id)
+        numOfPaperAssigned = Bidded_Paper.objects.filter(status=1).filter(reviewer_id = reviewer_id).count()
+
+        if numOfPaperAssigned < maxPaper:
+            bidded_papers = Bidded_Paper.objects.filter(paper_id=paper_id).filter(reviewer_id=reviewer_id)
+            for bidded_paper in bidded_papers:
+                success = bidded_paper.updateStatus(1)
+                if(success):
+                    messages.success(request, "successfully assigned.")
+                else:
+                    messages.error(request, "unsucessfully assigned.")
+        else:
+            messages.error(request, "The number of paper for this reviewer has reached maximum!")
 
         return redirect('viewBiddedPaperPage')
     else:

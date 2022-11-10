@@ -25,6 +25,11 @@
   {% endfor %}
 </table>
 
+{% for message in messages %}
+<div>{{ message }}</div>
+<br />
+{% endfor %}
+
 <h2>Allocated</h2>
 <table border="1">
   <tr>
