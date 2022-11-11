@@ -6,26 +6,17 @@ from django.db.models import Q
 def conferenceChairPage(request):
     return render(request, 'conferenceChair/conferenceChair.html',{})
 
-def viewBiddedPaperPage(request):
+def allocationPaper(request):
     # allocated table
     if request.method == 'POST':
-        if request.POST.get("unallocate"):
-            paper_id = request.POST['paper_id']
-            reviewer_id = request.POST['reviewer_id']
-            bidded_paper = Bidded_Paper.objects.filter(status=1).filter(paper_id=paper_id).filter(reviewer_id=reviewer_id)
-            success = bidded_paper[0].updateStatus(0)
-            if(success):
-                messages.success(request, "successfully unallocated")
-            else:
-                messages.error(request, "unsucessfully unallocated")
-        elif request.POST.get("accept"):
-            paper_id = request.POST['paper_id']
-            paper = Paper.getPaper(paper_id)
-            success = paper.updateStatus("Accepted")
-        elif request.POST.get("reject"):
-            paper_id = request.POST['paper_id']
-            paper = Paper.getPaper(paper_id)
-            success = paper.updateStatus("Rejected")
+        paper_id = request.POST['paper_id']
+        reviewer_id = request.POST['reviewer_id']
+        bidded_paper = Bidded_Paper.objects.filter(status=1).filter(paper_id=paper_id).filter(reviewer_id=reviewer_id)
+        success = bidded_paper[0].updateStatus(0)
+        if(success):
+            messages.success(request, "successfully unallocated")
+        else:
+            messages.error(request, "unsucessfully unallocated")
         
     # need to be allocated table
     paper_id_list_not_allocate = Bidded_Paper.objects.all().filter(status=0).values('paper_id').distinct()
@@ -45,15 +36,9 @@ def viewBiddedPaperPage(request):
             reviewer.append(reviewer_id['reviewer_id'])
         paper_id['reviewer'] = reviewer
 
-    # accept and reject table
-    papers = Paper.objects.filter(status="Not Accessed").all().values()
+    context = {'paper_id_list_not_allocate': paper_id_list_not_allocate, 'paper_id_list_allocated': paper_id_list_allocated}
 
-    # decision table
-    papers_decided = Paper.objects.filter(~Q(status="Not Accessed"))
-
-    context = {'paper_id_list_not_allocate': paper_id_list_not_allocate, 'paper_id_list_allocated': paper_id_list_allocated, 'papers':papers, 'papers_decided':papers_decided}
-
-    return render(request, 'conferenceChair/viewBiddedPaper.html', context)
+    return render(request, 'conferenceChair/allocationPaper.html', context)
 
 def allocatePaper(request, id):
     if request.method == 'POST':
@@ -75,13 +60,34 @@ def allocatePaper(request, id):
         else:
             messages.error(request, "The number of paper for this reviewer has reached maximum!")
 
-        return redirect('viewBiddedPaperPage')
+        return redirect('allocationPaper')
     else:
         reviewer_id_list = Bidded_Paper.objects.filter(paper_id=id).values_list('reviewer_id').distinct()
 
         paper = Paper.objects.get(id=id)
         context = {'paper': paper, 'reviewer_id_list': reviewer_id_list}
         return render(request, 'conferenceChair/allocatePaper.html', context)
+
+def acceptOrReject(request):
+    if request.method == 'POST':
+        paper_id = request.POST['paper_id']
+        paper = Paper.getPaper(paper_id)
+        if request.POST.get("accept"):
+            success = paper.updateStatus("Accepted")
+        elif request.POST.get("reject"):
+            success = paper.updateStatus("Rejected")
+        elif request.POST.get("cancel"):
+            success = paper.updateStatus("Not Accessed")
+
+    # accept and reject table
+    papers = Paper.objects.filter(status="Not Accessed").all().values()
+
+    # decision table
+    papers_decided = Paper.objects.filter(~Q(status="Not Accessed"))
+
+    context = {'papers':papers, 'papers_decided':papers_decided}
+
+    return render(request, 'conferenceChair/acceptOrReject.html', context)
 
 def decidePaper(request, id):
     if request.method == 'POST':

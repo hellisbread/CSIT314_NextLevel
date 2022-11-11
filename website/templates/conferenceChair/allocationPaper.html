@@ -1,0 +1,55 @@
+<a href="/conferenceChair/allocationPaper/">Allocation Paper</a>
+<a href="/conferenceChair/acceptOrReject/">Accept Or Reject</a>
+<a href="{% url 'logout'%}">logout</a>
+
+<h2>Need to be allocated</h2>
+<table border="1">
+  <tr>
+    <td>Paper ID</td>
+    <td>Reviewer candidate</td>
+    <td>Allocate button</td>
+  </tr>
+  {% for paper in paper_id_list_not_allocate %}
+  <tr>
+    <td>{{ paper.paper_id }}</td>
+    <td>
+      {% for r in paper.reviewer%}
+      <ul>
+        <li>Reviewer ID {{ r }}</li>
+      </ul>
+      {% endfor %}
+    </td>
+    <td><a href="allocatePaper/{{paper.paper_id}}">allocate</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h2>Allocated</h2>
+<table border="1">
+  <tr>
+    <td>Paper ID</td>
+    <td>Reviewer ID</td>
+    <td>Unallocate button</td>
+  </tr>
+  <tr>
+    {% for paper in paper_id_list_allocated %}
+    <td>{{ paper.paper_id }}</td>
+    <td>
+      {% for r in paper.reviewer%}
+      <ul>
+        <li>Reviewer ID {{ r }}</li>
+      </ul>
+      
+    </td>
+    <td>
+      <form action="../allocationPaper/" method="post">
+        {% csrf_token %}
+        <input name="paper_id" value="{{ paper.paper_id }}" style="display: none" />
+        <input name="reviewer_id"  style="display: none" value="{{ r }}" />
+        <input type="submit" value="unallocate" name="unallocate">
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+  {% endfor %}
+</table>

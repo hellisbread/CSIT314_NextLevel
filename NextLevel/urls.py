@@ -47,9 +47,9 @@ urlpatterns = [
     path('reviewer/papers/review/create',reviewerController.createReview,name='createReview'),
     #Conference Chair URL
     path('conferenceChair/', conferenceChairController.conferenceChairPage, name = 'conferenceChairPage'),
-    path('conferenceChair/viewBiddedPaper/', conferenceChairController.viewBiddedPaperPage, name ='viewBiddedPaperPage'),
-    path('conferenceChair/viewBiddedPaper/allocatePaper/<int:id>',conferenceChairController.allocatePaper, name ='allocatePaper'),
-    path('conferenceChair/viewBiddedPaper/decidePaper/<int:id>', conferenceChairController.decidePaper, name='decidePaper'),
-    path('conferenceChair/viewBiddedPaper/readSubmittedPaper/<int:id>', conferenceChairController.readSubmittedPaper, name='readSubmittedPaperCC')
+    path('conferenceChair/allocationPaper/', conferenceChairController.allocationPaper, name ='allocationPaper'),
+    path('conferenceChair/allocationPaper/allocatePaper/<int:id>',conferenceChairController.allocatePaper, name ='allocatePaper'),
+    path('conferenceChair/acceptOrReject/', conferenceChairController.acceptOrReject, name='acceptOrReject'),
+    path('conferenceChair/allocationPaper/readSubmittedPaper/<int:id>', conferenceChairController.readSubmittedPaper, name='readSubmittedPaperCC')
     
 ]

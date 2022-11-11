@@ -1,0 +1,60 @@
+<h1>Accept or Reject</h1>
+
+<a href="/conferenceChair/allocationPaper/">Allocation Paper</a>
+<a href="/conferenceChair/acceptOrReject/">Accept Or Reject</a>
+<a href="{% url 'logout'%}">logout</a>
+
+{% for message in messages %}
+<div>{{ message }}</div>
+<br />
+{% endfor %}
+
+<h2>Accepted or Reject</h2>
+<table border="1">
+  <tr>
+    <td>Paper ID</td>
+    <td>View Review Button</td>
+    <td>Topic</td>
+    <td>Description</td>
+    <td>File Name</td>
+    <td>Accept Button</td>
+    <td>Reject Button</td>
+  </tr>
+  {% for paper in papers %}
+  <tr>
+    <td>{{paper.id}}</td>
+    <td><a href="#">View Review</a></td>
+    <td>{{paper.topic}}</td>
+    <td>{{paper.description}}</td>
+    <td>
+      <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a>
+    </td>
+    <form action="../acceptOrReject/" method="post">
+      {% csrf_token %}
+      <input name="paper_id" value="{{ paper.id }}" style="display: none" />
+      <td><input type="submit" value="Accept" name="accept" /></td>
+      <td><input type="submit" value="Reject" name="reject" /></td>
+    </form>
+  </tr>
+  {% endfor %}
+</table>
+
+<h2>Decision</h2>
+<table border="1">
+  <tr>
+    <td>Paper ID</td>
+    <td>Decision(Accept/Reject)</td>
+    <td>Cancel</td>
+  </tr>
+  {% for paper in papers_decided %}
+  <tr>
+    <td>{{paper.id}}</td>
+    <td>{{paper.status }}</td>
+    <form action="../acceptOrReject/" method="post">
+      {% csrf_token %}
+      <input name="paper_id" value="{{ paper.id }}" style="display: none" />
+      <td><input type="submit" value="Cancel" name="cancel" /></td>
+    </form>
+  </tr>
+  {% endfor %}
+</table>
