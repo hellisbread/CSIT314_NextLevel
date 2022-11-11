@@ -3,27 +3,6 @@
 <a href="/reviewer/settings/">Settings</a>
 <a href="{% url 'logout'%}">logout</a>
 
-<h1>Awaiting Conference Response Papers</h1>
-
-<table border="1">
-    <tr>
-      <td>BID ID</td>
-      <td>Paper ID</td>
-      <td>Bid Date</td>
-      <td>Submission Date</td>
-      <td>Status</td>
-    </tr>
-    {% for paper in unassigned_list %}
-    <tr>
-      <td>{{ paper.id }}</td>
-      <td>{{ paper.paper_id}}</td>
-      <td>{{ paper.bid_date }}</td>
-      <td>{{ paper.submission_date }}</td>
-      <td>{{ paper.status }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-  <hr/>
 
 <h1>Papers to be reviewed</h1>
 

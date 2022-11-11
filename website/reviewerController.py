@@ -15,7 +15,9 @@ def bidPaper(request):
 
     paper_list = Paper.getAllUnbiddedPaper(reviewer_id)
 
-    context = {'papers':paper_list, 'max_paper': maxPaper}
+    unassigned_list = Bidded_Paper.getAllUnassignedPaperByID(reviewer_id)
+
+    context = {'papers':paper_list, 'max_paper': maxPaper, 'unassigned_list':unassigned_list}
 
     print(context)
 
@@ -40,7 +42,6 @@ def addBidPaper(request, id):
         messages.error(request, "An error has occured while adding paper")
 
     return render(request, 'reviewer/bid_paper.html', {})
-
 
 def settings(request):
     reviewer_id = request.session['ReviewerLogged']
@@ -70,13 +71,11 @@ def biddedPaperPage(request):
 
     reviewer_id = request.session['ReviewerLogged']
 
-    unassigned_list = Bidded_Paper.getAllUnassignedPaperByID(reviewer_id)
-
     assigned_list = Bidded_Paper.getAllAssignedPaperByID(reviewer_id)
 
     completed_list = Bidded_Paper.getAllReviewedPaperByID(reviewer_id)
 
-    context = {'unassigned_list':unassigned_list,'assigned_list':assigned_list,'completed_list':completed_list}
+    context = {'assigned_list':assigned_list,'completed_list':completed_list}
 
     print(context)
 
@@ -128,7 +127,7 @@ def createReview(request, id):
 def editReview(request, id):
     if(request.POST):
 
-        
+
 
 
         return redirect('reviewPaper', id = id)
