@@ -1,0 +1,119 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NextLevel - Update Paper</title>
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css"
+        integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!--ALL CSS HERE-->
+    <link rel="stylesheet" type="text/css" href="css/submitPaper.css" />
+    <script src="https://kit.fontawesome.com/c1b3b95b1c.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body style = "font-family: Arial, Helvetica, sans-serif;">
+    <!--Main Navigation-->
+    <header>
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="background-color: rgb(255, 255, 255,0.8)">
+            <div class="position-sticky">
+
+                <div class="list-group list-group-flush mx-3 mt-4">
+                    <h1 class="text-center">NextLevel</h1>
+                    <hr>
+                    <i class="fa-solid fa-user" style= "font-size: 50px; text-align: center; margin-bottom: 20px;"></i>
+                
+                    <h5 class="text-center" style = "margin-bottom: 20px; font-weight: bold;">Author</h5>
+                
+                    <a href="ViewPaper.html" class="list-group-item list-group-item-action active">
+                    <i class="fa-solid fa-eye me-3"></i>
+                    <span>View Paper</span>
+                    </a>
+                    <a href="SubmitPaper.html" class="list-group-item list-group-item-action">
+                    <i class="fa-solid fa-file-arrow-up me-3"></i>
+                    <span">Submit Paper</span>
+                    </a>
+                    
+                    <a href="../loginPage3.html" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fa-solid fa-right-from-bracket me-3"></i>
+                        <span>Log Out</span></a>
+                    
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+    </header>
+    <!--Main Navigation-->
+    
+    <!--Main layout-->
+    <main style="margin-top: 50px; margin-left: 30px; margin-right: 30px; margin-bottom: 50px;">
+        <!-- INSERT ALL CONTENT HERE -->
+        <div class="card rounded-10 text-black" 
+                    style="background: rgba(245, 243, 243,0.9);
+                        border: 0ch;">
+            <div class="card rounded-5 text-black" 
+            style="background: rgba(245, 243, 243,0);
+                border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">        
+                <h3 class = "text-center"  style = "font-weight: bold;">
+                    Update Paper <hr></h3>
+        
+                <div class="col-lg-12">
+                    <form>
+                        <div class="card" style="background:rgba(245, 243, 243, 0);
+                        width: 30rem; float: left; border:0ch;">
+                            <span style = "font-weight: bold; font-size: large;">Topic:</span>  
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder = "Enter the topic " 
+                                        aria-label="Topic:" aria-describedby="basic-addon1">
+                                </div> 
+                            </br>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1" style = "font-weight: bold; font-size: large;">Description:</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Description of paper"></textarea>
+                                </div>
+                            </div>
+            
+                        <div class="card" style="float: left; margin-left: 50px; background: rgba(255, 255, 255,0); border: 0ch;">
+                            <span style = "font-weight: bold; font-size: large;">Upload paper here:</span> </br>
+                            <!-- <span style = "font-size: 40px;"><i class="fa-solid fa-file"></i></span> -->
+                            <div class="form-group" style="background: rgba(255, 255, 255,0); border: 0ch;">
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1"
+                                    style="width: fit-content;">
+                            </div>
+                        </br>
+                            <span style = "font-weight: bold; font-size: large;">Choose author(s): </span>
+                            <select name = "authors" id = "authors" multiple>
+                                <option value = "1">Author Oney</option>
+                                <option value = "1">Author Two</option>
+                                <option value = "1">???</option>
+                                <option value = "1">Author 1</option>
+                            </select>
+                        </br>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="card rounded-10 text-black" 
+            style="background: rgba(245, 243, 243,0);
+                border: 0ch;margin-top: 30px;">
+                <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-block btn-outline-secondary"
+                        type="button" style = "height:40px;">Update</button>
+                </div>
+            </div>
+                    </form>
+            </div>
+        </div>
+    </main>
+</div>
+    <!--Main layout-->
+</body>
+<html>
