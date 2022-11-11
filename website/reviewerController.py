@@ -123,5 +123,14 @@ def createReview(request, id):
             messages.error(request, "There was an error submitting your review.")
             return redirect('reviewPaper', id = id)
     else:
-        messages.error(request, "There was an error submitting your review.")
+        return redirect('reviewPaper', id = id)
+
+def editReview(request, id):
+    if(request.POST):
+
+        
+
+
+        return redirect('reviewPaper', id = id)
+    else:
         return redirect('reviewPaper', id = id)
