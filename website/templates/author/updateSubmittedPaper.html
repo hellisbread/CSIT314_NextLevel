@@ -4,18 +4,22 @@
   {% csrf_token %}
 
   <p>Topic:</p>
-  <input name="topic"> <br>
+  <input name="topic" value="{{paper.topic}}"> <br>
   <p>Description: </p>
-  <textarea name="description" cols="30" rows="10"></textarea> <br>
+  <textarea name="description" cols="30" rows="10">{{paper.description}}
+  </textarea> <br>
   <p>Upload File here:</p>
+  <p>Previous file name: {{paper.fileName}} </p>
   <p>{{ form.file }}</p>
 
+  {% if co_author == "True" %}
   <label for="authors">Choose co-author(s):</label> <br>
   <select name="authors" id="authors" multiple>
     {% for author in authors %}
     <option value="{{author.id}}">{{author.name}}</option>
     {% endfor %}
   </select>
+  {% endif %}
 
   <p><input type="submit" value="Upload" /></p>
 </form>

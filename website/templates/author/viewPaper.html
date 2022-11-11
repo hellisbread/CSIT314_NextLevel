@@ -31,7 +31,9 @@
     </td>
     <td>
       <a href="updateSubmittedPaper/{{ paper.id }}">update</a><br />
+      {% if paper.uploaded_by == logged_author %}
       <a href="deleteSubmittedPaper/{{ paper.id }}">delete</a>
+      {% endif %}
     </td>
   </tr>
   {% endfor %}

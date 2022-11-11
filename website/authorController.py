@@ -31,10 +31,10 @@ def submitPaperPage(request):
     return render(request, 'author/submitPaper.html', {'form': form, 'authors': authors})
 
 def viewPaperPage(request):
-    author_id = request.session['AuthorLogged']
-    paper_list = Paper.objects.all().filter(authors__in=[author_id])
-
-    context = {'papers' : paper_list}
+    logged_author = str(request.session['AuthorLogged'])
+    paper_list = Paper.objects.all().filter(authors__in=[logged_author])
+  
+    context = {'papers' : paper_list, 'logged_author' : logged_author}
 
     return render(request, 'author/viewPaper.html', context)
 
@@ -52,13 +52,21 @@ def readSubmittedPaper(request, id):
     return render(request, 'author/readSubmittedPaper.html', context)
 
 def updateSubmittedPaper(request, id):
+    paper = Paper.objects.get(id=id)
+    author_id = int(paper.uploaded_by)
+    logged_author = int(request.session['AuthorLogged'])
+
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         new_topic = request.POST['topic']
         new_description = request.POST['description']
         new_file = request.FILES['file']
         new_authors = request.POST.getlist('authors')
-        paper = Paper.objects.get(id=id)
+
+        if len(new_authors) == 0:
+            new_authors = list(paper.authors.values_list('id', flat = True)) 
+        else:
+            new_authors.append(author_id)
 
         success = paper.updatePaper(new_topic, new_description, str(new_file), new_file, new_authors)
     
@@ -70,7 +78,11 @@ def updateSubmittedPaper(request, id):
         return redirect('viewPaperPage')
     else:
         form = UploadFileForm()
-        authors = Author.getAllAuthor()
-        paper = Paper.objects.get(id=id)
+        authors = Author.getAllActiveAuthor().exclude(id=author_id)
 
-    return render(request, 'author/updateSubmittedPaper.html', {'form': form, 'authors': authors, 'paper' : paper})
+        if int(logged_author) == int(author_id):
+            co_author = "True"
+        else:
+            co_author = "False"
+
+        return render(request, 'author/updateSubmittedPaper.html', {'form': form, 'authors': authors, 'paper' : paper, 'co_author': co_author})

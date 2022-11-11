@@ -10,6 +10,7 @@
   <p>Upload File here:</p>
   <p>{{ form.file }}</p>
 
+  {% if co-author == "False"%}
   <label for="authors">Choose co-author(s):</label> <br />
   <select name="authors" id="authors" multiple>
     {% for author in authors %}
