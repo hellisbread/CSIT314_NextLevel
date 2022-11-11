@@ -480,6 +480,9 @@ class Paper(models.Model):
     uploaded_by = models.CharField(max_length=255)
     status = models.CharField(max_length=255, default = "Not Accessed")
 
+    class Meta:
+        db_table = 'paper'
+
     @classmethod
     def createPaper(cls, topic, description, fileName, saved_file, authors, uploaded_by):
         paper= cls(topic = topic, description = description, fileName = fileName, saved_file = saved_file, uploaded_by = uploaded_by)
@@ -543,6 +546,9 @@ class Bidded_Paper(models.Model):
     submission_date = models.DateTimeField(default = None, null=True)
     status = models.CharField(max_length=255, default = "0")
     #0 = Unassigned 1 = Assigned 2 = Review Complete
+
+    class Meta:
+        db_table = 'bidded_paper'
 
     @classmethod
     def createBiddedPaper(cls, reviewer_id, paper, status):
@@ -614,6 +620,9 @@ class Review(models.Model):
     title = models.CharField(max_length=255, default="No Title")
     description = models.TextField()
 
+    class Meta:
+        db_table = 'review'
+
     @classmethod
     def createReview(cls, paper, reviewer, rating, title, description):
         review = cls(paper = paper, reviewer = reviewer, rating = int(rating), title = title, description = description)
@@ -636,9 +645,6 @@ class Review(models.Model):
     def deleteReview(id):
 
         review = Review.getReview(id)
-
-
-
         return False
 
     def getReview(id):
@@ -657,6 +663,9 @@ class Comment(models.Model):
     commenter = models.CharField(max_length=255)
     rating = models.IntegerField(default=0)
     description = models.TextField()
+
+    class Meta:
+        db_table = 'comment'
 
     @classmethod
     def createComment(cls, review, commenter, rating, description):

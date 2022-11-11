@@ -26,7 +26,7 @@ def submitPaperPage(request):
 
     else:
         form = UploadFileForm()
-        authors = Author.objects.exclude(id=author_id)
+        authors = Author.getAllActiveAuthor().exclude(id=author_id)
 
     return render(request, 'author/submitPaper.html', {'form': form, 'authors': authors})
 

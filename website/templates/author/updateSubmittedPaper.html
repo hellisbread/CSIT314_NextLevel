@@ -10,7 +10,7 @@
   <p>Upload File here:</p>
   <p>{{ form.file }}</p>
 
-  <label for="authors">Choose author(s):</label> <br>
+  <label for="authors">Choose co-author(s):</label> <br>
   <select name="authors" id="authors" multiple>
     {% for author in authors %}
     <option value="{{author.id}}">{{author.name}}</option>

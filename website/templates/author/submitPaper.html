@@ -4,13 +4,13 @@
   {% csrf_token %}
 
   <p>Topic:</p>
-  <input name="topic"> <br>
-  <p>Description: </p>
-  <textarea name="description" cols="30" rows="10"></textarea> <br>
+  <input name="topic" /> <br />
+  <p>Description:</p>
+  <textarea name="description" cols="30" rows="10"></textarea> <br />
   <p>Upload File here:</p>
   <p>{{ form.file }}</p>
 
-  <label for="authors">Choose author(s):</label> <br>
+  <label for="authors">Choose co-author(s):</label> <br />
   <select name="authors" id="authors" multiple>
     {% for author in authors %}
     <option value="{{author.id}}">{{author.name}}</option>
