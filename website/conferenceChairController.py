@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Bidded_Paper, Paper, Reviewer
 from django.contrib import messages
 from django.db.models import Q
+from django.core.mail import send_mail
 
 def conferenceChairPage(request):
     return render(request, 'conferenceChair/conferenceChair.html',{})
@@ -74,6 +75,10 @@ def acceptOrReject(request):
         paper = Paper.getPaper(paper_id)
         if request.POST.get("accept"):
             success = paper.updateStatus("Accepted")
+            send_mail('Congratulation',
+            'Accepted', 
+            'nextlevelt05@gmail.com', 
+            ['patricianatasha01@gmail.com'], fail_silently=False)
         elif request.POST.get("reject"):
             success = paper.updateStatus("Rejected")
         elif request.POST.get("cancel"):
