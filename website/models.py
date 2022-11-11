@@ -644,10 +644,11 @@ class Review(models.Model):
 
         return True
 
-    def deleteReview(id):
+    def deleteReview(self):
 
-        review = Review.getReview(id)
-        return False
+        self.delete()
+
+        return True
 
     def getReview(id):
         try:

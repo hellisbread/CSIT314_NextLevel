@@ -66,10 +66,11 @@
   Edit
 </button>
 
-<input type="submit" value="Delete" />
-
+<form action="./delete/{{bid_id}}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Delete" />
+</form>
 {%endif%}
-
 
 <hr>
 

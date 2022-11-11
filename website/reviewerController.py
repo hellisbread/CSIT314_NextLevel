@@ -150,3 +150,21 @@ def editReview(request, id):
 
     else:
         return redirect('reviewPaper', id = id)
+
+def deleteReview(request, id):
+
+    bidPaper = Bidded_Paper.getBiddedPaper(id)
+
+    reviewer_id = request.session['ReviewerLogged']
+
+    review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
+
+    if(review!=None):
+        review.deleteReview()
+
+        bidPaper.updateStatus("1")
+        messages.success(request, "Successfully deleted your review.")
+        return redirect('reviewPaper', id = id)
+    else:
+        messages.error(request, "An error has occured.")
+        return redirect('reviewPaper', id = id)
