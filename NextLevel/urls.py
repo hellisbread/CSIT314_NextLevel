@@ -18,7 +18,7 @@ from django.urls import path
 
 from website import views, loginController, authorController, systemAdminController, reviewerController, conferenceChairController
 
-from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController
+from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController
 
 urlpatterns = [
     #General URL
@@ -34,7 +34,7 @@ urlpatterns = [
     path('author/viewPaperPage/updateSubmittedPaper/<int:id>', authorController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
     #System Admins URL
     path('admin/', systemAdminController.systemAdminPage, name = 'systemAdminPage'),
-    path('admin/create',systemAdminController.register, name='register'),
+    path('admin/create',createUserController.createNewUser, name='register'),
     path('admin/update_author/<int:id>', updateAuthorController.updateAuthors, name='update_author'),
     path('admin/update_reviewer/<int:id>', updateReviewerController.updateReviewers, name='update_reviewer'),
     path('admin/update_conference/<int:id>', updateConferenceController.updateConfs, name='update_conference'),
