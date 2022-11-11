@@ -59,35 +59,35 @@
    <header>
        <!-- Sidebar -->
        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="background-color: rgb(255, 255, 255,0.8)">
-           <div class="position-sticky">
+        <div class="position-sticky">
 
-               <div class="list-group list-group-flush mx-3 mt-4">
-                   <h1 class="text-center">NextLevel</h1>
-                   <hr>
-                   <i class="fa-solid fa-user" style= "font-size: 50px; text-align: center; margin-bottom: 20px;"></i>
-               
-                   <h5 class="text-center" style = "margin-bottom: 20px; font-weight: bold;">Reviewer</h5>
-               
-                   <a href="#" class="list-group-item list-group-item-action active">
-                        <i class="fa-solid fa-eye me-2"></i>
-                        <span>View Papers</span>
-                        </a>
-                        <a href="BidPaper.html" class="list-group-item list-group-item-action">
-                        <i class="fa-solid fa-file-arrow-up me-3"></i>
-                        <span>Bid Paper</span>
-                        </a>
-                        <a href="Settings.html" class="list-group-item list-group-item-action">
-                        <i class="fa-solid fa-gear me-3"></i>
-                        <span>Settings</span>
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <h1 class="text-center">NextLevel</h1>
+                <hr>
+                <i class="fa-solid fa-user" style= "font-size: 50px; text-align: center; margin-bottom: 20px;"></i>
+            
+                <h5 class="text-center" style = "margin-bottom: 20px; font-weight: bold;">Reviewer</h5>
+            
+                <a href="ViewPapersReviewer.html" class="list-group-item list-group-item-action">
+                    <i class="fa-solid fa-eye me-2"></i>
+                    <span>View Papers</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action active">
+                    <i class="fa-solid fa-file-arrow-up me-3"></i>
+                    <span>Bid Paper</span>
+                    </a>
+                    <a href="Settings.html" class="list-group-item list-group-item-action">
+                     <i class="fa-solid fa-gear me-3"></i>
+                     <span>Settings</span>
                      </a>
                     
                     <a href="../loginPage2.html" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fa-solid fa-right-from-bracket me-3"></i>
                         <span>Log Out</span></a>
-                   
-               </div>
-           </div>
-       </nav>
+                
+            </div>
+        </div>
+    </nav>
        <!-- Sidebar -->
    </header>
    <!--Main Navigation-->
@@ -99,11 +99,13 @@
        <div class="card rounded-10 text-black" style="background: rgba(238, 238, 238, 0.9); border: 0ch;">
            <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
                <h3 class="text-center mx-0" style = "font-weight: bold;">
-                   Review Paper
+                   Paper Details
                    <hr>
                </h3>
            </div>
-
+           
+           <div class = "row" style=" margin-right: 50px;">
+            <div class = "column" style="float: left; width: 50%;">
            <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-left: 50px; margin-right: 50px;">
             <div class="col-lg-12">
                 <span style="font-weight: bold ;">Paper ID: </span> 
@@ -130,6 +132,68 @@
             </div>
         </div>
        </div>
+       <div class = "column" style="float: left; width: 50%;">
+        <h6 style="font-weight: bold ;"> <u>Current Posted Reviews: </u></h6>
+        <span style = "font-weight: bold;">Title:</span>
+        <span>Topic 1</span>
+        </br> </br>
+        <span style = "font-weight: bold;">Description:</span>
+        <span>Here is the description</span>
+        </div>
+       
+       </div>
+       <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
+        <h3 class="text-center mx-0" style = "font-weight: bold;">
+            Submit Your Review
+            <hr>
+        </h3>
+        </div>
+       <div class = "row" style=" margin-right: 50px; margin-left: 30px;">
+        <div class = "col-lg-12">
+            
+
+        <span style = "font-weight: bold;">Topic:</span>  
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder = "Enter the topic" 
+                aria-label="Topic:" aria-describedby="basic-addon1">
+        </div> 
+        <div class = "column">
+            <span style = "font-weight: bold;">Review Description:</span>  
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder = "Enter the description" 
+                    aria-label="Topic:" aria-describedby="basic-addon1">
+            </div> 
+            <div class="form-outline mb-4">
+                <span style = "font-weight: bold;">Rating (out of 3):</span>
+            </br>
+                <!-- <label class="form-label" for="form2Example11">Login as:</label> -->
+                <select class="dropdown" aria-label="Default select example" name="roleList" id="roleList"
+                        style="background-color: rgb(90, 109, 112);
+                                color: rgba(209, 217, 219, 0.959);
+                                border-radius: 5px 5px 5px 5px;
+                                height: 30px; text-align: center;">
+                  <!-- need to check if the user doesn't choose any of the value and "Login-as" is chosen -->
+                  <option value="-3"> -3 </option>
+                  <option value="-2"> -2 </option>
+                  <option value="-1"> -1 </option>
+                  <option value="0"> 0 </option>
+                  <option value="1"> 1 </option>
+                  <option value="2"> 2 </option>
+                  <option value="3"> 3 </option>
+                  </select>
+              </div>
+            </br>
+
+                <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-block btn-outline-secondary"
+                        type="button" style = "height:40px;">Submit</button>
+                </div>
+            
+        </div>
+       </div>
+        
+        
+        </div>
    </main>
 
 </body>
