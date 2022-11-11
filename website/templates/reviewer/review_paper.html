@@ -87,28 +87,24 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="./edit/{{bid_id}}" method="POST" id="edit-form"></form>
-      <div class="modal-body">
-
-
+      <form action="./edit/{{bid_id}}" method="POST" id="edit-form">
         {% csrf_token %}
+      <div class="modal-body">
         Title: <br />
-        <input name="title" />
+        <input name="title" value="{{review.title}}"/>
         <br /><br />
         Review Description: <br />
-        <textarea name="description" rows="4" cols="50">
-
-          </textarea>
+        <textarea name="description" rows="4" cols="50">{{review.description}}</textarea>
         <br /><br />
         Rating/Score: <br />
         <select name="rating">
-          <option value="3">Strong Accept</option>
-          <option value="2">Accept</option>
-          <option value="1">Weak Accept</option>
-          <option value="0">Borderline Paper</option>
-          <option value="-1">Weak Reject</option>
-          <option value="-2">Reject</option>
-          <option value="-3">Strong Reject</option>
+          <option value="3" {% if review.rating == 3 %}selected{%endif%}>Strong Accept</option>
+          <option value="2" {% if review.rating == 2 %}selected{%endif%}>Accept</option>
+          <option value="1" {% if review.rating == 1 %}selected{%endif%}>Weak Accept</option>
+          <option value="0" {% if review.rating == 0 %}selected{%endif%}>Borderline Paper</option>
+          <option value="-1" {% if review.rating == -1 %}selected{%endif%}>Weak Reject</option>
+          <option value="-2" {% if review.rating == -2 %}selected{%endif%}>Reject</option>
+          <option value="-3" {% if review.rating == -3 %}selected{%endif%}>Strong Reject</option>
         </select>
       </div>
       <div class="modal-footer">
