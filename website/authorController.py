@@ -11,6 +11,7 @@ def submitPaperPage(request):
     author_id = request.session['AuthorLogged']
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
+        print(form)
         topic = request.POST['topic']
         description = request.POST['description']
         file = request.FILES['file']
