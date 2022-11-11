@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from website import views, loginController, userController, authorController, systemAdminController, reviewerController, conferenceChairController
+from website import views, loginController, authorController, systemAdminController, reviewerController, conferenceChairController
+
+from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController
+
 urlpatterns = [
     #General URL
     path('', loginController.index, name = 'index'),
@@ -32,10 +35,10 @@ urlpatterns = [
     #System Admins URL
     path('admin/', systemAdminController.systemAdminPage, name = 'systemAdminPage'),
     path('admin/create',systemAdminController.register, name='register'),
-    path('admin/update_author/<int:id>', systemAdminController.updateAuthors, name='update_author'),
-    path('admin/update_reviewer/<int:id>', systemAdminController.updateReviewers, name='update_reviewer'),
-    path('admin/update_conference/<int:id>', systemAdminController.updateConfs, name='update_conference'),
-    path('admin/update_admin/<int:id>', systemAdminController.updateAdmins, name='update_admin'),
+    path('admin/update_author/<int:id>', updateAuthorController.updateAuthors, name='update_author'),
+    path('admin/update_reviewer/<int:id>', updateReviewerController.updateReviewers, name='update_reviewer'),
+    path('admin/update_conference/<int:id>', updateConferenceController.updateConfs, name='update_conference'),
+    path('admin/update_admin/<int:id>', updateAdminController.updateAdmins, name='update_admin'),
     #Reviewer URL
     path('reviewer/', reviewerController.reviewerPage, name ='reviewerPage'),
     path('reviewer/bid/', reviewerController.bidPaper, name='bidPaper'),
