@@ -612,6 +612,8 @@ class Bidded_Paper(models.Model):
         except(Bidded_Paper.DoesNotExist, ObjectDoesNotExist):
 
             return False
+    
+    
        
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
@@ -650,6 +652,13 @@ class Review(models.Model):
     def getReview(id):
         try:
             review = Review.objects.get(id = id)
+
+            return review
+        except (Review.DoesNotExist, ObjectDoesNotExist):
+            return None
+    def getReviewByPaperAndReviewer(paper_id, reviewer_id):
+        try:
+            review = Review.objects.get(paper_id = paper_id, reviewer_id = reviewer_id)
 
             return review
         except (Review.DoesNotExist, ObjectDoesNotExist):

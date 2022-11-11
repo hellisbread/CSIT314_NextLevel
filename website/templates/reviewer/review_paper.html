@@ -18,31 +18,42 @@
 
 <hr>
 
+{% if review == None %}
 <h1>Submit Your Review</h1>
 
-<form action="./create"method="POST">
+<form action="./create/{{bid_id}}"method="POST">
 
   {% csrf_token %} 
   Title: <br />
   <input name="title" />
   <br /><br />
   Review Description: <br />
-  <input name="review description" />
+  <textarea name="description" rows="4" cols="50">
+
+  </textarea>
   <br /><br />
-  Rating (out of 5): <br />
+  Rating/Score: <br />
   <select name="rating">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
+    <option value="3">Strong Accept</option>
+    <option value="2">Accept</option>
+    <option value="1">Weak Accept</option>
+    <option value="0">Borderline Paper</option>
+    <option value="-1">Weak Reject</option>
+    <option value="-2">Reject</option>
+    <option value="-3">Strong Reject</option>
   </select>
   <br /><br />
 
   <input type="submit" value="Submit" />
 
 </form>
+{% else %}
+<h1>Your Review</h1>
+
+<h4>{{review.title}}</h4>
+<p>{{review.description}}</p>
+<p>Rating/Score: {{review.rating}}</p>
+{%endif%}
 
 
 <hr>

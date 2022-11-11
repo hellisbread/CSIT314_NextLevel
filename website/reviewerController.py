@@ -90,19 +90,38 @@ def reviewPage(request, id):
 
     paper = Paper.getPaper(bidPaper.paper_id)
 
-    context = {'paper':paper}
+    review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
+
+    context = {'paper':paper, 'bid_id':id, 'review':review}
 
     print(context)
 
     return render(request, 'reviewer/review_paper.html', context)
 
-def createReview(request):
+def createReview(request, id):
     if(request.POST):
 
-        success = Review.createReview()
+        title = request.POST['title']
+        description = request.POST['description']
+        rating = request.POST['rating']
 
-        messages.success(request, "Successfully submitted your review. Thank you for your submission.")
-        return redirect('reviewPage')
+        bidPaper = Bidded_Paper.getBiddedPaper(id)
+
+        paper = Paper.getPaper(bidPaper.paper_id)
+
+        reviewer_id = request.session['ReviewerLogged']
+
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+        success = Review.createReview(paper, reviewer, rating, title, description)
+
+        if(success):
+            bidPaper.updateStatus("2")
+            messages.success(request, "Successfully submitted your review. Thank you for your submission.")
+            return redirect('reviewPaper', id = id)
+        else:
+            messages.error(request, "There was an error submitting your review.")
+            return redirect('reviewPaper', id = id)
     else:
         messages.error(request, "There was an error submitting your review.")
-        return redirect('reviewPage')
+        return redirect('reviewPaper', id = id)
