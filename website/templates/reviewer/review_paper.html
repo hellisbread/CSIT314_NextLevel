@@ -6,6 +6,10 @@
 <a href="/reviewer/settings/">Settings</a>
 <a href="{% url 'logout'%}">logout</a>
 
+{% for message in messages %}
+<div>{{ message }}</div> <br>
+{% endfor %}
+
 <h1>Reviewing Paper</h1>
 
 <h4>Paper ID : {{paper.id}}</h4>

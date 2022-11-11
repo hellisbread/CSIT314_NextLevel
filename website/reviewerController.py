@@ -127,9 +127,26 @@ def createReview(request, id):
 def editReview(request, id):
     if(request.POST):
 
+        title = request.POST['title']
+        description = request.POST['description']
+        rating = request.POST['rating']
 
+        bidPaper = Bidded_Paper.getBiddedPaper(id)
 
+        paper = Paper.getPaper(bidPaper.paper_id)
 
-        return redirect('reviewPaper', id = id)
+        reviewer_id = request.session['ReviewerLogged']
+
+        review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
+
+        success = Review.updateReview(review.id,rating,title,description)
+
+        if(success):
+            messages.success(request, "Successfully updated your review.")
+            return redirect('reviewPaper', id = id)
+        else:
+            messages.error(request, "There was an error updating your review.")
+            return redirect('reviewPaper', id = id)
+
     else:
         return redirect('reviewPaper', id = id)
