@@ -140,13 +140,15 @@
                                           {% endfor %}
                                       </td>
                                       <td style="text-align:center">
-                                          <button type="button" class="btn btn-link btn-sm btn-rounded" onclick="location.href='UpdatePaper.html'">
-                                              UPDATE
-                                          </button>
+                                        <a type="button" class="btn btn-link btn-sm btn-rounded" href="updateSubmittedPaper/{{ paper.id }}">
+                                          UPDATE
+                                        </a>
+                                              
+                                          
                                           {% if paper.uploaded_by == logged_author %}
-                                          <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                              DELETE
-                                          </button>
+                                          <a type="button" class="btn btn-link btn-sm btn-rounded" href="deleteSubmittedPaper/{{ paper.id }}">
+                                            DELETE
+                                        </a>
                                           {% endif %}
                                           
                                       </td>
