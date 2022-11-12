@@ -44,7 +44,7 @@
          }
       </style>
    </head>
-   <body>
+   <body style="font-family: Arial, Helvetica, sans-serif;">
       <!--Main Navigation-->
       <header>
          <!-- Sidebar -->
@@ -74,7 +74,7 @@
       </header>
       <!--Main Navigation-->
       <!-- Main Layout-->
-      <main style="margin-top: 50px; margin-left: 270px; margin-right: 30px; margin-bottom: 50px; font-family: Arial, Helvetica, sans-serif;">
+      <main style="margin-top: 50px; margin-left: 270px; margin-right: 30px; margin-bottom: 50px;">
          <!-- INSERT ALL CONTENT HERE -->
          <div class="card rounded-10 text-black" style="background: rgba(245, 243, 243,0.9); border: 0ch;">
             <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
@@ -84,71 +84,96 @@
                </h3>
                <div class="col-lg-12">
                   <form>
-                     <div class="card" style="background:rgba(245, 243, 243, 0);
-                        width: 30rem; float: left; border:0ch;">
-                        <span style = "font-weight: bold; font-size: large;">Full Name:</span>  
-                        <div class="input-group mb-3">
-                           <input type="text" class="form-control" placeholder = "Enter Full Name" 
-                              aria-label="Max Papers:" aria-describedby="basic-addon1">
+                     <div class="row justify-content-md-center">
+                        <div class="col-md-5">
+                           <label class="form-label" style="font-weight: bold; font-size: large;">Role</label>
+                           <div class="input-group mb-3">
+                              <select class="form-select form-control-sm" aria-label="Default select example" name="roleList" id="roleList">
+                                 <option selected hidden>--Update Role As--</option>
+                                 <option value="Author">Author</option>
+                                 <option value="Conference Chair">Conference Chair</option>
+                                 <option value="Reviewer">Reviewer</option>
+                                 <option value="System Admin">System Admin</option>
+                              </select>
+                           </div>   
                         </div>
-                        </br>
-                     </div>
-                    
-                     <div class="card" style="background:rgba(245, 243, 243, 0);
-                        width: 30rem; float: right; border:0ch;">
-                        <span style = "font-weight: bold; font-size: large;">Email</span>  
-                        <div class="input-group mb-3">
-                           <input type="text" class="form-control" placeholder = "Enter Email" 
-                              aria-label="Max Papers:" aria-describedby="basic-addon1">
+                        <div class="col-md-5" for="nameInputField" for="nameTitle">
+                           <label class="form-label" id="nameTitle" style="font-weight: bold; font-size: large;">Full Name</label>
+                           <div class="input-group mb-3">
+                              <input type="text" id="nameInputField" class="form-control" placeholder="Enter Full Name" aria-label="fullName" aria-describedby="basic-addon1">
+                           </div>
                         </div>
-                        </br>
                      </div>
 
-                     <div class="card" style="background:rgba(245, 243, 243, 0);
-                        width: 30rem; float: left; border:0ch;">
-                        <span style = "font-weight: bold; font-size: large;">Username</span>  
-                        <div class="input-group mb-3">
-                           <input type="text" class="form-control" placeholder = "Enter Username" 
-                              aria-label="Max Papers:" aria-describedby="basic-addon1">
+                     <div class="row justify-content-md-center">
+                        <div class="col-md-5">
+                           <label class="form-label" for="emailInputField" style="font-weight: bold; font-size: large;">Email</label>
+                           <div class="input-group mb-3">
+                              <input type="text" id="emailInputField" class="form-control" placeholder="Enter Email" aria-label="email" aria-describedby="basic-addon1">
+                           </div>
                         </div>
-                        </br>
+                        <div class="col-md-5">
+                           <label class="form-label" for="usernameInputField" style="font-weight: bold; font-size: large;">Username</label>
+                           <div class="input-group mb-3">
+                              <input type="text" id="usernameInputField" class="form-control" placeholder="Enter Username" aria-label="username" aria-describedby="basic-addon1">
+                           </div>
+                        </div>
+                     </div> 
+
+                     <div class="row justify-content-md-center">
+                        <div class="col-md-5">
+                           <label class="form-label" for="passwordInputField" style="font-weight: bold; font-size: large;">Password</label>
+                           <div class="input-group mb-3">
+                              <input type="text" id="passwordInputField" class="form-control" placeholder="Enter Password" aria-label="password" aria-describedby="basic-addon1">
+                           </div>
+                        </div>
+                        <div class="col-md-5" id="divMaxPaper" for="maxPaperInputField" for="maxPaperTitle" style="display: none;">
+                           <label class="form-label" id="maxPaperTitle" style="font-weight: bold; font-size: large;">Max Papers</label>
+                           <div class="input-group mb-3">
+                              <input type="text" id="maxPaperInputField" class="form-control" placeholder="Enter Maximum Papers" aria-label="maximumPapers" aria-describedby="basic-addon1">
+                           </div>
+                        </div>
                      </div>
 
-                     <div class="card" style="background:rgba(245, 243, 243, 0);
-                        width: 30rem; float: right; border:0ch;">
-                        <span style = "font-weight: bold; font-size: large;">Password</span>  
-                        <div class="input-group mb-3">
-                           <input type="text" class="form-control" placeholder = "Enter Password" 
-                              aria-label="Max Papers:" aria-describedby="basic-addon1">
-                        </div>
-                        </br>
-                     </div>
-
-                     <div class="card" style="background:rgba(245, 243, 243, 0);
-                        width: 30rem; float: left; border:0ch;">
-                        <span style = "font-weight: bold; font-size: large;">Role</span>
-                        <div class="input-group mb-3">
-                            <select class="form-select form-control-sm" aria-label="Default select example" name="roleList" id="roleList">
-                            <option selected hidden>--Update Role As--</option>
-                            <option value="Author"> Author </option>
-                            <option value="Conference Chair"> Conference Chair</option>
-                            <option value="Reviewer"> Reviewer </option>
-                            <option value="System Admin"> System Admin </option>
-                            </select>
+                     <div class="card rounded-10 text-black" style="background: rgba(245, 243, 243,0); border: 0ch;margin-top: 30px;">
+                        <div class="text-center pt-1 mb-5 pb-1">
+                           <button class="btn btn-block btn-outline-secondary" type="button" style = "height:40px;">Submit</button>
                         </div>
                      </div>
+                  </form>
                </div>
-            </div>
-            <div class="card rounded-10 text-black" 
-               style="background: rgba(245, 243, 243,0);
-               border: 0ch;margin-top: 30px;">
-                <div class="text-center pt-1 mb-5 pb-1">
-                <button class="btn btn-block btn-outline-secondary"
-                type="button" style = "height:40px;">Submit</button>
-                </div>
-            </div>
-            </form>
-        </div>
+         <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
+         <!-- Script to hide fields base on role -->
+         <script>
+            $('#roleList').on('change', function (){
+               if ($(this).val() === "Author") {
+                  $("#nameTitle").show()
+                  $("#nameInputField").show()
+                  $("#maxPaperTitle").hide()
+                  $("#maxPaperInputField").hide()
+               }
+               else if ($(this).val() === "Reviewer") {
+                  $("#nameTitle").show()
+                  $("#nameInputField").show()
+                  $("#divMaxPaper").show()
+                  $("#maxPaperTitle").show()
+                  $("#maxPaperInputField").show()
+               }
+               else if ($(this).val() === "Conference Chair") {
+                  $("#nameTitle").show()
+                  $("#nameInputField").show()
+                  $("#maxPaperTitle").hide()
+                  $("#maxPaperInputField").hide()
+               }
+               else if ($(this).val() === "System Admin") {
+                  $("#nameTitle").hide()
+                  $("#nameInputField").hide()
+                  $("#maxPaperTitle").hide()
+                  $("#maxPaperInputField").hide()
+               }
+            });
+         </script>
       </main>
    </body>
 </html>
