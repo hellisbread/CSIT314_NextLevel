@@ -15,7 +15,9 @@
 <h4>Paper ID : {{paper.id}}</h4>
 <h4>Topic: {{paper.topic}}</h4>
 <p>Description: {{paper.description}}</p>
-<p>Download/View paper: <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a></p>
+<p>View paper: <a type="button" data-bs-toggle="modal" data-bs-target="#contentModal">
+   <b>Click here</b>
+</a></p>
 <p>Submitted Date: {{paper.submitted_date}}</p>
 <p>Written by: <br />
   {% for author in paper.authors.all %}
@@ -126,3 +128,25 @@
     document.getElementById("edit-form").submit();
    }    
   </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contentModalLabel">{{paper.topic}}</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{content}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

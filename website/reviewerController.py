@@ -109,7 +109,9 @@ def reviewPage(request, id):
 
     review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
 
-    context = {'paper':paper, 'bid_id':id, 'review':review}
+    text = paper.saved_file.read().decode("utf-8")
+
+    context = {'paper':paper, 'bid_id':id, 'review':review,'content': text}
 
     print(context)
 
