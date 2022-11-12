@@ -608,6 +608,8 @@ class Bidded_Paper(models.Model):
 
         return bid_list
 
+
+
     def deleteBiddedPaperByID(id):
         try:
             biddedPaper = Bidded_Paper.objects.get(id=id)
@@ -674,6 +676,12 @@ class Review(models.Model):
             return review
         except (Review.DoesNotExist, ObjectDoesNotExist):
             return None
+
+    
+    def getOtherReviews(paper_id, reviewer_id):
+        reviews = Review.objects.filter(paper_id=paper_id).exclude(reviewer_id=reviewer_id).values()
+
+        return reviews
 
     def getAllReviewByPaperID(id):
         return False

@@ -109,9 +109,17 @@ def reviewPage(request, id):
 
     review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
 
+    other_reviews = Review.getOtherReviews(bidPaper.paper_id, reviewer_id)
+
+    #Get Reviewer Name base on reviewer ID
+    for otherReview in other_reviews:
+        print(otherReview)
+        reviewer_name = Reviewer.getReviewerByID(otherReview.get("reviewer_id")).name
+        otherReview['reviewerName'] = reviewer_name
+
     text = paper.saved_file.read().decode("utf-8")
 
-    context = {'paper':paper, 'bid_id':id, 'review':review,'content': text}
+    context = {'paper':paper, 'bid_id':id, 'review':review, 'other_reviews':other_reviews, 'content': text}
 
     print(context)
 

@@ -62,6 +62,7 @@
 <h4>{{review.title}}</h4>
 <p>{{review.description}}</p>
 <p>Rating/Score: {{review.rating}}</p>
+<p><a href="./comments/{{review.id}}"> View Comments </a></p>
 
 <!-- Button trigger modal -->
 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -78,10 +79,15 @@
 
 <h1>Current Posted Reviews</h1>
 
-<h4>Title: </h4>
-<p>Description Here</p>
-<p>Rating: /5</p>
-<p> Comments </p>
+{% for otherreview in other_reviews %}
+<div>
+<h4>Title: {{otherreview.title}}</h4>
+<p>{{otherreview.description}}</p>
+<p>Rating/Score: {{otherreview.rating}}</p>
+<p>Submitted by: {{otherreview.reviewerName}}</p>
+<p><a href="./comments/{{otherreview.id}}"> View Comments </a></p>
+</div>
+{%endfor%}
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -130,7 +136,7 @@
   </script>
 
 
-<!-- Modal -->
+<!-- Modal 2 -->
 <div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
