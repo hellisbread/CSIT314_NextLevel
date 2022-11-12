@@ -196,3 +196,15 @@ def deleteReview(request, id):
     else:
         messages.error(request, "An error has occured.")
         return redirect('reviewPaper', id = id)
+
+def commentPage(request, id):
+    return True
+
+def createComment(request, id):
+    return True
+
+def editComment(request, id):
+    return True
+
+def deleteComment(request, id):
+    return True

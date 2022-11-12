@@ -19,7 +19,7 @@ from django.urls import path
 from website import views, loginController, authorController, systemAdminController, reviewerController, conferenceChairController
 
 from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController
-
+from website.controllers.author import submitPaperController, viewPaperController
 urlpatterns = [
     #General URL
     path('', loginController.index, name = 'index'),
@@ -27,11 +27,11 @@ urlpatterns = [
     path('logout/', views.Logout, name = 'logout'),
     #Authors URL
     path('author/', authorController.authorPage, name = 'authorPage'),
-    path('author/submitPaperPage/', authorController.submitPaperPage, name ='submitPaperPage'),
-    path('author/viewPaperPage/', authorController.viewPaperPage, name='viewPaperPage'),
-    path('author/viewPaperPage/deleteSubmittedPaper/<int:id>', authorController.deleteSubmittedPaper, name='deleteSubmittedPaper'),
-    path('author/viewPaperPage/readSubmittedPaper/<int:id>', authorController.readSubmittedPaper, name = 'readSubmittedPaper'),
-    path('author/viewPaperPage/updateSubmittedPaper/<int:id>', authorController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
+    path('author/submitPaperPage/', submitPaperController.submitPaperPage, name ='submitPaperPage'),
+    path('author/viewPaperPage/', viewPaperController.viewPaperPage, name='viewPaperPage'),
+    path('author/viewPaperPage/deleteSubmittedPaper/<int:id>', viewPaperController.deleteSubmittedPaper, name='deleteSubmittedPaper'),
+    path('author/viewPaperPage/readSubmittedPaper/<int:id>', viewPaperController.readSubmittedPaper, name = 'readSubmittedPaper'),
+    path('author/viewPaperPage/updateSubmittedPaper/<int:id>', viewPaperController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
     #System Admins URL
     path('admin/', systemAdminController.systemAdminPage, name = 'systemAdminPage'),
     path('admin/create',createUserController.createNewUser, name='register'),
@@ -51,6 +51,10 @@ urlpatterns = [
     path('reviewer/papers/review/create/<int:id>',reviewerController.createReview, name='createReview'),
     path('reviewer/papers/review/edit/<int:id>',reviewerController.editReview, name='editReview'),
     path('reviewer/papers/review/delete/<int:id>',reviewerController.deleteReview, name='deleteReview'),
+    path('reviewer/papers/review/comment/<int:id>',reviewerController.commentPage, name='commentPage'),
+    path('reviewer/papers/review/comment/create/<int:id>',reviewerController.createComment, name='createComment'),
+    path('reviewer/papers/review/comment/edit/<int:id>',reviewerController.editComment, name='editComment'),
+    path('reviewer/papers/review/comment/delete/<int:id>',reviewerController.deleteComment, name='deleteComment'),
     #Conference Chair URL
     path('conferenceChair/', conferenceChairController.conferenceChairPage, name = 'conferenceChairPage'),
     path('conferenceChair/allocationPaper/', conferenceChairController.allocationPaper, name ='allocationPaper'),
