@@ -10,14 +10,17 @@ def authorPage(request):
 def submitPaperPage(request):
     author_id = request.session['AuthorLogged']
     if request.method == 'POST':
+
+        # collecting data from user input
         form = UploadFileForm(request.POST, request.FILES)
-        print(form)
         topic = request.POST['topic']
         description = request.POST['description']
         file = request.FILES['file']
         authors = request.POST.getlist('authors')
         authors.append(author_id)
+
         success = Paper.createPaper(topic, description, str(file), file, authors, author_id)
+
         if(success):
             messages.success(request, "Successfully created Paper.")
         else:
@@ -27,37 +30,42 @@ def submitPaperPage(request):
 
     else:
         form = UploadFileForm()
-        authors = Author.getAllActiveAuthor().exclude(id=author_id)
+        authors = Author.getAllActiveAuthorWithoutLoggedAuthor(author_id)
 
     return render(request, 'author/submitPaper.html', {'form': form, 'authors': authors})
 
 def viewPaperPage(request):
     logged_author = str(request.session['AuthorLogged'])
-    paper_list = Paper.objects.all().filter(authors__in=[logged_author])
+    # paper_list = Paper.objects.all().filter(authors__in=[logged_author])
+    paper_list = Paper.viewPaper(logged_author)
   
     context = {'papers' : paper_list, 'logged_author' : logged_author}
 
     return render(request, 'author/viewPaper.html', context)
 
 def deleteSubmittedPaper(request, id):
-    paper = Paper.objects.get(id=id)
-    paper.delete()
+    success = Paper.deleteSubmittedPaper(id)
+
+    if(success):
+        messages.success(request, f"Successfully delete paper ID {id}")
+    else:
+        messages.error(request, f"Fail to delete paper ID {id}")
+
     return redirect('viewPaperPage')
 
 def readSubmittedPaper(request, id):
-    paper = Paper.objects.get(id=id)
-    text = paper.saved_file.read().decode("utf-8")
-
+    text = Paper.readSubmittedPaper(id)
     context = {'content': text}
 
     return render(request, 'author/readSubmittedPaper.html', context)
 
 def updateSubmittedPaper(request, id):
-    paper = Paper.objects.get(id=id)
+    paper = Paper.getPaper(id)
     author_id = int(paper.uploaded_by)
     logged_author = int(request.session['AuthorLogged'])
 
     if request.method == 'POST':
+        # collecting data from user input
         form = UploadFileForm(request.POST, request.FILES)
         new_topic = request.POST['topic']
         new_description = request.POST['description']
@@ -65,7 +73,7 @@ def updateSubmittedPaper(request, id):
         new_authors = request.POST.getlist('authors')
 
         if len(new_authors) == 0:
-            new_authors = list(paper.authors.values_list('id', flat = True)) 
+            new_authors = paper.getAllAuthorID() 
         else:
             new_authors.append(author_id)
 
@@ -79,7 +87,7 @@ def updateSubmittedPaper(request, id):
         return redirect('viewPaperPage')
     else:
         form = UploadFileForm()
-        authors = Author.getAllActiveAuthor().exclude(id=author_id)
+        authors = Author.getAllActiveAuthorWithoutLoggedAuthor(author_id)
 
         if int(logged_author) == int(author_id):
             co_author = "True"

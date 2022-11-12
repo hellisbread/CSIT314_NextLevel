@@ -234,6 +234,11 @@ class Author(Users):
 
         return author_list
     
+    def getAllActiveAuthorWithoutLoggedAuthor(id):
+        author_list = Author.getAllActiveAuthor().exclude(id=id)
+
+        return author_list
+
     def getAuthorEmail(id):
         author_email = Author.objects.get(id=id).email
 
@@ -481,9 +486,9 @@ class Paper(models.Model):
     submitted_date = models.DateTimeField(default = timezone.now)
     fileName = models.CharField(max_length = 255)
     saved_file = models.FileField(upload_to = 'website/files')
-    authors = models.ManyToManyField(Author)
-    uploaded_by = models.CharField(max_length=255)
-    status = models.CharField(max_length=255, default = "Not Accessed")
+    authors = models.ManyToManyField(Author) # multiple authors
+    uploaded_by = models.CharField(max_length=255) # author_id
+    status = models.CharField(max_length=255, default = "Not Accessed") # not accessed, rejected, accepted
 
     class Meta:
         db_table = 'paper'
@@ -544,13 +549,36 @@ class Paper(models.Model):
 
         return paper_list
 
+    # author controller
+    def viewPaper(id):
+        paper_list = Paper.objects.all().filter(authors__in=[id])
+
+        return paper_list
+    
+    def deleteSubmittedPaper(id):
+        paper = Paper.getPaper(id)
+        paper.delete()
+
+        return True
+
+    def readSubmittedPaper(id):
+        paper = Paper.getPaper(id)
+        text = paper.saved_file.read().decode("utf-8")
+
+        return text
+
+    def getAllAuthorID(self):
+        authors = list(self.authors.values_list('id', flat = True))
+        print(authors)
+        
+        return authors
+
 class Bidded_Paper(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     bid_date = models.DateTimeField(default = timezone.now)
     submission_date = models.DateTimeField(default = None, null=True)
-    status = models.CharField(max_length=255, default = "0")
-    #0 = Unassigned 1 = Assigned 2 = Review Complete
+    status = models.CharField(max_length=255, default = "0") #0 = Unassigned, 1 = Assigned, 2 = Review Complete
 
     class Meta:
         db_table = 'bidded_paper'
