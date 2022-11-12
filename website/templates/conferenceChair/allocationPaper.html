@@ -2,6 +2,11 @@
 <a href="/conferenceChair/acceptOrReject/">Accept Or Reject</a>
 <a href="{% url 'logout'%}">logout</a>
 
+{% for message in messages %}
+<div>{{ message }}</div>
+<br />
+{% endfor %}
+
 <h2>Need to be allocated</h2>
 <table border="1">
   <tr>
@@ -39,17 +44,18 @@
       <ul>
         <li>Reviewer ID {{ r }}</li>
       </ul>
-      
+      {% endfor %}
     </td>
     <td>
+       {% for r in paper.reviewer%}
       <form action="../allocationPaper/" method="post">
         {% csrf_token %}
         <input name="paper_id" value="{{ paper.paper_id }}" style="display: none" />
         <input name="reviewer_id"  style="display: none" value="{{ r }}" />
         <input type="submit" value="unallocate" name="unallocate">
       </form>
+      {% endfor %}
     </td>
   </tr>
-  {% endfor %}
   {% endfor %}
 </table>
