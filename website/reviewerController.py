@@ -37,11 +37,29 @@ def addBidPaper(request, id):
 
     if(success):
         messages.success(request, "Successfully bidded for paper - "+paper.topic)
-        return redirect('reviewerPage')
+        return redirect('bidPaper')
     else:
         messages.error(request, "An error has occured while adding paper")
 
-    return render(request, 'reviewer/bid_paper.html', {})
+    return redirect('bidPaper')
+
+def deleteBidPaper(request, id):
+
+    reviewer_id = request.session['ReviewerLogged']
+
+    bid_paper = Bidded_Paper.getBiddedPaper(id)
+
+    if(bid_paper==None):
+        messages.error(request, "Unable to find paper - Please try again.")
+        return redirect('bidPaper')
+
+    if(bid_paper.status=="0"):
+        bid_paper.deleteBiddedPape()
+        messages.success(request, "You have successfully deleted your bid.")
+        return redirect('bidPaper')
+    else:
+        messages.error(request, "This bid can no longer be deleted.")
+        return redirect('bidPaper')
 
 def settings(request):
     reviewer_id = request.session['ReviewerLogged']

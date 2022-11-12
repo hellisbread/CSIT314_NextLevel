@@ -3,9 +3,12 @@
 <a href="/reviewer/settings/">Settings</a>
 <a href="{% url 'logout'%}">logout</a>
 
+{% for message in messages %}
+<div>{{ message }}</div> <br>
+{% endfor %}
+
 <h1>Bid For a paper</h1>
 <h4>Max Papers: {{max_paper}} </h4>
-<h4>Avaliable Papers for bidding: </h4>
 
 <table border="1">
     <tr>
@@ -43,6 +46,7 @@
       <td>Bid Date</td>
       <td>Submission Date</td>
       <td>Status</td>
+      <td>Action</td>
     </tr>
     {% for paper in unassigned_list %}
     <tr>
@@ -51,6 +55,7 @@
       <td>{{ paper.bid_date }}</td>
       <td>{{ paper.submission_date }}</td>
       <td>{{ paper.status }}</td>
+      <td><a href="./delete/{{paper.id}}">Remove bid</a></td>
     </tr>
     {% endfor %}
 </table>

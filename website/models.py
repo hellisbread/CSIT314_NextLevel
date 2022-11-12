@@ -613,6 +613,11 @@ class Bidded_Paper(models.Model):
 
             return False
     
+    def deleteBiddedPape(self):
+        self.delete()
+
+        return True
+    
     
        
 class Review(models.Model):
