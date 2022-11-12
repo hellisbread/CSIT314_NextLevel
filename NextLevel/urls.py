@@ -56,6 +56,6 @@ urlpatterns = [
     path('conferenceChair/allocationPaper/', conferenceChairController.allocationPaper, name ='allocationPaper'),
     path('conferenceChair/allocationPaper/allocatePaper/<int:id>',conferenceChairController.allocatePaper, name ='allocatePaper'),
     path('conferenceChair/acceptOrReject/', conferenceChairController.acceptOrReject, name='acceptOrReject'),
-    path('conferenceChair/allocationPaper/readSubmittedPaper/<int:id>', conferenceChairController.readSubmittedPaper, name='readSubmittedPaperCC')
+    path('conferenceChair/acceptOrReject/readSubmittedPaper/<int:id>', conferenceChairController.readSubmittedPaper, name='readSubmittedPaperCC'),
     
 ]

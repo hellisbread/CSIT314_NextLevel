@@ -233,6 +233,11 @@ class Author(Users):
         author_list = Author.objects.filter(status="0").values()
 
         return author_list
+    
+    def getAuthorEmail(id):
+        author_email = Author.objects.get(id=id).email
+
+        return author_email
 
     def setStatus(self, status):
         

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Bidded_Paper, Paper, Reviewer
+from .models import Bidded_Paper, Paper, Reviewer, Author
 from django.contrib import messages
 from django.db.models import Q
 from django.core.mail import send_mail
@@ -17,7 +17,7 @@ def allocationPaper(request):
         if(success):
             messages.success(request, "successfully unallocated")
         else:
-            messages.error(request, "unsucessfully unallocated")
+            messages.error(request, "unsucessfully unallocate")
         
     # need to be allocated table
     paper_id_list_not_allocate = Bidded_Paper.objects.all().filter(status=0).values('paper_id').distinct()
@@ -36,6 +36,7 @@ def allocationPaper(request):
         for reviewer_id in reviewer_id_list_allocated:
             reviewer.append(reviewer_id['reviewer_id'])
         paper_id['reviewer'] = reviewer
+        print(reviewer)
 
     context = {'paper_id_list_not_allocate': paper_id_list_not_allocate, 'paper_id_list_allocated': paper_id_list_allocated}
 
@@ -63,9 +64,9 @@ def allocatePaper(request, id):
 
         return redirect('allocationPaper')
     else:
-        reviewer_id_list = Bidded_Paper.objects.filter(paper_id=id).values_list('reviewer_id').distinct()
+        reviewer_id_list = Bidded_Paper.objects.filter(status=0).filter(paper_id=id).values_list('reviewer_id').distinct()
 
-        paper = Paper.objects.get(id=id)
+        paper = Paper.getPaper(id=id)
         context = {'paper': paper, 'reviewer_id_list': reviewer_id_list}
         return render(request, 'conferenceChair/allocatePaper.html', context)
 
@@ -74,18 +75,44 @@ def acceptOrReject(request):
         paper_id = request.POST['paper_id']
         paper = Paper.getPaper(paper_id)
         if request.POST.get("accept"):
+            author_id_list = paper.authors.all().values_list('id', flat=True)
             success = paper.updateStatus("Accepted")
-            send_mail('Congratulation',
-            'Accepted', 
-            'nextlevelt05@gmail.com', 
-            ['patricianatasha01@gmail.com'], fail_silently=False)
+            for author_id in author_id_list:
+                author_email = Author.getAuthorEmail(author_id)
+                content = f'Dear Author ID {author_id}, your paper with ID {paper_id} is accepted. Thank you.'
+                send_mail('Acceptation of Paper',
+                content, 
+                'nextlevelt05@gmail.com', 
+                [author_email], 
+                fail_silently=False)
+                messages.success(request, f"Successfully send the email to Author ID {author_id}")
         elif request.POST.get("reject"):
+            author_id_list = paper.authors.all().values_list('id', flat=True)
             success = paper.updateStatus("Rejected")
+            for author_id in author_id_list:
+                author_email = Author.getAuthorEmail(author_id)
+                content = f'Dear Author ID {author_id}, your paper with ID {paper_id} is rejected. Thank you.'
+                send_mail('Rejection of Paper',
+                content, 
+                'nextlevelt05@gmail.com', 
+                [author_email], 
+                fail_silently=False)
+                messages.success(request, f"Successfully send the email to Author ID {author_id}")
         elif request.POST.get("cancel"):
+            author_id_list = paper.authors.all().values_list('id', flat=True)
             success = paper.updateStatus("Not Accessed")
+            for author_id in author_id_list:
+                author_email = Author.getAuthorEmail(author_id)
+                content = f'Dear Author ID {author_id}, the decision of you paper with ID {paper_id} is canceled. Thank you.'
+                send_mail('Cancel decision of Paper',
+                content, 
+                'nextlevelt05@gmail.com', 
+                [author_email], 
+                fail_silently=False)
+                messages.success(request, f"Successfully send the email to Author ID {author_id}")
 
     # accept and reject table
-    papers = Paper.objects.filter(status="Not Accessed").all().values()
+    papers = Paper.objects.filter(status="Not Accessed").all()
 
     # decision table
     papers_decided = Paper.objects.filter(~Q(status="Not Accessed"))
@@ -93,18 +120,6 @@ def acceptOrReject(request):
     context = {'papers':papers, 'papers_decided':papers_decided}
 
     return render(request, 'conferenceChair/acceptOrReject.html', context)
-
-def decidePaper(request, id):
-    if request.method == 'POST':
-        decision = request.POST['decision']
-        print(decision)
-        paper = Paper.objects.get(id=id)
-        context = {'paper': paper}
-        return render(request,'conferenceChair/decidePaper.html', context)
-    else:
-        paper = Paper.objects.get(id=id)
-        context = {'paper': paper}
-        return render(request,'conferenceChair/decidePaper.html', context)
 
 def readSubmittedPaper(request,id):
     paper = Paper.objects.get(id=id)
