@@ -54,7 +54,7 @@ urlpatterns = [
     path('reviewer/papers/review/delete/<int:id>',reviewerController.deleteReview, name='deleteReview'),
     path('reviewer/papers/review/comments/<int:id>',reviewerController.commentPage, name='commentPage'),
     path('reviewer/papers/review/comments/create/<int:id>',reviewerController.createComment, name='createComment'),
-    path('reviewer/papers/review/comments/edit/<int:id>/<int:comment_id>',reviewerController.editComment, name='editComment'),
+    path('reviewer/papers/review/comments/edit',reviewerController.editComment, name='editComment'),
     path('reviewer/papers/review/comments/delete/<int:id>/<int:comment_id>',reviewerController.deleteComment, name='deleteComment'),
     #Conference Chair URL
     path('conferenceChair/', conferenceChairController.conferenceChairPage, name = 'conferenceChairPage'),

@@ -236,11 +236,26 @@ def createComment(request, id):
             return redirect('commentPage', id = id)
     
 
-def editComment(request, id, comment_id):
+def editComment(request):
 
+    if (request.POST):
+        id = request.POST['review_id']
+        comment_id = request.POST['comment_id']
 
+        rating = request.POST['rating']
+        description = request.POST['description']
 
-    return redirect('commentPage', id = id)
+        success = Comment.updateComment(comment_id, rating, description)
+
+        if(success):
+            messages.success(request, "Your comment has been updated.")
+            return redirect('commentPage', id = id)
+        else:
+            messages.error(request, "There was an error updating your comment.")
+            return redirect('commentPage', id = id)
 
 def deleteComment(request, id, comment_id):
+
+
+
     return redirect('commentPage', id = id)
