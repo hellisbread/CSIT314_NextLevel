@@ -770,6 +770,8 @@ class Comment(models.Model):
     def getAllCommentByReviewID(id):
         comments = Comment.objects.filter(review_id = id).values()
 
+        return comments
+
 class ReviewRating(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)

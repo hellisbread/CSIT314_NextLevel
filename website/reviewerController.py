@@ -201,13 +201,19 @@ def deleteReview(request, id):
 
 def commentPage(request, id):
 
-    
-
     review = Review.getReview(id)
 
     comments = Comment.getAllCommentByReviewID(id)
 
-    return render(request, 'reviewer/comments.html', {'review':review , 'comments':comments})
+    reviewer_id = request.session['ReviewerLogged']
+
+    reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+    context = {'review':review , 'comments':comments, 'reviewer':reviewer}
+
+    print(context)
+
+    return render(request, 'reviewer/comments.html', context)
 
 def createComment(request, id):
 
@@ -224,14 +230,17 @@ def createComment(request, id):
 
         if(success):
             messages.success(request, "Your comment have been posted successfully.")
-            return redirect('commentPage')
+            return redirect('commentPage', id = id)
         else:
             messages.error(request, "There was an error posting your comment.")
-            return redirect('commentPage')
+            return redirect('commentPage', id = id)
     
 
-def editComment(request, id):
-    return redirect('commentPage')
+def editComment(request, id, comment_id):
 
-def deleteComment(request, id):
-    return redirect('commentPage')
+
+
+    return redirect('commentPage', id = id)
+
+def deleteComment(request, id, comment_id):
+    return redirect('commentPage', id = id)

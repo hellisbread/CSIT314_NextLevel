@@ -12,8 +12,11 @@
     <p>Rating: {{comment.rating}}</p>
     <p>Posted by: {{comment.commenter}}</p>
     <p>Date: {{comment.sent_date}}</p>
-    <a href="./edit/{{comment.id}}"> Edit </a>
-    <a href="./delete/{{comment.id}}"> Delete </a>
+
+    {% if comment.commenter == reviewer.name %}
+    <a href="./edit/{{review.id}}/{{comment.id}}"> Edit </a>
+    <a href="./delete/{{review.id}}/{{comment.id}}"> Delete </a>
+    {%endif%}
 {% endfor %}
 <hr>
 
