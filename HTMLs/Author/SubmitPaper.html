@@ -13,10 +13,50 @@
         integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!--ALL CSS HERE-->
-    <link rel="stylesheet" type="text/css" href="css/submitPaper.css" />
     <script src="https://kit.fontawesome.com/c1b3b95b1c.js" crossorigin="anonymous"></script>
 
+    <style>
+        @media (min-width: 991.98px) {
+            main {
+                padding-left: 240px;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            padding: 20px 0 0;
+            /* Height of navbar */
+            box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+            width: 240px;
+            z-index: 600;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        .sidebar .active {
+            background-color: rgb(90, 109, 112);;
+            border-radius: 5px;
+            box-shadow: 0 3px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: 0.5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+            /* Scrollable contents if viewport is shorter than content. */
+        }
+    </style>
 </head>
 
 <body style = "font-family: Arial, Helvetica, sans-serif;">
@@ -39,10 +79,10 @@
                     </a>
                     <a href="#" class="list-group-item list-group-item-action active">
                     <i class="fa-solid fa-file-arrow-up me-3"></i>
-                    <span">Submit Paper</span>
+                    <span>Submit Paper</span>
                     </a>
                     
-                    <a href="../loginPage2.html" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="../index.html" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fa-solid fa-right-from-bracket me-3"></i>
                         <span>Log Out</span></a>
                     
@@ -57,13 +97,13 @@
     <main style="margin-top: 50px; margin-left: 30px; margin-right: 30px; margin-bottom: 50px;">
         <!-- INSERT ALL CONTENT HERE -->
         <div class="card rounded-10 text-black" 
-                    style="background: rgba(238, 238, 238, 0.9);
+            style="background: rgba(238, 238, 238, 0.9);
                         border: 0ch;">
             <div class="card rounded-5 text-black" 
-            style="background: rgba(245, 243, 243,0);
-                border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">        
+                style="background: rgba(245, 243, 243,0);
+                        border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">        
                 <h3 class = "text-center"  style = "font-weight: bold;">
-                    Submit Paper <hr></h3>
+                            Submit Paper <hr></h3>
         
                 <div class="col-lg-12">
                     <form>
@@ -83,32 +123,31 @@
             
                         <div class="card" style="float: left; margin-left: 50px; background: rgba(255, 255, 255,0); border: 0ch;">
                             <span style = "font-weight: bold; font-size: large;">Upload paper here:</span> </br>
-                            <!-- <span style = "font-size: 40px;"><i class="fa-solid fa-file"></i></span> -->
+                            
                             <div class="form-group" style="background: rgba(255, 255, 255,0); border: 0ch;">
                                 <input type="file" class="form-control-file" id="exampleFormControlFile1"
                                     style="width: fit-content;">
                             </div>
-                        </br>
-                            <span style = "font-weight: bold; font-size: large;">Choose author(s): </span>
+                            <span style = "font-weight: bold; font-size: large;"></br>Choose author(s): </span>
                             <select name = "authors" id = "authors" multiple>
                                 <option value = "1">Author Oney</option>
-                                <option value = "1">Author Two</option>
-                                <option value = "1">???</option>
-                                <option value = "1">Author 1</option>
+                                <option value = "2">Author Two</option>
+                                <option value = "3">???</option>
+                                <option value = "4">Author 1</option>
                             </select>
                         </br>
                         </div>
-                    </div>
-            </div>
-
-            <div class="card rounded-10 text-black" 
-            style="background: rgba(245, 243, 243,0);
-                border: 0ch;margin-top: 30px;">
-                <div class="text-center pt-1 mb-5 pb-1">
-                    <button class="btn btn-block btn-outline-secondary"
-                        type="button" style = "height:40px;">Submit</button>
                 </div>
-            </div>
+                </div>
+
+                <div class="card rounded-10 text-black" 
+                style="background: rgba(245, 243, 243,0);
+                    border: 0ch;margin-top: 30px;">
+                    <div class="text-center pt-1 mb-5 pb-1">
+                        <button class="btn btn-block btn-outline-secondary"
+                            type="button" style = "height:40px;">Submit</button>
+                    </div>
+                </div>
             </form>
             </div>
         </div>
