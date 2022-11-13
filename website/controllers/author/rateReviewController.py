@@ -24,14 +24,25 @@ def rateReview(request):
         for review in review_list:
             paper = Paper.getPaper(review.paper_id)
             author_list = list(paper.authors.all().values_list('id', flat=True))
-            # review.paper_id, review.reviewer_id, author_id
             authorHasReviewed = ReviewRating.objects.filter(paper_id = review.paper_id).filter(reviewer_id = review.reviewer_id).filter(author_id=author_id).count()
 
             if author_id in author_list and authorHasReviewed == 0:
                 final_review_list.append(review)
             
         # view rated review
-        reviewRating_list = ReviewRating.getAllReviewRatingByAuthorID(author_id)
+        reviewRating_list = ReviewRating.getAllReviewRating()
+        print(reviewRating_list)
+        finalReviewRating_list = []
+        for reviewRating in reviewRating_list:
+            print(reviewRating.paper_id)
+            paper = Paper.getPaper(reviewRating.paper_id)
+            print(f'paper{paper}')
+            author_list = list(paper.authors.all().values_list('id', flat=True))
+            print(f'author:{author_id}')
+            print(f'author_list{author_list}')
+            if author_id in author_list:
+                print("true")
+                finalReviewRating_list.append(reviewRating)
 
-        context = {'final_review_list': final_review_list, 'reviewRating_list': reviewRating_list}
+        context = {'final_review_list': final_review_list, 'finalReviewRating_list': finalReviewRating_list}
         return render(request, 'author/rateReview.html', context)

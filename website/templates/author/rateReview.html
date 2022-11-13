@@ -50,15 +50,20 @@
         <td>Reviewer ID</td>
         <td>Rated by</td>
         <td>Rating</td>
+        <td>Delete</td>
     </tr>
+    {% for reviewRating in finalReviewRating_list %}
     <tr>
-        {% for reviewRating in reviewRating_list %}
         <td>{{reviewRating.id}}</td>
         <td>{{reviewRating.paper_id}}</td>
         <td>{{reviewRating.reviewer_id}}</td>
         <td>Author ID {{reviewRating.author_id}}</td>
         <td>{{ reviewRating.rating }}</td>
-        {% endfor %}
+        <form action="../rateReviewPage/" method="post">
+        {% csrf_token %}
+        <td><input type="Submit" value="Delete" name="Delete"></td>
+        </form>
     </tr>
+    {% endfor %}
 
 </table>

@@ -786,6 +786,11 @@ class ReviewRating(models.Model):
 
         return True        
 
+    def getAllReviewRating():
+        reviewRating_list = ReviewRating.objects.all()
+
+        return reviewRating_list
+
     def getAllReviewRatingByAuthorID(id):
         reviewRating_list = ReviewRating.objects.filter(author_id=id)
 
