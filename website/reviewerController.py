@@ -235,7 +235,6 @@ def createComment(request, id):
             messages.error(request, "There was an error posting your comment.")
             return redirect('commentPage', id = id)
     
-
 def editComment(request):
 
     if (request.POST):
@@ -253,9 +252,16 @@ def editComment(request):
         else:
             messages.error(request, "There was an error updating your comment.")
             return redirect('commentPage', id = id)
+    else:
+        return redirect('index')
 
 def deleteComment(request, id, comment_id):
 
+    success = Comment.deleteComment(comment_id)
 
-
-    return redirect('commentPage', id = id)
+    if(success):
+        messages.success(request, "Your comment has been deleted.")
+        return redirect('commentPage', id = id)
+    else:
+        messages.error(request, "There was an error deleting your comment.")
+        return redirect('commentPage', id = id)

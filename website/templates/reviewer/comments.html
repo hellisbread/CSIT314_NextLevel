@@ -23,6 +23,7 @@
     {% if comment.commenter == reviewer.name %}
     <button type="button" . class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
                   onclick="setDetails(review_id = '{{review.id}}', comment_id = '{{comment.id}}', description = '{{comment.description}}', rating = '{{comment.rating}}')" name="editComment"> Edit </button>
+                  
     <a href="./delete/{{review.id}}/{{comment.id}}"> Delete </a>
     {%endif%}
     <br/><br/>
