@@ -600,6 +600,12 @@ class Bidded_Paper(models.Model):
         
         return True
 
+    def updateSubmission(self, datetime):
+        self.submission_date = datetime
+        self.save()
+
+        return True
+
     def getBiddedPaper(id):
         try:
             biddedPaper = Bidded_Paper.objects.get(id = id)
@@ -636,8 +642,6 @@ class Bidded_Paper(models.Model):
 
         return bid_list
 
-
-
     def deleteBiddedPaperByID(id):
         try:
             biddedPaper = Bidded_Paper.objects.get(id=id)
@@ -652,9 +656,7 @@ class Bidded_Paper(models.Model):
         self.delete()
 
         return True
-    
-    
-       
+           
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)

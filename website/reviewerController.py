@@ -144,6 +144,8 @@ def createReview(request, id):
 
         if(success):
             bidPaper.updateStatus("2")
+            bidPaper.updateSubmission(timezone.now)
+            
             messages.success(request, "Successfully submitted your review. Thank you for your submission.")
             return redirect('reviewPaper', id = id)
         else:
@@ -198,7 +200,14 @@ def deleteReview(request, id):
         return redirect('reviewPaper', id = id)
 
 def commentPage(request, id):
-    return True
+
+    reviewer_id = request.session['ReviewerLogged']
+
+    reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+    review = Review.getReview(id)
+
+    return render(request, 'reviewer/comments.html', {'review':review})
 
 def createComment(request, id):
     return True
