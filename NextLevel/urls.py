@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from website import views, loginController, authorController, systemAdminController, reviewerController, conferenceChairController
+from website import views, loginController, authorController, conferenceChairController
 
-from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController
+from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController, systemAdminController
 from website.controllers.author import submitPaperController, viewPaperController, rateReviewController
 from website.controllers.reviewer import bidController, commentController, reviewController, settingsController, viewbiddedPaperController
 urlpatterns = [
