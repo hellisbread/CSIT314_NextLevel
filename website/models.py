@@ -600,6 +600,12 @@ class Bidded_Paper(models.Model):
         
         return True
 
+    def updateSubmission(self, datetime):
+        self.submission_date = datetime
+        self.save()
+
+        return True
+
     def getBiddedPaper(id):
         try:
             biddedPaper = Bidded_Paper.objects.get(id = id)
@@ -636,8 +642,6 @@ class Bidded_Paper(models.Model):
 
         return bid_list
 
-
-
     def deleteBiddedPaperByID(id):
         try:
             biddedPaper = Bidded_Paper.objects.get(id=id)
@@ -652,9 +656,7 @@ class Bidded_Paper(models.Model):
         self.delete()
 
         return True
-    
-    
-       
+           
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
@@ -713,17 +715,13 @@ class Review(models.Model):
 
     def getAllReviewByPaperID(id):
         return False
-    
-    def getAllReview():
-        review_list = Review.objects.all()
-
-        return review_list
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     commenter = models.CharField(max_length=255)
     rating = models.IntegerField(default=0)
     description = models.TextField()
+    sent_date = models.DateTimeField(default = timezone.now)
 
     class Meta:
         db_table = 'comment'
@@ -736,32 +734,30 @@ class Comment(models.Model):
         return True
 
     def updateComment(id, rating, description):
-        return False
+        comment = Comment.getCommentByID(id)
+
+        comment.rating = rating
+        comment.description = description
+
+        comment.save()
+
+        return True
 
     def deleteComment(id):
-        return False
+        comment = Comment.getCommentByID(id)
+
+        comment.delete()
+
+        return True
+
+    def getCommentByID(id):
+        try:
+            comment = Comment.objects.get(id=id)
+            
+            return comment
+
+        except (Comment.DoesNotExist, ObjectDoesNotExist):
+            return None
 
     def getAllCommentByReviewID(id):
-        return False
-
-class ReviewRating(models.Model):
-    paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
-    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE) # created by
-    rating = models.IntegerField(default=0)
-
-    @classmethod
-    def createReviewRating(cls, paper, reviewer, author, rating):
-
-        reviewRating = cls(paper = paper, reviewer = reviewer, author = author, rating = int(rating))
-        reviewRating.save()
-
-        return True        
-
-    def getAllReviewRatingByAuthorID(id):
-        reviewRating_list = ReviewRating.objects.filter(author_id=id)
-
-        return reviewRating_list
-
-     
-
+        comments = Comment.objects.filter(review_id = id).values()
