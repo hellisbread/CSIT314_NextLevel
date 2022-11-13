@@ -144,8 +144,8 @@ def createReview(request, id):
 
         if(success):
             bidPaper.updateStatus("2")
-            bidPaper.updateSubmission(timezone.now)
-            
+            bidPaper.updateSubmission(timezone.now())
+
             messages.success(request, "Successfully submitted your review. Thank you for your submission.")
             return redirect('reviewPaper', id = id)
         else:

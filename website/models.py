@@ -721,6 +721,7 @@ class Comment(models.Model):
     commenter = models.CharField(max_length=255)
     rating = models.IntegerField(default=0)
     description = models.TextField()
+    sent_date = models.DateTimeField(default = timezone.now)
 
     class Meta:
         db_table = 'comment'
