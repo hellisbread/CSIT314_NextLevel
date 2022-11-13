@@ -1,0 +1,109 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+<h1>Review Details</h1>
+
+{% for message in messages %}
+<div>{{ message }}</div> <br>
+{% endfor %}
+
+<h4>{{review.title}}</h4>
+<p>{{review.description}}</p>
+<p>Rating/Score: {{review.rating}}</p>
+
+<hr>
+
+<h1>Comments</h1>
+{% for comment in comments %}
+    <p>{{comment.description}}</p>
+    <p>Rating: {{comment.rating}}</p>
+    <p>Posted by: {{comment.commenter}}</p>
+    <p>Date: {{comment.sent_date}}</p>
+
+    {% if comment.commenter == reviewer.name %}
+    <button type="button" . class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
+                  onclick="setDetails(review_id = '{{review.id}}', comment_id = '{{comment.id}}', description = '{{comment.description}}', rating = '{{comment.rating}}')" name="editComment"> Edit </button>
+                  
+    <a href="./delete/{{review.id}}/{{comment.id}}"> Delete </a>
+    {%endif%}
+    <br/><br/>
+{% endfor %}
+<hr>
+
+<h1>Add a comment</h1>
+
+<form action="./create/{{review.id}}" method="POST">
+
+    {% csrf_token %}
+
+    Comment: <br />
+    <textarea name="description" rows="4" cols="50">
+  
+    </textarea>
+    <br /><br />
+    Rating/Score: <br />
+    <select name="rating">
+      <option value="3">Strong Accept</option>
+      <option value="2">Accept</option>
+      <option value="1">Weak Accept</option>
+      <option value="0">Borderline Paper</option>
+      <option value="-1">Weak Reject</option>
+      <option value="-2">Reject</option>
+      <option value="-3">Strong Reject</option>
+    </select>
+    <br /><br />
+  
+    <input type="submit" value="Submit" />
+  </form>
+
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Comment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form method="POST" action="./edit">
+          <div class="modal-body">
+            {% csrf_token %}
+            <input type="hidden" id="review_id" value="" name="review_id">
+            <input type="hidden" id="comment_id" value="" name="comment_id">
+            
+            Comment: <br />
+            <textarea name="description" id="descriptionField" rows="4" cols="50">
+              
+            </textarea>
+            <br /><br />
+            Rating/Score: <br />
+            <select name="rating" id="ratingField">
+              <option value="3">Strong Accept</option>
+              <option value="2">Accept</option>
+              <option value="1">Weak Accept</option>
+              <option value="0">Borderline Paper</option>
+              <option value="-1">Weak Reject</option>
+              <option value="-2">Reject</option>
+              <option value="-3">Strong Reject</option>
+            </select>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" name="grade">Submit</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    <!-- JavaScript(s) -->
+    {% block javascript %}
+    <script type="text/javascript">
+      function setDetails(review_id, comment_id, description, rating) {
+        document.getElementById("review_id").value = review_id
+        document.getElementById("comment_id").value = comment_id
+        document.getElementById("descriptionField").value = description
+        document.getElementById("ratingField").value = rating
+      }
+    </script>
+    {% endblock %}
+
+

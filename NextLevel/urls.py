@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from website import views, loginController, authorController, systemAdminController, reviewerController, conferenceChairController
+from website import views, loginController, authorController, conferenceChairController
 
-from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController
-from website.controllers.author import submitPaperController, viewPaperController
+from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController, systemAdminController
+from website.controllers.author import submitPaperController, viewPaperController, rateReviewController
+from website.controllers.reviewer import bidController, commentController, reviewController, settingsController, viewbiddedPaperController
 urlpatterns = [
     #General URL
     path('', loginController.index, name = 'index'),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('author/', authorController.authorPage, name = 'authorPage'),
     path('author/submitPaperPage/', submitPaperController.submitPaperPage, name ='submitPaperPage'),
     path('author/viewPaperPage/', viewPaperController.viewPaperPage, name='viewPaperPage'),
+    path('author/rateReviewPage/', rateReviewController.rateReview, name = 'rateReview'),
     path('author/viewPaperPage/deleteSubmittedPaper/<int:id>', viewPaperController.deleteSubmittedPaper, name='deleteSubmittedPaper'),
     path('author/viewPaperPage/readSubmittedPaper/<int:id>', viewPaperController.readSubmittedPaper, name = 'readSubmittedPaper'),
     path('author/viewPaperPage/updateSubmittedPaper/<int:id>', viewPaperController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
@@ -40,21 +42,20 @@ urlpatterns = [
     path('admin/update_conference/<int:id>', updateConferenceController.updateConfs, name='update_conference'),
     path('admin/update_admin/<int:id>', updateAdminController.updateAdmins, name='update_admin'),
     #Reviewer URL
-    path('reviewer/', reviewerController.reviewerPage, name ='reviewerPage'),
-    path('reviewer/bid/', reviewerController.bidPaper, name='bidPaper'),
-    path('reviewer/bid/add/<int:id>', reviewerController.addBidPaper, name='addBidPaper'),
-    path('reviewer/bid/delete/<int:id>', reviewerController.deleteBidPaper, name='deleteBidPaper'),
-    path('reviewer/settings/', reviewerController.settings, name='settings'),
-    path('reviewer/settings/update', reviewerController.updateSettings, name='updateSettings'),
-    path('reviewer/papers/', reviewerController.biddedPaperPage, name='biddedPaper'),
-    path('reviewer/papers/review/<int:id>',reviewerController.reviewPage, name='reviewPaper'),
-    path('reviewer/papers/review/create/<int:id>',reviewerController.createReview, name='createReview'),
-    path('reviewer/papers/review/edit/<int:id>',reviewerController.editReview, name='editReview'),
-    path('reviewer/papers/review/delete/<int:id>',reviewerController.deleteReview, name='deleteReview'),
-    path('reviewer/papers/review/comment/<int:id>',reviewerController.commentPage, name='commentPage'),
-    path('reviewer/papers/review/comment/create/<int:id>',reviewerController.createComment, name='createComment'),
-    path('reviewer/papers/review/comment/edit/<int:id>',reviewerController.editComment, name='editComment'),
-    path('reviewer/papers/review/comment/delete/<int:id>',reviewerController.deleteComment, name='deleteComment'),
+    path('reviewer/', viewbiddedPaperController.biddedPaperPage, name='biddedPaper'),
+    path('reviewer/bid/', bidController.bidPaper, name='bidPaper'),
+    path('reviewer/bid/add/<int:id>', bidController.addBidPaper, name='addBidPaper'),
+    path('reviewer/bid/delete/<int:id>', bidController.deleteBidPaper, name='deleteBidPaper'),
+    path('reviewer/settings/', settingsController.settings, name='settings'),
+    path('reviewer/settings/update', settingsController.updateSettings, name='updateSettings'),
+    path('reviewer/review/<int:id>',reviewController.reviewPage, name='reviewPaper'),
+    path('reviewer/review/create/<int:id>',reviewController.createReview, name='createReview'),
+    path('reviewer/review/edit/<int:id>',reviewController.editReview, name='editReview'),
+    path('reviewer/review/delete/<int:id>',reviewController.deleteReview, name='deleteReview'),
+    path('reviewer/review/comments/<int:id>',commentController.commentPage, name='commentPage'),
+    path('reviewer/review/comments/create/<int:id>',commentController.createComment, name='createComment'),
+    path('reviewer/review/comments/edit',commentController.editComment, name='editComment'),
+    path('reviewer/review/comments/delete/<int:id>/<int:comment_id>',commentController.deleteComment, name='deleteComment'),
     #Conference Chair URL
     path('conferenceChair/', conferenceChairController.conferenceChairPage, name = 'conferenceChairPage'),
     path('conferenceChair/allocationPaper/', conferenceChairController.allocationPaper, name ='allocationPaper'),
