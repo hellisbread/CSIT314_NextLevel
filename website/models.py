@@ -713,6 +713,9 @@ class Review(models.Model):
 
         return reviews
 
+    def getAllReviewByPaperID(id):
+        return False
+
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     commenter = models.CharField(max_length=255)
@@ -761,5 +764,3 @@ class Comment(models.Model):
 
     def getAllCommentByReviewID(id):
         comments = Comment.objects.filter(review_id = id).values()
-
-        return comments

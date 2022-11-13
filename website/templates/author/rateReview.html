@@ -1,0 +1,64 @@
+<h1>Rate Review</h1>
+<a href="{% url 'authorPage' %}">Author page</a> <br>
+<a href="{% url 'viewPaperPage' %}">View paper page</a> <br>
+<a href="{% url 'rateReview' %}"> Rate Review</a> <br>
+<a href="{% url 'logout'%}">logout</a>
+
+{% if messages %} {% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %} {% endif %}
+
+<table border="1">
+    <tr>
+        <td>Paper ID</td>
+        <td>Reviewer ID</td>
+        <td>View Review Button</td>
+        <td>Rate Button</td>
+    </tr>
+
+    {% for review in final_review_list%}
+    <tr>
+        <td>{{ review.paper_id }}</td>
+        <td>{{ review.reviewer_id }}</td>
+        <td><a href="#">View Review</a></td>
+        <form action="../rateReviewPage/" method="post">
+        {% csrf_token %}
+        <input name="paper_id" value="{{ review.paper_id }}" style="display: none" />
+        <input name="reviewer_id" value="{{ review.reviewer_id }}" style="display: none" />
+        <td>
+             Rating: <br />
+            <select name="rating">
+            <option value="3" {% if review.rating == 3 %}selected{%endif%}>Strong Accept</option>
+            <option value="2" {% if review.rating == 2 %}selected{%endif%}>Accept</option>
+            <option value="1" {% if review.rating == 1 %}selected{%endif%}>Weak Accept</option>
+            <option value="0" {% if review.rating == 0 %}selected{%endif%}>Borderline Paper</option>
+            <option value="-1" {% if review.rating == -1 %}selected{%endif%}>Weak Reject</option>
+            <option value="-2" {% if review.rating == -2 %}selected{%endif%}>Reject</option>
+            <option value="-3" {% if review.rating == -3 %}selected{%endif%}>Strong Reject</option>
+            </select>
+            <br><input type="Submit" value="save" name="rate"></td>
+        </form>
+    </tr>
+    {% endfor %}
+</table>
+
+<h1>View Rated Review</h1>
+<table border="1">
+    <tr>
+        <td>Rate ID</td>
+        <td>Paper ID</td>
+        <td>Reviewer ID</td>
+        <td>Rated by</td>
+        <td>Rating</td>
+    </tr>
+    <tr>
+        {% for reviewRating in reviewRating_list %}
+        <td>{{reviewRating.id}}</td>
+        <td>{{reviewRating.paper_id}}</td>
+        <td>{{reviewRating.reviewer_id}}</td>
+        <td>Author ID {{reviewRating.author_id}}</td>
+        <td>{{ reviewRating.rating }}</td>
+        {% endfor %}
+    </tr>
+
+</table>
