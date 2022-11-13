@@ -7,11 +7,41 @@
 <hr>
 
 <h1>Comments</h1>
-
-
-
+{% for comment in comments %}
+    <p>{{comment.description}}</p>
+    <p>Rating: {{comment.rating}}</p>
+    <p>Posted by: {{comment.commenter}}</p>
+    <p>Date: {{comment.sent_date}}</p>
+    <a href="./edit/{{comment.id}}"> Edit </a>
+    <a href="./delete/{{comment.id}}"> Delete </a>
+{% endfor %}
 <hr>
+
 <h1>Add a comment</h1>
+
+<form action="./create/{{review.id}}" method="POST">
+
+    {% csrf_token %}
+
+    Comment: <br />
+    <textarea name="description" rows="4" cols="50">
+  
+    </textarea>
+    <br /><br />
+    Rating/Score: <br />
+    <select name="rating">
+      <option value="3">Strong Accept</option>
+      <option value="2">Accept</option>
+      <option value="1">Weak Accept</option>
+      <option value="0">Borderline Paper</option>
+      <option value="-1">Weak Reject</option>
+      <option value="-2">Reject</option>
+      <option value="-3">Strong Reject</option>
+    </select>
+    <br /><br />
+  
+    <input type="submit" value="Submit" />
+  </form>
 
 
 

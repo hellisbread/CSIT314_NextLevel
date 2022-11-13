@@ -724,7 +724,10 @@ class Comment(models.Model):
         db_table = 'comment'
 
     @classmethod
-    def createComment(cls, review, commenter, rating, description):
+    def createComment(cls, review_id, commenter, rating, description):
+
+        review = Review.getReview(review_id)
+
         comment = cls(review = review, commenter = commenter, rating = rating, description = description)
         comment.save()
 
@@ -750,7 +753,7 @@ class Comment(models.Model):
     def getCommentByID(id):
         try:
             comment = Comment.objects.get(id=id)
-            
+
             return comment
 
         except (Comment.DoesNotExist, ObjectDoesNotExist):

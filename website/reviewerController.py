@@ -201,19 +201,37 @@ def deleteReview(request, id):
 
 def commentPage(request, id):
 
-    reviewer_id = request.session['ReviewerLogged']
-
-    reviewer = Reviewer.getReviewerByID(reviewer_id)
+    
 
     review = Review.getReview(id)
 
-    return render(request, 'reviewer/comments.html', {'review':review})
+    comments = Comment.getAllCommentByReviewID(id)
+
+    return render(request, 'reviewer/comments.html', {'review':review , 'comments':comments})
 
 def createComment(request, id):
-    return True
+
+    if (request.POST):
+
+        rating = request.POST['rating']
+        description = request.POST['description']
+
+        reviewer_id = request.session['ReviewerLogged']
+
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+        success = Comment.createComment(id, reviewer.name, rating, description)
+
+        if(success):
+            messages.success(request, "Your comment have been posted successfully.")
+            return redirect('commentPage')
+        else:
+            messages.error(request, "There was an error posting your comment.")
+            return redirect('commentPage')
+    
 
 def editComment(request, id):
-    return True
+    return redirect('commentPage')
 
 def deleteComment(request, id):
-    return True
+    return redirect('commentPage')
