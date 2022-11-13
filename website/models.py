@@ -713,6 +713,11 @@ class Review(models.Model):
 
     def getAllReviewByPaperID(id):
         return False
+    
+    def getAllReview():
+        review_list = Review.objects.all()
+
+        return review_list
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
@@ -738,3 +743,25 @@ class Comment(models.Model):
 
     def getAllCommentByReviewID(id):
         return False
+
+class ReviewRating(models.Model):
+    paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE) # created by
+    rating = models.IntegerField(default=0)
+
+    @classmethod
+    def createReviewRating(cls, paper, reviewer, author, rating):
+
+        reviewRating = cls(paper = paper, reviewer = reviewer, author = author, rating = int(rating))
+        reviewRating.save()
+
+        return True        
+
+    def getAllReviewRatingByAuthorID(id):
+        reviewRating_list = ReviewRating.objects.filter(author_id=id)
+
+        return reviewRating_list
+
+     
+

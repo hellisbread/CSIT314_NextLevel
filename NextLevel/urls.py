@@ -19,7 +19,7 @@ from django.urls import path
 from website import views, loginController, authorController, systemAdminController, reviewerController, conferenceChairController
 
 from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController
-from website.controllers.author import submitPaperController, viewPaperController
+from website.controllers.author import submitPaperController, viewPaperController, rateReviewController
 urlpatterns = [
     #General URL
     path('', loginController.index, name = 'index'),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('author/', authorController.authorPage, name = 'authorPage'),
     path('author/submitPaperPage/', submitPaperController.submitPaperPage, name ='submitPaperPage'),
     path('author/viewPaperPage/', viewPaperController.viewPaperPage, name='viewPaperPage'),
+    path('author/rateReviewPage/', rateReviewController.rateReview, name = 'rateReview'),
     path('author/viewPaperPage/deleteSubmittedPaper/<int:id>', viewPaperController.deleteSubmittedPaper, name='deleteSubmittedPaper'),
     path('author/viewPaperPage/readSubmittedPaper/<int:id>', viewPaperController.readSubmittedPaper, name = 'readSubmittedPaper'),
     path('author/viewPaperPage/updateSubmittedPaper/<int:id>', viewPaperController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
