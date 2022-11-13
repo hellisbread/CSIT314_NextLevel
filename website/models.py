@@ -713,9 +713,6 @@ class Review(models.Model):
 
         return reviews
 
-    def getAllReviewByPaperID(id):
-        return False
-
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     commenter = models.CharField(max_length=255)
@@ -734,10 +731,32 @@ class Comment(models.Model):
         return True
 
     def updateComment(id, rating, description):
-        return False
+        comment = Comment.getCommentByID(id)
+
+        comment.rating = rating
+        comment.description = description
+
+        comment.save()
+
+        return True
 
     def deleteComment(id):
-        return False
+        comment = Comment.getCommentByID(id)
+
+        comment.delete()
+
+        return True
+
+    def getCommentByID(id):
+        try:
+            comment = Comment.objects.get(id=id)
+            
+            return comment
+
+        except (Comment.DoesNotExist, ObjectDoesNotExist):
+            return None
 
     def getAllCommentByReviewID(id):
-        return False
+        comments = Comment.objects.filter(review_id = id).values()
+
+        return comments
