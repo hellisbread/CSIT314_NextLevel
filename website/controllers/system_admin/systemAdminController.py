@@ -1,17 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.contrib import messages
 
 from website.models import Users, Author, ConferenceChair, Reviewer, SystemAdmin
 
 def systemAdminPage(request):
 
-    Authors = Author.getAllActiveAuthor()
-    ConfChairs = ConferenceChair.getAllActiveConferenceChair()
-    Reviewers = Reviewer.getAllActiveReviewer()
-    SysAdmins = SystemAdmin.getAllActiveSystemAdmin()
+    if 'SysAdminLogged' in request.session:
+        Authors = Author.getAllActiveAuthor()
+        ConfChairs = ConferenceChair.getAllActiveConferenceChair()
+        Reviewers = Reviewer.getAllActiveReviewer()
+        SysAdmins = SystemAdmin.getAllActiveSystemAdmin()
 
-    context = {'authors':Authors,'confchairs':ConfChairs,'reviewers':Reviewers,'sysadmins':SysAdmins}
+        context = {'authors':Authors,'confchairs':ConfChairs,'reviewers':Reviewers,'sysadmins':SysAdmins}
 
-    print(context)
+        print(context)
 
-    return render(request, 'admin/systemAdmin.html', context)
+        return render(request, 'admin/systemAdmin.html', context)
+    else:
+        messages.error(request, "Please login before accessing this page.")
+        return redirect('index')
 
