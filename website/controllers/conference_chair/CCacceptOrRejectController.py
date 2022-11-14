@@ -10,7 +10,6 @@ def acceptOrReject(request):
         paper = Paper.getPaper(paper_id)
         author_id_list = paper.getAllAuthorID()
         if request.POST.get("accept"):
-            # author_id_list = paper.authors.all().values_list('id', flat=True)
             success = paper.updateStatus("Accepted")
             for author_id in author_id_list:
                 author_email = Author.getAuthorEmail(author_id)
@@ -24,7 +23,6 @@ def acceptOrReject(request):
                 messages.success(request, f"Successfully send the email to Author ID {author_id}")
 
         elif request.POST.get("reject"):
-            # author_id_list = paper.authors.all().values_list('id', flat=True)
             success = paper.updateStatus("Rejected")
             for author_id in author_id_list:
                 author_email = Author.getAuthorEmail(author_id)
@@ -38,7 +36,6 @@ def acceptOrReject(request):
                 messages.success(request, f"Successfully send the email to Author ID {author_id}")
 
         elif request.POST.get("cancel"):
-            # author_id_list = paper.authors.all().values_list('id', flat=True)
             success = paper.updateStatus("Not Accessed")
             for author_id in author_id_list:
                 author_email = Author.getAuthorEmail(author_id)
