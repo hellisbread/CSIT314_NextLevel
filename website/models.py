@@ -577,7 +577,16 @@ class Paper(models.Model):
         text = self.saved_file.read().decode("utf-8")
 
         return text
+
+    def getAllUnAccessedPaper():
+        paper_list = Paper.objects.filter(status="Not Accessed").all()
         
+        return paper_list
+    
+    def getAllAcceptedRejectedPaper():
+        paper_list = Paper.objects.filter(~Q(status="Not Accessed"))
+        
+        return paper_list
 class Bidded_Paper(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
@@ -636,6 +645,46 @@ class Bidded_Paper(models.Model):
         reviewer = Reviewer.getReviewerByID(id)
 
         bid_list = Bidded_Paper.objects.filter(reviewer = reviewer).filter(status='1').values()
+
+        return bid_list
+    
+    def getAssignedPaperByPaperIDAndReviewerID(paper_id, reviewer_id):
+        bid_list = Bidded_Paper.objects.filter(status=1).filter(paper_id=paper_id).filter(reviewer_id=reviewer_id)
+
+        return bid_list[0]
+
+    def getAllUnassignedPaperID():
+        paper_id_list = Bidded_Paper.objects.all().filter(status=0).values('paper_id').distinct()
+
+        return paper_id_list
+
+    def getAllAssignedPaperID():
+            paper_id_list = Bidded_Paper.objects.all().filter(status=1).values('paper_id').distinct()
+
+            return paper_id_list
+
+    def getAllUnassignedReviewerID(paper_id):
+        reviewer_id_list = Bidded_Paper.objects.filter(status=0).filter(paper_id=paper_id['paper_id']).values('reviewer_id').distinct()
+
+        return reviewer_id_list
+    
+    def getAllAssignedReviewerID(paper_id):
+        reviewer_id_list = Bidded_Paper.objects.filter(status=1).filter(paper_id=paper_id).values('reviewer_id').distinct()
+
+        return reviewer_id_list
+    
+    def getNumberOfAssignedPaperByReviewerID(reviewer_id):
+        numberOfAssignedPaperByreviewerID = Bidded_Paper.objects.filter(status=1).filter(reviewer_id = reviewer_id).count()
+        
+        return numberOfAssignedPaperByreviewerID
+
+    def getPaperByPaperIDAndReviewerID(paper_id, reviewer_id):
+        bid_list = Bidded_Paper.objects.filter(paper_id=paper_id).filter(reviewer_id=reviewer_id)
+
+        return bid_list
+    
+    def getAllReviewerIDunassignedPaper(paper_id):
+        bid_list = Bidded_Paper.objects.filter(status=0).filter(paper_id=paper_id).values_list('reviewer_id').distinct()
 
         return bid_list
 
@@ -732,7 +781,6 @@ class Review(models.Model):
         paper_list = list(Review.objects.values_list('paper_id', flat=True).distinct())
 
         return paper_list
-
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)

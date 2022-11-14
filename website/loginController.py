@@ -54,7 +54,7 @@ def checkLogin(request):
 
                 request.session['ConfLogged'] = Conf.id
 
-                return redirect('allocationPaper') #TOBEUPDATED
+                return redirect('CCallocationPaper') #TOBEUPDATED
 
             else:
                 messages.error(request, "Invalid username or password.")

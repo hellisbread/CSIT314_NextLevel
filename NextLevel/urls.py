@@ -22,7 +22,7 @@ from website.controllers.system_admin import updateAuthorController, updateAdmin
 from website.controllers.author import authorViewPaperController, authorSubmitPaperController, authorRateReviewController, authorViewReviewController, authorReadSubmittedPaperController, authorUpdateSubmittedPaperController
 
 from website.controllers.reviewer import bidController, commentController, reviewController, settingsController, viewbiddedPaperController
-from website.controllers.conference_chair import CCviewReviewController
+from website.controllers.conference_chair import CCviewReviewController, CCreadSubmittedPaperController, CCacceptOrRejectController, CCallocationPaperController
 
 urlpatterns = [
     #General URL
@@ -61,10 +61,10 @@ urlpatterns = [
     path('reviewer/review/comments/edit',commentController.editComment, name='editComment'),
     path('reviewer/review/comments/delete/<int:id>/<int:comment_id>',commentController.deleteComment, name='deleteComment'),
     #Conference Chair URL
-    path('conferenceChair/allocationPaper/', conferenceChairController.allocationPaper, name ='allocationPaper'),
-    path('conferenceChair/allocationPaper/allocatePaper/<int:id>',conferenceChairController.allocatePaper, name ='allocatePaper'),
-    path('conferenceChair/acceptOrReject/', conferenceChairController.acceptOrReject, name='acceptOrReject'),
-    path('conferenceChair/acceptOrReject/readSubmittedPaper/<int:id>', conferenceChairController.readSubmittedPaper, name='CCreadSubmittedPaper'),
+    path('conferenceChair/allocationPaper/', CCallocationPaperController.allocationPaper, name ='CCallocationPaper'),
+    path('conferenceChair/allocationPaper/allocatePaper/<int:id>',   CCallocationPaperController.allocatePaper, name ='CCallocatePaper'),
+    path('conferenceChair/acceptOrReject/', CCacceptOrRejectController.acceptOrReject, name='CCacceptOrReject'),
+    path('conferenceChair/acceptOrReject/readSubmittedPaper/<int:id>', CCreadSubmittedPaperController.readSubmittedPaper, name='CCreadSubmittedPaper'),
     path('conferenceChair/acceptOrReject/viewReview/<int:id>', CCviewReviewController.viewReview, name='CCviewReview'),
     
     
