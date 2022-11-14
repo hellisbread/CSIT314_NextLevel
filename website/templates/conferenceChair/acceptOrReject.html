@@ -21,15 +21,20 @@
     <td>Accept Button</td>
     <td>Reject Button</td>
   </tr>
-  {% for paper in papers %}
+  {% for paper in papers %} 
   <tr>
     <td>{{paper.id}}</td>
+    {% if paper.id in paperWithReview_list %}
     <td><a href="./viewReview/{{paper.id}}">View Review</a></td>
+    {% else %}
+    <td>No Review</a></td>
+    {% endif %}
     <td>{{paper.topic}}</td>
     <td>{{paper.description}}</td>
     <td>
       <a href="readSubmittedPaper/{{ paper.id }}">{{ paper.fileName }}</a>
     </td>
+   
     <td>
       {% for author in paper.authors.all %}
       <li>Author ID: {{ author.id }}</li>
@@ -42,7 +47,7 @@
       <td><input type="submit" value="Reject" name="reject" /></td>
     </form>
   </tr>
-  {% endfor %}
+  {% endfor %} 
 </table>
 
 <h2>Decision</h2>

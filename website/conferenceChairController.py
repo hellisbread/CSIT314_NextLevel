@@ -116,7 +116,7 @@ def acceptOrReject(request):
 
     # decision table
     papers_decided = Paper.objects.filter(~Q(status="Not Accessed"))
-
+    
     context = {'papers':papers, 'papers_decided':papers_decided}
 
     return render(request, 'conferenceChair/acceptOrReject.html', context)

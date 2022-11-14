@@ -728,6 +728,12 @@ class Review(models.Model):
 
         return review_list
 
+    def getAllPaperID():
+        paper_list = list(Review.objects.values_list('paper_id', flat=True).distinct())
+
+        return paper_list
+
+
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     commenter = models.CharField(max_length=255)
