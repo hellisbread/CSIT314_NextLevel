@@ -30,7 +30,7 @@ urlpatterns = [
     path('checkLogin/', loginController.checkLogin, name='login'),
     path('logout/', views.Logout, name = 'logout'),
     #Authors URL
-    path('author', authorViewPaperController.viewPaper, name='authorViewPaper'),
+    path('author/', authorViewPaperController.viewPaper, name='authorViewPaper'),
     path('author/submitPaper/', authorSubmitPaperController.submitPaper, name ='authorSubmitPaper'),
     path('author/rateReview/', authorRateReviewController.rateReview, name = 'authorRateReview'),
     path('author/rateReview/deleteReviewRating/<int:id>', authorRateReviewController.deleteReviewRating, name = 'authorDeleteReviewRating'),
