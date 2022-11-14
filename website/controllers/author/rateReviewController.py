@@ -46,3 +46,13 @@ def rateReview(request):
 
         context = {'final_review_list': final_review_list, 'finalReviewRating_list': finalReviewRating_list}
         return render(request, 'author/rateReview.html', context)
+
+def deleteReviewRating(request, id):
+    success = ReviewRating.deleteReviewRating(id)
+
+    if(success):
+        messages.success(request, f"Successfully delete reviewRating ID {id}")
+    else:
+        messages.error(request, f"Fail to delete reviewRating ID {id}")
+
+    return redirect('rateReview')

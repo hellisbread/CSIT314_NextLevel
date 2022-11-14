@@ -714,7 +714,9 @@ class Review(models.Model):
         return reviews
 
     def getAllReviewByPaperID(id):
-        return False
+        paper_list = Review.objects.filter(paper_id = id)
+        
+        return paper_list
 
     def getAllReview():
         review_list = Review.objects.all()
@@ -790,8 +792,13 @@ class ReviewRating(models.Model):
         reviewRating_list = ReviewRating.objects.all()
 
         return reviewRating_list
+    
+    def getReviewRatingByID(id):
+        reviewRating = ReviewRating.objects.get(id=id)
+        return reviewRating
 
-    def getAllReviewRatingByAuthorID(id):
-        reviewRating_list = ReviewRating.objects.filter(author_id=id)
+    def deleteReviewRating(id):
+        reviewRating = ReviewRating.getReviewRatingByID(id)
+        reviewRating.delete()
 
-        return reviewRating_list
+        return True

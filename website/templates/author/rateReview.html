@@ -1,7 +1,7 @@
 <h1>Rate Review</h1>
 <a href="{% url 'authorPage' %}">Author page</a> <br>
 <a href="{% url 'viewPaperPage' %}">View paper page</a> <br>
-<a href="{% url 'rateReview' %}"> Rate Review</a> <br>
+<a href="{% url 'rateReview' %}"> Rate review</a> <br>
 <a href="{% url 'logout'%}">logout</a>
 
 {% if messages %} {% for message in messages %}
@@ -10,6 +10,7 @@
 
 <table border="1">
     <tr>
+        <td>Review ID</td>
         <td>Paper ID</td>
         <td>Reviewer ID</td>
         <td>View Review Button</td>
@@ -18,9 +19,10 @@
 
     {% for review in final_review_list%}
     <tr>
+        <td>{{ review.id }}</td>
         <td>{{ review.paper_id }}</td>
         <td>{{ review.reviewer_id }}</td>
-        <td><a href="#">View Review</a></td>
+        <td><a href="./viewReview/{{review.id}}">View Review</a></td>
         <form action="../rateReviewPage/" method="post">
         {% csrf_token %}
         <input name="paper_id" value="{{ review.paper_id }}" style="display: none" />
@@ -45,7 +47,7 @@
 <h1>View Rated Review</h1>
 <table border="1">
     <tr>
-        <td>Rate ID</td>
+        <td>Rate Review ID</td>
         <td>Paper ID</td>
         <td>Reviewer ID</td>
         <td>Rated by</td>
@@ -59,7 +61,7 @@
         <td>{{reviewRating.reviewer_id}}</td>
         <td>Author ID {{reviewRating.author_id}}</td>
         <td>{{ reviewRating.rating }}</td>
-        <form action="../rateReviewPage/" method="post">
+        <form action="./deleteReviewRating/{{reviewRating.id}}" method="post">
         {% csrf_token %}
         <td><input type="Submit" value="Delete" name="Delete"></td>
         </form>

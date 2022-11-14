@@ -19,8 +19,10 @@ from django.urls import path
 from website import views, loginController, authorController, conferenceChairController
 
 from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController, systemAdminController
-from website.controllers.author import submitPaperController, viewPaperController, rateReviewController
+from website.controllers.author import submitPaperController, viewPaperController, rateReviewController, authorViewReviewController
 from website.controllers.reviewer import bidController, commentController, reviewController, settingsController, viewbiddedPaperController
+from website.controllers.conference_chair import CCviewReviewController
+
 urlpatterns = [
     #General URL
     path('', loginController.index, name = 'index'),
@@ -31,6 +33,8 @@ urlpatterns = [
     path('author/submitPaperPage/', submitPaperController.submitPaperPage, name ='submitPaperPage'),
     path('author/viewPaperPage/', viewPaperController.viewPaperPage, name='viewPaperPage'),
     path('author/rateReviewPage/', rateReviewController.rateReview, name = 'rateReview'),
+    path('author/rateReviewPage/deleteReviewRating/<int:id>', rateReviewController.deleteReviewRating, name = 'deleteReviewRating'),
+    path('author/rateReviewPage/viewReview/<int:id>', authorViewReviewController.viewReview, name="authorViewReview"),
     path('author/viewPaperPage/deleteSubmittedPaper/<int:id>', viewPaperController.deleteSubmittedPaper, name='deleteSubmittedPaper'),
     path('author/viewPaperPage/readSubmittedPaper/<int:id>', viewPaperController.readSubmittedPaper, name = 'readSubmittedPaper'),
     path('author/viewPaperPage/updateSubmittedPaper/<int:id>', viewPaperController.updateSubmittedPaper, name = 'updateSubmittedPaper'),
@@ -61,6 +65,8 @@ urlpatterns = [
     path('conferenceChair/allocationPaper/', conferenceChairController.allocationPaper, name ='allocationPaper'),
     path('conferenceChair/allocationPaper/allocatePaper/<int:id>',conferenceChairController.allocatePaper, name ='allocatePaper'),
     path('conferenceChair/acceptOrReject/', conferenceChairController.acceptOrReject, name='acceptOrReject'),
-    path('conferenceChair/acceptOrReject/readSubmittedPaper/<int:id>', conferenceChairController.readSubmittedPaper, name='readSubmittedPaperCC'),
+    path('conferenceChair/acceptOrReject/readSubmittedPaper/<int:id>', conferenceChairController.readSubmittedPaper, name='CCreadSubmittedPaper'),
+    path('conferenceChair/acceptOrReject/viewReview/<int:id>', CCviewReviewController.viewReview, name='CCviewReview'),
+    
     
 ]
