@@ -27,7 +27,7 @@ def checkLogin(request):
                 request.session['AuthorLogged'] = author.id
 
                 #Redirects to author index
-                return redirect('viewPaperPage')
+                return redirect('authorViewPaper')
 
             else:
                 messages.error(request, "Invalid username or password.")

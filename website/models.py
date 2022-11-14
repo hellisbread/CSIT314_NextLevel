@@ -802,3 +802,13 @@ class ReviewRating(models.Model):
         reviewRating.delete()
 
         return True
+
+    def checkAuthorHasNotReviewed(paper_id, reviewer_id, author_id):
+        numberOfReview = ReviewRating.objects.filter(paper_id = paper_id).filter(reviewer_id = reviewer_id).filter(author_id = author_id).count()
+
+        if numberOfReview == 0:
+            authorHasNotReviewed = True
+        else:
+            authorHasNotReviewed = False
+        
+        return authorHasNotReviewed
