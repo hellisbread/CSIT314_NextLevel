@@ -27,7 +27,7 @@ def checkLogin(request):
                 request.session['AuthorLogged'] = author.id
 
                 #Redirects to author index
-                return redirect('authorPage')
+                return redirect('viewPaperPage')
 
             else:
                 messages.error(request, "Invalid username or password.")
@@ -54,7 +54,7 @@ def checkLogin(request):
 
                 request.session['ConfLogged'] = Conf.id
 
-                return redirect('conferenceChairPage') #TOBEUPDATED
+                return redirect('allocationPaper') #TOBEUPDATED
 
             else:
                 messages.error(request, "Invalid username or password.")

@@ -1,6 +1,9 @@
 <h1>Read Submitted Paper</h1>
+<a href="{% url 'authorViewPaper' %}">View paper page</a> <br>
+<a href="{% url 'authorSubmitPaper' %}">Submit paper page</a> <br>
+<a href="{% url 'authorRateReview' %}"> Rate review</a> <br>
+<a href="{% url 'logout'%}">logout</a>
+
 {{ content }}
 
 <br>
-<a href="{% url 'authorPage' %}">Back to author page</a> <br>
-<a href="{% url 'viewPaperPage' %}">Back to view paper page</a>

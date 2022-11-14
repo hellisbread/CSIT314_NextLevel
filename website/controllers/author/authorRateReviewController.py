@@ -13,10 +13,10 @@ def rateReview(request):
         success = ReviewRating.createReviewRating(paper, reviewer, author, rating)
         if(success):
             messages.success(request, "Successfully submitted your rating. Thank you for your submission.")
-            return redirect('rateReview')
+            return redirect('authorRateReview')
         else:
             messages.error(request, "There was an error submitting your rating.")
-            return redirect('rateReview')
+            return redirect('authorRateReview')
     else:
         # rate review
         review_list = Review.getAllReview()
@@ -31,7 +31,6 @@ def rateReview(request):
             
         # view rated review
         reviewRating_list = ReviewRating.getAllReviewRating()
-        print(reviewRating_list)
         finalReviewRating_list = []
         for reviewRating in reviewRating_list:
             print(reviewRating.paper_id)
@@ -41,10 +40,9 @@ def rateReview(request):
             print(f'author:{author_id}')
             print(f'author_list{author_list}')
             if author_id in author_list:
-                print("true")
                 finalReviewRating_list.append(reviewRating)
 
-        context = {'final_review_list': final_review_list, 'finalReviewRating_list': finalReviewRating_list}
+        context = {'final_review_list': final_review_list, 'finalReviewRating_list': finalReviewRating_list, 'loggedAuthor': author_id}
         return render(request, 'author/rateReview.html', context)
 
 def deleteReviewRating(request, id):
@@ -55,4 +53,4 @@ def deleteReviewRating(request, id):
     else:
         messages.error(request, f"Fail to delete reviewRating ID {id}")
 
-    return redirect('rateReview')
+    return redirect('authorRateReview')

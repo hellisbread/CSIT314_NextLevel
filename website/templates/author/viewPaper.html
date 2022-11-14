@@ -95,14 +95,17 @@
               <span>View Paper</span>
             </a>
             <a
-              href="../submitPaperPage"
+              href="author/submitPaper"
               class="list-group-item list-group-item-action"
             >
               <i class="fa-solid fa-file-arrow-up me-3"></i>
               <span>Submit Paper</span>
             </a>
 
-            <a href="../rateReviewPage" class="list-group-item list-group-item-action">
+            <a
+              href="author/rateReview"
+              class="list-group-item list-group-item-action"
+            >
               <i class="fa-solid fa-eye me-3"></i>
               <span>rate Review</span>
             </a>
@@ -188,7 +191,7 @@
                     <p class="fw-normal mb-1">{{ paper.submitted_date }}</p>
                   </td>
                   <td style="text-align: center">
-                    <a href="readSubmittedPaper/{{ paper.id }}"
+                    <a href="author/viewPaper/readSubmittedPaper/{{ paper.id }}"
                       >{{ paper.fileName }}</a
                     >
                   </td>
@@ -201,7 +204,7 @@
                     <button
                       type="button"
                       class="btn btn-link btn-sm btn-rounded"
-                      onclick="location.href='updateSubmittedPaper/{{paper.id}}'"
+                      onclick="location.href='author/viewPaper/updateSubmittedPaper/{{paper.id}}'"
                     >
                       UPDATE
                     </button>
@@ -209,7 +212,7 @@
                     <button
                       type="button"
                       class="btn btn-link btn-sm btn-rounded"
-                      onclick="location.href='deleteSubmittedPaper/{{paper.id}}'"
+                      onclick="location.href='author/viewPaper/deleteSubmittedPaper/{{paper.id}}'"
                     >
                       DELETE
                     </button>

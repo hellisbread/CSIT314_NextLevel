@@ -4,10 +4,7 @@ from ...models import Author, Paper
 
 from django.contrib import messages
 
-def authorPage(request):
-    return render(request, 'author/author.html', {'author_id': id})
-
-def submitPaperPage(request):
+def submitPaper(request):
     author_id = request.session['AuthorLogged']
     if request.method == 'POST':
 
@@ -26,7 +23,7 @@ def submitPaperPage(request):
         else:
             messages.error(request, "Invalid input found. Please ensure all fields are filled.")
 
-        return redirect('viewPaperPage')
+        return redirect('authorViewPaper')
 
     else:
         form = UploadFileForm()

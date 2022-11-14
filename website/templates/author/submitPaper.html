@@ -1,6 +1,10 @@
 <h1>Submit Paper</h1>
+<a href="{% url 'authorViewPaper' %}">View paper page</a> <br>
+<a href="{% url 'authorSubmitPaper' %}">Submit paper page</a> <br>
+<a href="{% url 'authorRateReview' %}"> Rate review</a> <br>
+<a href="{% url 'logout'%}">logout</a>
 
-<form action="../submitPaperPage/" method="post" enctype="multipart/form-data">
+<form action="../submitPaper/" method="post" enctype="multipart/form-data">
   {% csrf_token %}
 
   <p>Topic:</p>
@@ -20,4 +24,3 @@
   <p><input type="submit" value="Upload" /></p>
 </form>
 
-<a href="{% url 'authorPage' %}">Back to author page</a>
