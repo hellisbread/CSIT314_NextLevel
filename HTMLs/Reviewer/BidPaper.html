@@ -1,11 +1,10 @@
-<!-- Havent added the link in the update and delete in the hyperlink
-    Because dont know if need or not xd -->
+<!-- Haven't added BID and REMOVE BID hyperlink -->
 <!DOCTYPE html>
 <html>
 <head>
    <meta charset='utf-8'>
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>NextLevel - Bid Paper</title>
+   <title>NextLevel - Bid Paper (Reviewer)</title>
 
    <!-- CSS -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -52,6 +51,32 @@
            overflow-y: auto;
            /* Scrollable contents if viewport is shorter than content. */
        }
+
+       .success{
+            color: green;
+       }
+       .assigned{
+            color: rgb(208, 153, 52);
+       }
+
+       .unassigned{
+            color:brown
+       }
+
+       button.myButton
+       {
+            border-radius: 10px;
+            background-color:rgb(90, 109, 112) ;
+            color:whitesmoke;
+            border-color: rgb(90, 109, 112);
+            transition-duration: 0.4s;
+       }
+       button.myButton:hover
+       {
+            background-color: azure;
+            color: rgb(90, 109, 112);
+            
+       }
    </style>
 </head>
 <body style = "font-family: Arial, Helvetica, sans-serif;">
@@ -95,7 +120,6 @@
    <!-- Main Layout-->
    <main style="margin-top: 50px; margin-left: 270px; margin-right: 30px; margin-bottom: 50px;">
        <!-- INSERT ALL CONTENT HERE -->
-       <!-- rgba(245, 243, 243,0.9) -->
        <div class="card rounded-10 text-black" style="background: rgba(238, 238, 238, 0.9); border: 0ch;">
            <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
                <h3 class="text-center mx-0" style = "font-weight: bold;">
@@ -118,9 +142,7 @@
                        <tbody>
                            <tr>
                                <td style="text-align:center">
-                                   <div class="d-flex align-items-center">
-                                       <p class="fw-normal mb-1" >17</p>
-                                   </div>
+                                    <p class="fw-normal mb-1" >17</p>
                                </td>
                                <td style="text-align:center">
                                    <p class="fw-normal mb-1">this is a new topic</p>
@@ -138,16 +160,12 @@
                                    <p class="fw-normal mb-1">testing author</p>
                                </td>
                                <td style="text-align:center">
-                                   <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                       BID
-                                   </button>
+                                <a href = "#"><button class = "myButton">Bid</button></a>
                                </td>
                            </tr>
                            <tr>
                                <td style="text-align:center">
-                                   <div class="d-flex align-items-center">
-                                       <p class="fw-normal mb-1" >2</p>
-                                   </div>
+                                <p class="fw-normal mb-1" >2</p>
                                </td>
                                <td style="text-align:center">
                                    <p class="fw-normal mb-1">testing topic</p>
@@ -165,16 +183,12 @@
                                    <p class="fw-normal mb-1">testing author</p>
                                </td>
                                <td style="text-align:center">
-                                   <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                       BID
-                                   </button>
+                                <a href = "#"><button class = "myButton">Bid</button></a>
                                </td>
                            </tr>
                            <tr>
                                <td style="text-align:center">
-                                   <div class="d-flex align-items-center">
-                                       <p class="fw-normal mb-1" >3</p>
-                                   </div>
+                                    <p class="fw-normal mb-1" >3</p>
                                </td>
                                <td style="text-align:center">
                                    <p class="fw-normal mb-1">testing topic</p>
@@ -192,16 +206,13 @@
                                    <p class="fw-normal mb-1">testing author</p>
                                </td>
                                <td style="text-align:center">
-                                   <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                    BID
-                                   </button>
+                                <a href = "#"><button class = "myButton">Bid</button></a>
                                </td>
                            </tr>
+                           
                            <tr>
                                <td style="text-align:center">
-                                   <div class="d-flex align-items-center">
-                                       <p class="fw-normal mb-1" >4</p>
-                                   </div>
+                                    <p class="fw-normal mb-1" >5</p>
                                </td>
                                <td style="text-align:center">
                                    <p class="fw-normal mb-1">testing topic</p>
@@ -219,44 +230,59 @@
                                    <p class="fw-normal mb-1">testing author</p>
                                </td>
                                <td style="text-align:center">
-                                   <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                       BID
-                                   </button>
-                               </td>
-                           </tr>
-                           <tr>
-                               <td style="text-align:center">
-                                   <div class="d-flex align-items-center">
-                                       <p class="fw-normal mb-1" >5</p>
-                                   </div>
-                               </td>
-                               <td style="text-align:center">
-                                   <p class="fw-normal mb-1">testing topic</p>
-                               </td>
-                               <td style="text-align:center">
-                                   <p class="fw-normal mb-1">testing Description</p>
-                               </td>
-                               <td style="text-align:center">
-                                   <p class="fw-normal mb-1">testing submitted date</p>
-                               </td>
-                               <td style="text-align:center">
-                                   <p class="fw-normal mb-1">testing filename</p>
-                               </td>
-                               <td style="text-align:center">
-                                   <p class="fw-normal mb-1">testing author</p>
-                               </td>
-                               <td style="text-align:center">
-                                   <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                       BID
-                                   </button>
+                                <a href = "#"><button class = "myButton">Bid</button></a>
                                </td>
                            </tr>
                        </tbody>
                    </table>
                </div>
            </div>
+
+           <!-- Awaiting Conference Response Papers -->
+           <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
+            <h3 class="text-center mx-0" style = "font-weight: bold;">
+                Awaiting Conference Response Papers
+                <hr>
+            </h3>
+            <div class="col-lg-12">
+                <table class="table align-middle mx-0 bg-white">
+                    <thead class="bg-light">
+                        <tr>
+                            <td style="text-align:center; font-weight: bold;">Bid ID</td>
+                            <td style="text-align:center; font-weight: bold;">Paper ID</td>
+                            <td style="text-align:center; font-weight: bold;">Bid Date</td>
+                            <td style="text-align:center; font-weight: bold;">Submission Date</td>
+                            <td style="text-align:center; font-weight: bold;">Status</td>
+                            <td style="text-align:center; font-weight: bold;">Action</td>
+                        </tr>   
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center">
+                                 <p class="fw-normal mb-1" >16</p>
+                            </td>
+                            <td style="text-align:center">
+                                <p class="fw-normal mb-1">7</p>
+                            </td>
+                            <td style="text-align:center">
+                                <p class="fw-normal mb-1">Nov. 4, 2022, 11:41 p.m.</p>
+                            </td>
+                            <td style="text-align:center">
+                                <p class="fw-normal mb-1">None</p>
+                            </td>
+                            <td style="text-align:center" class="unassigned">
+                                <p class="fw-normal mb-1">Unassigned</p>
+                            </td>
+                            <td style="text-align:center">
+                                <a href = "#"><button class = "myButton">Remove bid</button></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End of Awaiting Conference Paper table -->
        </div>
    </main>
-
 </body>
 </html>

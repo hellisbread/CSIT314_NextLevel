@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset='utf-8'>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>NextLevel - View Current Reviews (Reviewer)</title>
+
+   <!-- CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css"
+       integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
+       crossorigin="anonymous" referrerpolicy="no-referrer" />
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+   <script src="https://kit.fontawesome.com/c1b3b95b1c.js" crossorigin="anonymous"></script>  
+   
+   <style>
+       /* Sidebar */
+       .sidebar {
+           position: fixed;
+           top: 0;
+           bottom: 0;
+           left: 0;
+           padding: 20px 0 0;
+           /* Height of navbar */
+           box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+           width: 240px;
+           z-index: 600;
+       }
+
+       @media (max-width: 991.98px) {
+           .sidebar {
+               width: 100%;
+           }
+       }
+
+       .sidebar .active {
+           background-color: rgb(90, 109, 112);;
+           border-radius: 5px;
+           box-shadow: 0 3px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+       }
+
+       .sidebar-sticky {
+           position: relative;
+           top: 0;
+           height: calc(100vh - 48px);
+           padding-top: 0.5rem;
+           overflow-x: hidden;
+           overflow-y: auto;
+           /* Scrollable contents if viewport is shorter than content. */
+       }
+       button.myButton
+       {
+            border-radius: 10px;
+            background-color:rgb(90, 109, 112) ;
+            color:whitesmoke;
+            border-color: rgb(90, 109, 112);
+            transition-duration: 0.4s;
+       }
+       button.myButton:hover
+       {
+            background-color: azure;
+            color: rgb(90, 109, 112);
+            
+       }
+
+       .oddRow
+       {
+        background-color: rgba(238, 238, 238);
+       }
+
+       .evenRow
+       {
+        background-color: rgb(197, 198, 199);
+       }
+   </style>
+</head>
+
+<body style = "font-family: Arial, Helvetica, sans-serif;">
+   <!--Main Navigation-->
+   <header>
+       <!-- Sidebar -->
+       <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="background-color: rgb(255, 255, 255,0.8)">
+        <div class="position-sticky">
+
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <h1 class="text-center">NextLevel</h1>
+                <hr>
+                <i class="fa-solid fa-user" style= "font-size: 50px; text-align: center; margin-bottom: 20px;"></i>
+            
+                <h5 class="text-center" style = "margin-bottom: 20px; font-weight: bold;">Reviewer</h5>
+            
+                <a href="ViewPapersReviewer.html" class="list-group-item list-group-item-action active">
+                    <i class="fa-solid fa-eye me-2"></i>
+                    <span>View Papers</span>
+                    </a>
+                    <a href="BidPaper.html" class="list-group-item list-group-item-action">
+                    <i class="fa-solid fa-file-arrow-up me-3"></i>
+                    <span>Bid Paper</span>
+                    </a>
+                    <a href="Settings.html" class="list-group-item list-group-item-action">
+                    <i class="fa-solid fa-gear me-3"></i>
+                    <span>Settings</span>
+                 </a>
+                
+                <a href="../loginPage2.html" class="list-group-item list-group-item-action py-2 ripple">
+                    <i class="fa-solid fa-right-from-bracket me-3"></i>
+                    <span>Log Out</span></a>
+                
+            </div>
+        </div>
+    </nav>
+       <!-- Sidebar -->
+   </header>
+   <!--Main Navigation-->
+   
+   <!-- Main Layout-->
+   <main style="margin-top: 50px; margin-left: 270px; margin-right: 30px; margin-bottom: 50px;">
+       <!-- INSERT ALL CONTENT HERE -->
+       <div class="card rounded-10 text-black" style="background: rgba(238, 238, 238, 0.9); border: 0ch;">
+ 
+        <!-- Current Posted Reviews -->
+        <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; 
+           margin-left: 50px; margin-right: 50px;">
+               <h3 class="text-center mx-0" style = "font-weight: bold;">
+                   Current Posted Reviews
+                   <hr>
+               </h3>
+           </div>
+
+           <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-left: 50px;
+                margin-right: 50px; margin-bottom: 30px;">
+            <table class="table align-middle mx-0 bg-white table-striped">
+                <tbody>
+                    <tr class = "oddRow">
+                        <td>
+                            <span style="font-weight: bold ; font-size: larger">Title: </span> 
+                            <span style="font-weight: bold; font-size: larger">Another Review</span>
+                            </br>  </br> 
+                            <span>This is another review </span> 
+                            </br>  </br> 
+                            <span>Rating/Score: </span>
+                            <span>2 </span>
+                            </br> </br>
+                            <span>Submitted by: </span>
+                            <span>bbb</span>
+                            </br> </br>
+                            <a href = "Comments.html">View Comments</a>
+                        </td>
+                    </tr>
+                    <tr class = "evenRow">
+                        <td>
+                            <span style="font-weight: bold ; font-size: larger ;">Title: </span> 
+                            <span style="font-weight: bold; font-size: larger ;">Let's make another review</span>
+                            </br>  </br> 
+                            <span>This is me </span> 
+                            </br>  </br> 
+                            <span>Rating/Score: </span>
+                            <span>-3 </span>
+                            </br> </br>
+                            <span>Submitted by: </span>
+                            <span>reviewer3</span>
+                            </br> </br>
+                            <a href = "Comments.html">View Comments</a>
+                        </td>
+                    </tr>
+        </tbody>
+        </table>
+        <a href = "Paper Contents.html"><button class = "myButton">Back</button></a>
+        </div>
+       </div>
+   </main>
+
+<!-- Modal -->
+<div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contentModalLabel">Topic 1</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span>Tea is an aromatic beverage prepared by pouring hot or boiling water over cured or 
+            fresh leaves of Camellia sinensis, an evergreen shrub native to 
+            East Asia which probably originated in the borderlands of 
+            southwestern China and northern Myanmar.Tea is also 
+            rarely made from the leaves of Camellia taliensis. 
+            After plain water, tea is the most widely consumed drink in the 
+            world. There are many different types of tea; some have a cooling,
+            slightly bitter, and astringent flavour, while others have vastly
+            different profiles that include sweet, nutty, floral, or grassy
+            notes. Tea has a stimulating effect in humans primarily due to
+            its caffeine content.</span> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
