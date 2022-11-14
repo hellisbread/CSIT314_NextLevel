@@ -631,6 +631,11 @@ class Bidded_Paper(models.Model):
     def getAllBiddedPaper():
         biddedPaper_list = Bidded_Paper.objects.all().values() 
         return biddedPaper_list
+
+    def getAllUnassignedBiddedPaper():
+        biddedPaper_list = Bidded_Paper.objects.filter(status = 0).values()
+
+        return biddedPaper_list
         
     def getAllUnassignedPaperByID(id):
 

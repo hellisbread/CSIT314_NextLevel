@@ -8,6 +8,11 @@
 {% endfor %}
 
 <h2>Need to be allocated</h2>
+<form action="../allocationPaper/" method="post">
+  {% csrf_token %}
+  <input type="submit" value="allocate automatically" name="allocateAutomatically">
+</form>
+
 <table border="1">
   <tr>
     <td>Paper ID</td>
