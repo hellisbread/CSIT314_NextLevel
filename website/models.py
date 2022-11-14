@@ -573,6 +573,11 @@ class Paper(models.Model):
         
         return authors
 
+    def getText(self):
+        text = self.saved_file.read().decode("utf-8")
+
+        return text
+        
 class Bidded_Paper(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
@@ -775,15 +780,16 @@ class Comment(models.Model):
         return comments
 
 class ReviewRating(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE) # created by
     rating = models.IntegerField(default=0)
 
     @classmethod
-    def createReviewRating(cls, paper, reviewer, author, rating):
+    def createReviewRating(cls, review, paper, reviewer, author, rating):
 
-        reviewRating = cls(paper = paper, reviewer = reviewer, author = author, rating = int(rating))
+        reviewRating = cls(review = review, paper = paper, reviewer = reviewer, author = author, rating = int(rating))
         reviewRating.save()
 
         return True        

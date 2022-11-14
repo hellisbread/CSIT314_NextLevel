@@ -6,11 +6,12 @@ from django.contrib import messages
 def rateReview(request):
     author_id = request.session["AuthorLogged"]
     if request.method == "POST":
+        review = Review.getReview(request.POST["review_id"])
         paper = Paper.getPaper(request.POST["paper_id"])
         reviewer = Reviewer.getReviewerByID(request.POST["reviewer_id"])
         author = Author.getAuthorByID(author_id)
         rating = request.POST["rating"]
-        success = ReviewRating.createReviewRating(paper, reviewer, author, rating)
+        success = ReviewRating.createReviewRating(review, paper, reviewer, author, rating)
         
         if(success):
             messages.success(request, "Successfully submitted your rating. Thank you for your submission.")
