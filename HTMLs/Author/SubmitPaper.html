@@ -1,9 +1,9 @@
+<!-- Haven't added SUBMIT hyperlink -->
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NextLevel - Submit Paper</title>
+    <title>NextLevel - Submit Paper (Author)</title>
     
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -73,19 +73,22 @@
                 
                     <h5 class="text-center" style = "margin-bottom: 20px; font-weight: bold;">Author</h5>
                 
-                    <a href="ViewPaper.html" class="list-group-item list-group-item-action ">
-                    <i class="fa-solid fa-eye me-3"></i>
-                    <span>View Paper</span>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action active">
-                    <i class="fa-solid fa-file-arrow-up me-3"></i>
-                    <span>Submit Paper</span>
-                    </a>
-                    
-                    <a href="../index.html" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fa-solid fa-right-from-bracket me-3"></i>
-                        <span>Log Out</span></a>
-                    
+                    <a href="ViewPaper.html" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-eye me-3"></i>
+                        <span>View Paper</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action  active">
+                        <i class="fa-solid fa-file-arrow-up me-3"></i>
+                        <span>Submit Paper</span>
+                        </a>
+                        <a href="RateReview.html" class="list-group-item list-group-item-action">
+                            <i class="fa-solid fa-star me-3"></i>
+                            <span>Rate Review</span>
+                        </a>
+                        <a href="../index.html" class="list-group-item list-group-item-action py-2 ripple">
+                            <i class="fa-solid fa-right-from-bracket me-3"></i>
+                            <span>Log Out</span></a>
+
                 </div>
             </div>
         </nav>
@@ -128,7 +131,7 @@
                                 <input type="file" class="form-control-file" id="exampleFormControlFile1"
                                     style="width: fit-content;">
                             </div>
-                            <span style = "font-weight: bold; font-size: large;"></br>Choose author(s): </span>
+                            <span style = "font-weight: bold; font-size: large;"></br>Choose co-author(s): </span>
                             <select name = "authors" id = "authors" multiple>
                                 <option value = "1">Author Oney</option>
                                 <option value = "2">Author Two</option>

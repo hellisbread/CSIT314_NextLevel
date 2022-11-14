@@ -1,5 +1,5 @@
+<!-- Haven't added the UPDATE hyperlink -->
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,6 +57,21 @@
             overflow-y: auto;
             /* Scrollable contents if viewport is shorter than content. */
         }
+
+        button.myButton
+        {
+                border-radius: 10px;
+                background-color:rgb(90, 109, 112) ;
+                color:whitesmoke;
+                border-color: rgb(90, 109, 112);
+                transition-duration: 0.4s;
+        }
+        button.myButton:hover
+        {
+                background-color: azure;
+                color: rgb(90, 109, 112);
+                
+        }
     </style>
 </head>
 
@@ -74,19 +89,22 @@
                 
                     <h5 class="text-center" style = "margin-bottom: 20px; font-weight: bold;">Author</h5>
                 
-                    <a href="ViewPaper.html" class="list-group-item list-group-item-action active">
-                    <i class="fa-solid fa-eye me-3"></i>
-                    <span>View Paper</span>
-                    </a>
-                    <a href="SubmitPaper.html" class="list-group-item list-group-item-action">
-                    <i class="fa-solid fa-file-arrow-up me-3"></i>
-                    <span">Submit Paper</span>
-                    </a>
-                    
-                    <a href="../index.html" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fa-solid fa-right-from-bracket me-3"></i>
-                        <span>Log Out</span></a>
-                    
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        <i class="fa-solid fa-eye me-3"></i>
+                        <span>View Paper</span>
+                        </a>
+                        <a href="SubmitPaper.html" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-file-arrow-up me-3"></i>
+                        <span>Submit Paper</span>
+                        </a>
+                        <a href="RateReview.html" class="list-group-item list-group-item-action">
+                            <i class="fa-solid fa-star me-3"></i>
+                            <span>Rate Review</span>
+                        </a>
+                        <a href="../index.html" class="list-group-item list-group-item-action py-2 ripple">
+                            <i class="fa-solid fa-right-from-bracket me-3"></i>
+                            <span>Log Out</span></a>
+
                 </div>
             </div>
         </nav>
@@ -117,14 +135,14 @@
                                 </div> 
                             </br>
                                 <div class="form-group">
-                                    <label for="exampleFormControlTextarea1" style = "font-weight: bold; font-size: large;">Description:</label>
+                                    <label for="exampleFormControlTextarea1" style = "font-weight: bold; font-size: large;"></br>Description:</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Description of paper"></textarea>
                                 </div>
                             </div>
             
                         <div class="card" style="float: left; margin-left: 50px; background: rgba(255, 255, 255,0); border: 0ch;">
                             <span style = "font-weight: bold; font-size: large;">Upload paper here:</span> </br>
-                            
+                            <span>Previous file name: <span><u>testPaper2.txt</u></span></span> </br>
                             <div class="form-group" style="background: rgba(255, 255, 255,0); border: 0ch;">
                                 <input type="file" class="form-control-file" id="exampleFormControlFile1"
                                     style="width: fit-content;">
@@ -138,20 +156,24 @@
                                 <option value = "1">Author 1</option>
                             </select>
                         </br>
-                        </div>
+                        
+                        
                     </div>
-            </div>
-
+                
+                </div>
             <div class="card rounded-10 text-black" 
             style="background: rgba(245, 243, 243,0);
                 border: 0ch;margin-top: 30px;">
                 <div class="text-center pt-1 mb-5 pb-1">
                     <button class="btn btn-block btn-outline-secondary"
                         type="button" style = "height:40px;">Update</button>
-                </div>
+                
+                    </div>    
             </div>
                     </form>
-            </div>
+                    <a href = "ViewPaper.html"><button class = "myButton">Back</button></a>
+                
+            <span></br></span>
         </div>
     </main>
 </div>
