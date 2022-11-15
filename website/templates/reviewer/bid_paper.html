@@ -199,6 +199,7 @@
                         </tr>   
                     </thead>
                     <tbody>
+                        {% for paper in unassigned_list %}
                         <tr>
                             <td style="text-align:center">
                                  <p class="fw-normal mb-1" >{{ paper.id }}</p>
@@ -219,6 +220,7 @@
                                 <a href = "./delete/{{paper.id}}"><button class = "myButton">Remove bid</button></a>
                             </td>
                         </tr>
+                        {%endfor%}
                     </tbody>
                 </table>
             </div>

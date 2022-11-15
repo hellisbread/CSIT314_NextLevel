@@ -8,23 +8,17 @@ def reviewPage(request, id):
 
     reviewer_id = request.session['ReviewerLogged']
 
+    reviewer = Reviewer.getReviewerByID(reviewer_id)
+
     bidPaper = Bidded_Paper.getBiddedPaper(id)
 
     paper = Paper.getPaper(bidPaper.paper_id)
 
     review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
 
-    other_reviews = Review.getOtherReviews(bidPaper.paper_id, reviewer_id)
-
-    #Get Reviewer Name base on reviewer ID
-    for otherReview in other_reviews:
-        print(otherReview)
-        reviewer_name = Reviewer.getReviewerByID(otherReview.get("reviewer_id")).name
-        otherReview['reviewerName'] = reviewer_name
-
     text = paper.getText()
 
-    context = {'paper':paper, 'bid_id':id, 'review':review, 'other_reviews':other_reviews, 'content': text}
+    context = {'paper':paper, 'bid_id':id, 'review':review, 'content': text , 'reviewer':reviewer}
 
     print(context)
 
