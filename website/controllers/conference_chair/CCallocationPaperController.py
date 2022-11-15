@@ -19,22 +19,14 @@ def allocationPaper(request):
             for paper in bidded_paper:
                 bid_paper = Bidded_Paper.getBiddedPaper(paper['id'])
                 reviewer_id = paper['reviewer_id']
-                print(f"reviewer_id{reviewer_id}")
                 paper_id = paper['paper_id']
                 maxPaper = Reviewer.getMaxPaperByID(reviewer_id)
-                print(f"maxPaper{maxPaper}")
                 numOfPaperAssigned = Bidded_Paper.getAllAssignedPaperByID(reviewer_id).count()
-                print(f"numOfPaperAssigned{numOfPaperAssigned}")
-                print("")
 
                 if numOfPaperAssigned < maxPaper:
                     success = bid_paper.updateStatus(1)
-                    if(success):
-                        messages.success(request, f"successfully assigned. PAPER ID {paper_id} to REVIEWER ID {reviewer_id}")
-                    else:
-                        messages.error(request, "unsucessfully assigned.")
-                else:
-                    messages.error(request, "The number of paper for this reviewer has reached maximum!")
+
+            messages.success(request, "Successfully allocate paper automatically!")
 
             
     # need to be allocated table
