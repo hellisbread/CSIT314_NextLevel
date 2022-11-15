@@ -12,7 +12,7 @@ type : http://127.0.0.1:8000
 
 
 
-
+The unit test cases can be found in /websites/tests.py
 To run unit testing
 
 Open command prompt in the base folder. Ensure that it is ./CSIT_NextLevel >
