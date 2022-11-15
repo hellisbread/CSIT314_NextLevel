@@ -93,20 +93,20 @@
 
           <h5 class="text-center" style="margin-bottom: 20px; font-weight: bold;">Reviewer</h5>
 
-          <a href="ViewPapersReviewer.html" class="list-group-item list-group-item-action active">
+          <a href="/reviewer/" class="list-group-item list-group-item-action active">
             <i class="fa-solid fa-eye me-2"></i>
             <span>View Papers</span>
           </a>
-          <a href="BidPaper.html" class="list-group-item list-group-item-action">
+          <a href="/reviewer/bid/" class="list-group-item list-group-item-action">
             <i class="fa-solid fa-file-arrow-up me-3"></i>
             <span>Bid Paper</span>
           </a>
-          <a href="Settings.html" class="list-group-item list-group-item-action">
+          <a href="/reviewer/settings/" class="list-group-item list-group-item-action">
             <i class="fa-solid fa-gear me-3"></i>
             <span>Settings</span>
           </a>
 
-          <a href="../loginPage2.html" class="list-group-item list-group-item-action py-2 ripple">
+          <a href="{% url 'logout'%}" class="list-group-item list-group-item-action py-2 ripple">
             <i class="fa-solid fa-right-from-bracket me-3"></i>
             <span>Log Out</span></a>
 
@@ -171,9 +171,10 @@
 
                 {% if comment.commenter == reviewer.name %}
                 <button type="button" . class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
-  onclick="setDetails(review_id = '{{review.id}}', comment_id = '{{comment.id}}', description = '{{comment.description}}', rating = '{{comment.rating}}')"
-  name="editComment"> Edit </button>
-  <a href="../delete/{{bid_id}}/{{review.id}}/{{comment.id}}"><button type="button" class="btn btn-danger">Delete</button></a>
+                  onclick="setDetails(review_id = '{{review.id}}', comment_id = '{{comment.id}}', description = '{{comment.description}}', rating = '{{comment.rating}}')"
+                  name="editComment"> Edit </button>
+                <a href="../delete/{{bid_id}}/{{review.id}}/{{comment.id}}"><button type="button"
+                    class="btn btn-danger">Delete</button></a>
                 {%endif%}
               </td>
             </tr>
@@ -196,28 +197,30 @@
           </div>
           </br> </br>
           <span style="font-weight: bold; font-size: large;">Rating/Score:</span>
-          <div class="form-outline mb-4">
+          <div class="form-outline">
             <select class="dropdown" aria-label="Default select example" name="rating" id="rating" style="background-color: rgb(90, 109, 112);
                           color: rgba(234, 238, 239, 0.959);
                           border-radius: 5px 5px 5px 5px;
                           height: 30px; text-align: center;">
 
-              
-            <option value="3">Strong Accept</option>
-            <option value="2">Accept</option>
-            <option value="1">Weak Accept</option>
-            <option value="0">Borderline Paper</option>
-            <option value="-1">Weak Reject</option>
-            <option value="-2">Reject</option>
-            <option value="-3">Strong Reject</option>
+
+              <option value="3">Strong Accept</option>
+              <option value="2">Accept</option>
+              <option value="1">Weak Accept</option>
+              <option value="0">Borderline Paper</option>
+              <option value="-1">Weak Reject</option>
+              <option value="-2">Reject</option>
+              <option value="-3">Strong Reject</option>
             </select>
             <div class="text-center pt-1 mb-5 pb-1">
-              <input class="btn btn-block btn-outline-secondary" type="submit" style="height:40px;" value="Submit"/>
+              <input class="btn btn-block btn-outline-secondary" type="submit" style="height:40px;" value="Submit" />
             </div>
           </div>
-          <a href="../current/{{bid_id}}"><button class="myButton">Back</button></a>
           </br></br>
         </form>
+        <div class="form-outline mb-4">
+        <a href="/reviewer/review/current/{{bid_id}}"><button class="myButton">Back</button></a>
+      </div>
       </div>
     </div>
 
@@ -235,39 +238,39 @@
         </div>
         <form method="POST" action="../edit/{{bid_id}}">
           {%csrf_token%}
-        <div class="modal-body">
-          
-          <input type="hidden" id="review_id" value="" name="review_id">
-          <input type="hidden" id="comment_id" value="" name="comment_id">
-          
-          <div class="form-group">
-            <label for="exampleFormControlTextarea" style="font-weight: bold; font-size: large;">Comment:</label>
-            <textarea class="form-control" name="description" id="descriptionField" rows="6"
-              placeholder="Edit comments"></textarea>
-            </br></br>
-            <div class="form-outline mb-4">
-              <select class="dropdown" aria-label="Default select example" name="rating" id="ratingField" style="background-color: rgb(90, 109, 112);
+          <div class="modal-body">
+
+            <input type="hidden" id="review_id" value="" name="review_id">
+            <input type="hidden" id="comment_id" value="" name="comment_id">
+
+            <div class="form-group">
+              <label for="exampleFormControlTextarea" style="font-weight: bold; font-size: large;">Comment:</label>
+              <textarea class="form-control" name="description" id="descriptionField" rows="6"
+                placeholder="Edit comments"></textarea>
+              </br></br>
+              <div class="form-outline mb-4">
+                <select class="dropdown" aria-label="Default select example" name="rating" id="ratingField" style="background-color: rgb(90, 109, 112);
                       color: rgba(234, 238, 239, 0.959);
                       border-radius: 5px 5px 5px 5px;
                       height: 30px; text-align: center;">
 
-<option value="3">Strong Accept</option>
-<option value="2">Accept</option>
-<option value="1">Weak Accept</option>
-<option value="0">Borderline Paper</option>
-<option value="-1">Weak Reject</option>
-<option value="-2">Reject</option>
-<option value="-3">Strong Reject</option>
-              </select>
+                  <option value="3">Strong Accept</option>
+                  <option value="2">Accept</option>
+                  <option value="1">Weak Accept</option>
+                  <option value="0">Borderline Paper</option>
+                  <option value="-1">Weak Reject</option>
+                  <option value="-2">Reject</option>
+                  <option value="-3">Strong Reject</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-      
-        <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" name="grade" value="Submit">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-        </div>
-      </form>
+
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" name="grade" value="Submit">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
