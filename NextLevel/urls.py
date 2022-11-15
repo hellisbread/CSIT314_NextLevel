@@ -21,7 +21,7 @@ from website import views, loginController, authorController, conferenceChairCon
 from website.controllers.system_admin import updateAuthorController, updateAdminController, updateConferenceController, updateReviewerController, createUserController, systemAdminController
 from website.controllers.author import authorViewPaperController, authorSubmitPaperController, authorRateReviewController, authorViewReviewController, authorReadSubmittedPaperController, authorUpdateSubmittedPaperController
 
-from website.controllers.reviewer import bidController, commentController, reviewController, settingsController, viewbiddedPaperController
+from website.controllers.reviewer import bidController, commentController, reviewController, settingsController, viewbiddedPaperController, CurrentReviewController
 from website.controllers.conference_chair import CCviewReviewController, CCreadSubmittedPaperController, CCacceptOrRejectController, CCallocationPaperController
 
 urlpatterns = [
@@ -56,6 +56,7 @@ urlpatterns = [
     path('reviewer/review/create/<int:id>',reviewController.createReview, name='createReview'),
     path('reviewer/review/edit/<int:id>',reviewController.editReview, name='editReview'),
     path('reviewer/review/delete/<int:id>',reviewController.deleteReview, name='deleteReview'),
+    path('reviewer/review/current/<int:id>',CurrentReviewController.currentReviews, name='currentReviews'),
     path('reviewer/review/comments/<int:id>',commentController.commentPage, name='commentPage'),
     path('reviewer/review/comments/create/<int:id>',commentController.createComment, name='createComment'),
     path('reviewer/review/comments/edit',commentController.editComment, name='editComment'),

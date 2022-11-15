@@ -22,7 +22,7 @@ def reviewPage(request, id):
         reviewer_name = Reviewer.getReviewerByID(otherReview.get("reviewer_id")).name
         otherReview['reviewerName'] = reviewer_name
 
-    text = paper.saved_file.read().decode("utf-8")
+    text = paper.getText()
 
     context = {'paper':paper, 'bid_id':id, 'review':review, 'other_reviews':other_reviews, 'content': text}
 
