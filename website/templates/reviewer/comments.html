@@ -1,105 +1,289 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<!DOCTYPE html>
+<html>
 
-<h1>Review Details</h1>
+<head>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NextLevel - View Comments (Reviewer)</title>
 
-{% for message in messages %}
-<div>{{ message }}</div> <br>
-{% endfor %}
+  <!-- CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<h4>{{review.title}}</h4>
-<p>{{review.description}}</p>
-<p>Rating/Score: {{review.rating}}</p>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css"
+    integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/c1b3b95b1c.js" crossorigin="anonymous"></script>
 
-<hr>
+  <style>
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 20px 0 0;
+      /* Height of navbar */
+      box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+      width: 240px;
+      z-index: 600;
+    }
 
-<h1>Comments</h1>
-{% for comment in comments %}
-    <p>{{comment.description}}</p>
-    <p>Rating: {{comment.rating}}</p>
-    <p>Posted by: {{comment.commenter}}</p>
-    <p>Date: {{comment.sent_date}}</p>
+    @media (max-width: 991.98px) {
+      .sidebar {
+        width: 100%;
+      }
+    }
 
-    {% if comment.commenter == reviewer.name %}
-    <button type="button" . class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
-                  onclick="setDetails(review_id = '{{review.id}}', comment_id = '{{comment.id}}', description = '{{comment.description}}', rating = '{{comment.rating}}')" name="editComment"> Edit </button>
-                  
-    <a href="./delete/{{review.id}}/{{comment.id}}"> Delete </a>
-    {%endif%}
-    <br/><br/>
-{% endfor %}
-<hr>
+    .sidebar .active {
+      background-color: rgb(90, 109, 112);
+      ;
+      border-radius: 5px;
+      box-shadow: 0 3px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }
 
-<h1>Add a comment</h1>
+    .sidebar-sticky {
+      position: relative;
+      top: 0;
+      height: calc(100vh - 48px);
+      padding-top: 0.5rem;
+      overflow-x: hidden;
+      overflow-y: auto;
+      /* Scrollable contents if viewport is shorter than content. */
+    }
 
-<form action="./create/{{review.id}}" method="POST">
+    .myButton {
+      border-radius: 10px;
+      background-color: rgb(90, 109, 112);
+      color: whitesmoke;
+      border-color: rgb(90, 109, 112);
+      transition-duration: 0.4s;
+    }
 
-    {% csrf_token %}
+    .myButton:hover {
+      background-color: azure;
+      color: rgb(90, 109, 112);
 
-    Comment: <br />
-    <textarea name="description" rows="4" cols="50"></textarea>
-    <br /><br />
-    Rating/Score: <br />
-    <select name="rating">
-      <option value="3">Strong Accept</option>
-      <option value="2">Accept</option>
-      <option value="1">Weak Accept</option>
-      <option value="0">Borderline Paper</option>
-      <option value="-1">Weak Reject</option>
-      <option value="-2">Reject</option>
-      <option value="-3">Strong Reject</option>
-    </select>
-    <br /><br />
-  
-    <input type="submit" value="Submit" />
-  </form>
+    }
 
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit Comment</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    .oddRow {
+      background-color: rgba(238, 238, 238);
+    }
+
+    .evenRow {
+      background-color: rgb(197, 198, 199);
+    }
+  </style>
+</head>
+
+<body style="font-family: Arial, Helvetica, sans-serif;">
+  <!--Main Navigation-->
+  <header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="background-color: rgb(255, 255, 255,0.8)">
+      <div class="position-sticky">
+
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <h1 class="text-center">NextLevel</h1>
+          <hr>
+          <i class="fa-solid fa-user" style="font-size: 50px; text-align: center; margin-bottom: 20px;"></i>
+
+          <h5 class="text-center" style="margin-bottom: 20px; font-weight: bold;">Reviewer</h5>
+
+          <a href="ViewPapersReviewer.html" class="list-group-item list-group-item-action active">
+            <i class="fa-solid fa-eye me-2"></i>
+            <span>View Papers</span>
+          </a>
+          <a href="BidPaper.html" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-file-arrow-up me-3"></i>
+            <span>Bid Paper</span>
+          </a>
+          <a href="Settings.html" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-gear me-3"></i>
+            <span>Settings</span>
+          </a>
+
+          <a href="../loginPage2.html" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fa-solid fa-right-from-bracket me-3"></i>
+            <span>Log Out</span></a>
+
         </div>
-        <form method="POST" action="./edit">
-          <div class="modal-body">
-            {% csrf_token %}
-            <input type="hidden" id="review_id" value="" name="review_id">
-            <input type="hidden" id="comment_id" value="" name="comment_id">
-            
-            Comment: <br />
-            <textarea name="description" id="descriptionField" rows="4" cols="50"></textarea>
-            <br /><br />
-            Rating/Score: <br />
-            <select name="rating" id="ratingField">
-              <option value="3">Strong Accept</option>
-              <option value="2">Accept</option>
-              <option value="1">Weak Accept</option>
-              <option value="0">Borderline Paper</option>
-              <option value="-1">Weak Reject</option>
-              <option value="-2">Reject</option>
-              <option value="-3">Strong Reject</option>
-            </select>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+  </header>
+  <!--Main Navigation-->
 
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" name="grade">Submit</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+  <!-- Main Layout-->
+  <main style="margin-top: 50px; margin-left: 270px; margin-right: 30px; margin-bottom: 50px;">
+    <!-- INSERT ALL CONTENT HERE -->
+    <div class="card rounded-10 text-black" style="background: rgba(238, 238, 238, 0.9); border: 0ch;">
+
+      <!-- Current Posted Reviews -->
+      <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; 
+           margin-left: 50px; margin-right: 50px;">
+        <h3 class="text-center mx-0" style="font-weight: bold;">
+          Review Details
+          <hr>
+        </h3>
+        <!--Error Messages-->
+        {% if messages %}
+        {% for message in messages %}
+        <p class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </p>
+        {% endfor %}
+        {% endif %}
+        <h5 style="font-weight: bold;">
+          {{review.title}}
+        </h5>
+
+        <span>{{review.description}}</span>
+        </br>
+        <span>Rating/Score: <span>{{review.rating}}</span></span>
+        </br> </br>
+      </div>
+      <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; 
+                margin-left: 50px; margin-right: 50px;">
+        <h3 class="text-center mx-0" style="font-weight: bold;">
+          Comments
+          <hr>
+        </h3>
+        <table class="table align-middle mx-0 bg-white table-striped">
+          <tbody>
+            {% for comment in comments %}
+            <tr class="oddRow">
+              <td>
+                <span>{{comment.description}}</span>
+                </br>
+                <span>Rating/Score: </span>
+                <span>{{comment.rating}}</span>
+                </br>
+                <span>Posted by: </span>
+                <span>{{comment.commenter}}</span>
+                </br>
+                <span>Date: </span>
+                <span>{{comment.sent_date}}</span>
+                </br>
+
+                {% if comment.commenter == reviewer.name %}
+                <button type="button" . class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
+  onclick="setDetails(review_id = '{{review.id}}', comment_id = '{{comment.id}}', description = '{{comment.description}}', rating = '{{comment.rating}}')"
+  name="editComment"> Edit </button>
+  <a href="../delete/{{bid_id}}/{{review.id}}/{{comment.id}}"><button type="button" class="btn btn-danger">Delete</button></a>
+                {%endif%}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <hr>
+
+        <!-- Add Comments -->
+        <form action="../create/{{bid_id}}/{{review.id}}" method="POST">
+          {% csrf_token %}
+          <h4 style="font-weight: bold;">
+            Add a comment
+          </h4>
+
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1" style="font-weight: bold; font-size: large;">Comment:</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
+              placeholder="Description of comment" name="description"></textarea>
+          </div>
+          </br> </br>
+          <span style="font-weight: bold; font-size: large;">Rating/Score:</span>
+          <div class="form-outline mb-4">
+            <select class="dropdown" aria-label="Default select example" name="rating" id="rating" style="background-color: rgb(90, 109, 112);
+                          color: rgba(234, 238, 239, 0.959);
+                          border-radius: 5px 5px 5px 5px;
+                          height: 30px; text-align: center;">
+
+              
+            <option value="3">Strong Accept</option>
+            <option value="2">Accept</option>
+            <option value="1">Weak Accept</option>
+            <option value="0">Borderline Paper</option>
+            <option value="-1">Weak Reject</option>
+            <option value="-2">Reject</option>
+            <option value="-3">Strong Reject</option>
+            </select>
+            <div class="text-center pt-1 mb-5 pb-1">
+              <input class="btn btn-block btn-outline-secondary" type="submit" style="height:40px;" value="Submit"/>
             </div>
+          </div>
+          <a href="../current/{{bid_id}}"><button class="myButton">Back</button></a>
+          </br></br>
         </form>
       </div>
     </div>
+
+  </main>
+  <!-- Modal 2 -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contentModalLabel"><b>Edit comment </b></h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" action="../edit/{{bid_id}}">
+          {%csrf_token%}
+        <div class="modal-body">
+          
+          <input type="hidden" id="review_id" value="" name="review_id">
+          <input type="hidden" id="comment_id" value="" name="comment_id">
+          
+          <div class="form-group">
+            <label for="exampleFormControlTextarea" style="font-weight: bold; font-size: large;">Comment:</label>
+            <textarea class="form-control" name="description" id="descriptionField" rows="6"
+              placeholder="Edit comments"></textarea>
+            </br></br>
+            <div class="form-outline mb-4">
+              <select class="dropdown" aria-label="Default select example" name="rating" id="ratingField" style="background-color: rgb(90, 109, 112);
+                      color: rgba(234, 238, 239, 0.959);
+                      border-radius: 5px 5px 5px 5px;
+                      height: 30px; text-align: center;">
+
+<option value="3">Strong Accept</option>
+<option value="2">Accept</option>
+<option value="1">Weak Accept</option>
+<option value="0">Borderline Paper</option>
+<option value="-1">Weak Reject</option>
+<option value="-2">Reject</option>
+<option value="-3">Strong Reject</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-primary" name="grade" value="Submit">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+      </div>
+    </div>
   </div>
-
-    <!-- JavaScript(s) -->
-    {% block javascript %}
-    <script type="text/javascript">
-      function setDetails(review_id, comment_id, description, rating) {
-        document.getElementById("review_id").value = review_id
-        document.getElementById("comment_id").value = comment_id
-        document.getElementById("descriptionField").value = description
-        document.getElementById("ratingField").value = rating
-      }
-    </script>
-    {% endblock %}
+</body>
 
 
+<!-- JavaScript(s) -->
+{% block javascript %}
+<script type="text/javascript">
+  function setDetails(review_id, comment_id, description, rating) {
+    document.getElementById("review_id").value = review_id
+    document.getElementById("comment_id").value = comment_id
+    document.getElementById("descriptionField").value = description
+    document.getElementById("ratingField").value = rating
+  }
+</script>
+{% endblock %}
+
+</html>
