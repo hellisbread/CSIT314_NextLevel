@@ -156,7 +156,7 @@
                                     <p class="fw-normal mb-1">{{ review.reviewer_id }}</p>
                                 </td>
                                 <td style="text-align:center">
-                                    <a href = "ReviewContents.html">View Review</a>
+                                    <a href = "./viewReview/{{review.id}}">View Review</a>
                                 </td>
                                 <form action="../rateReview/" method="post">
                                     {% csrf_token %}
@@ -180,7 +180,7 @@
                                   <option value="-3" {% if review.rating == -3 %}selected{%endif%}>Strong Reject</option>
                                           </select>
 
-                                    <button class = "myButton">Save</button>
+                                    <input class = "myButton" type="submit" value="Save" name="rate"/>
                                 </td>
                                 </form>
                             </tr>
