@@ -246,6 +246,11 @@ class Author(Users):
 
         return author_email
 
+    def getAuthorName(id):
+        author_name = Author.objects.get(id=id).name
+
+        return author_name
+
     def setStatus(self, status):
         
         self.status = status

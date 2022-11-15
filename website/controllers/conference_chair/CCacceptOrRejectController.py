@@ -26,7 +26,6 @@ def acceptOrReject(request):
             paper_id = request.POST['paper_id']
             paper = Paper.getPaper(paper_id)
             author_id_list = paper.getAllAuthorID()
-            success = paper.updateStatus("Accepted")
             success = paper.updateStatus("Rejected")
             # for author_id in author_id_list:
                 # author_email = Author.getAuthorEmail(author_id)
@@ -40,6 +39,9 @@ def acceptOrReject(request):
                 # messages.success(request, f"Successfully send the email to Author ID {author_id}")
 
         elif request.POST.get("cancel"):
+            paper_id = request.POST['paper_id']
+            paper = Paper.getPaper(paper_id)
+            author_id_list = paper.getAllAuthorID()
             success = paper.updateStatus("Not Accessed")
             # for author_id in author_id_list:
             #     author_email = Author.getAuthorEmail(author_id)
@@ -57,11 +59,13 @@ def acceptOrReject(request):
                 authors = paper.getAllAuthorID()
                 for author_id in authors:
                     author_email = Author.getAuthorEmail(author_id)
+                    author_name = Author.getAuthorName(author_id)
+                    paper_id = paper.id
                     status = paper.getPaperStatus()
                     if status == "Accepted":
-                        content = f'Dear Author ID {author_id}, your paper with ID {paper.id} is accepted. Thank you.'
+                        content = f'Dear {author_name}, your paper with ID {paper_id} is accepted. Thank you.'
                     elif status == "Rejected":
-                        content = f'Dear Author ID {author_id}, your paper with ID {paper.id} is rejected. Thank you.'
+                        content = f'Dear {author_name}, your paper with ID {paper_id} is rejected. Thank you.'
 
                     send_mail('Congratulation',
                     content, 
