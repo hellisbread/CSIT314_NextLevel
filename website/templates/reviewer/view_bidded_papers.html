@@ -128,7 +128,14 @@
                    <hr>
                </h3>
            </div>
-
+           <!--Error Messages-->
+{% if messages %}
+{% for message in messages %}
+<p class="alert alert-{{ message.tags }}">
+  {{ message }}
+</p>
+{% endfor %}
+{% endif %}
            <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
             <h3 style = "font-size: 20px; color: brown;"> <u>
                 Pending Review Papers </u>
