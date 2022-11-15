@@ -1,6 +1,7 @@
 <!-- Haven't added SAVE and DELETE hyperlinks -->
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,9 +14,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css"
         integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <script src="https://kit.fontawesome.com/c1b3b95b1c.js" crossorigin="anonymous"></script>  
-    
+
+    <script src="https://kit.fontawesome.com/c1b3b95b1c.js" crossorigin="anonymous"></script>
+
     <style>
         /* Sidebar */
         .sidebar {
@@ -37,7 +38,8 @@
         }
 
         .sidebar .active {
-            background-color: rgb(90, 109, 112);;
+            background-color: rgb(90, 109, 112);
+            ;
             border-radius: 5px;
             box-shadow: 0 3px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
         }
@@ -51,85 +53,86 @@
             overflow-y: auto;
             /* Scrollable contents if viewport is shorter than content. */
         }
-        .myButton
-       {
+
+        .myButton {
             border-radius: 10px;
-            background-color:rgb(55, 165, 81) ;
-            color:whitesmoke;
+            background-color: rgb(55, 165, 81);
+            color: whitesmoke;
             border-color: rgb(124, 159, 127);
             transition-duration: 0.4s;
             margin-right: 8px;
-       }
-       .myButton:hover
-       {
+        }
+
+        .myButton:hover {
             background-color: azure;
             color: rgb(124, 159, 127);
-            
-       }
 
-       .deleteButton
-       {
+        }
+
+        .deleteButton {
             border-radius: 10px;
-            background-color:rgb(165, 55, 55) ;
-            color:whitesmoke;
+            background-color: rgb(165, 55, 55);
+            color: whitesmoke;
             border-color: rgb(159, 124, 124);
             transition-duration: 0.4s;
             margin-right: 8px;
-       }
-       .deleteButton:hover
-       {
+        }
+
+        .deleteButton:hover {
             background-color: azure;
             color: rgb(159, 124, 124);
-            
-       }
-       
+
+        }
     </style>
 </head>
-<body style = "font-family: Arial, Helvetica, sans-serif;">
+
+<body style="font-family: Arial, Helvetica, sans-serif;">
     <!--Main Navigation-->
     <header>
         <!-- Sidebar -->
-        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="background-color: rgb(255, 255, 255,0.8)">
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse"
+            style="background-color: rgb(255, 255, 255,0.8)">
             <div class="position-sticky">
 
                 <div class="list-group list-group-flush mx-3 mt-4">
                     <h1 class="text-center">NextLevel</h1>
                     <hr>
-                    <i class="fa-solid fa-user" style= "font-size: 50px; text-align: center; margin-bottom: 20px;"></i>
-                
-                    <h5 class="text-center" style = "margin-bottom: 20px; font-weight: bold;">Author</h5>
-                
+                    <i class="fa-solid fa-user" style="font-size: 50px; text-align: center; margin-bottom: 20px;"></i>
+
+                    <h5 class="text-center" style="margin-bottom: 20px; font-weight: bold;">Author</h5>
+
                     <a href="{% url 'authorViewPaper' %}" class="list-group-item list-group-item-action">
                         <i class="fa-solid fa-eye me-3"></i>
                         <span>View Paper</span>
-                        </a>
-                        <a href="{% url 'authorSubmitPaper' %}" class="list-group-item list-group-item-action">
+                    </a>
+                    <a href="{% url 'authorSubmitPaper' %}" class="list-group-item list-group-item-action">
                         <i class="fa-solid fa-file-arrow-up me-3"></i>
                         <span>Submit Paper</span>
-                        </a>
-                        <a href="{% url 'authorRateReview' %}" class="list-group-item list-group-item-action active">
-                            <i class="fa-solid fa-star me-3"></i>
-                            <span>Rate Review</span>
-                        </a>
-                        <a href="{% url 'logout'%}" class="list-group-item list-group-item-action py-2 ripple">
-                            <i class="fa-solid fa-right-from-bracket me-3"></i>
-                            <span>Log Out</span></a>
-                            
-                    
+                    </a>
+                    <a href="{% url 'authorRateReview' %}" class="list-group-item list-group-item-action active">
+                        <i class="fa-solid fa-star me-3"></i>
+                        <span>Rate Review</span>
+                    </a>
+                    <a href="{% url 'logout'%}" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fa-solid fa-right-from-bracket me-3"></i>
+                        <span>Log Out</span></a>
+
+
                 </div>
             </div>
         </nav>
         <!-- Sidebar -->
     </header>
     <!--Main Navigation-->
-    
+
     <!-- Main Layout-->
     <main style="margin-top: 50px; margin-left: 270px; margin-right: 30px; margin-bottom: 50px;">
         <!-- INSERT ALL CONTENT HERE -->
         <div class="card rounded-10 text-black" style="background: rgba(238, 238, 238, 0.9); border: 0ch;">
-            <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
-                <h3 class="text-center mx-0" style = "font-weight: bold;">
-                   Rate Reviews
+            <div class="card rounded-5 text-black"
+                style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
+                <h3 class="text-center mx-0" style="font-weight: bold;">
+                    Rate Reviews
                     <hr>
                 </h3>
                 <div class="col-lg-12">
@@ -141,13 +144,13 @@
                                 <td style="text-align:center; font-weight: bold;">Reviewer ID</td>
                                 <td style="text-align:center; font-weight: bold;">Review</td>
                                 <td style="text-align:center; font-weight: bold;">Rate</td>
-                            </tr>   
+                            </tr>
                         </thead>
                         <tbody>
                             {% for review in final_review_list%}
                             <tr>
                                 <td style="text-align:center">
-                                     <p class="fw-normal mb-1" >{{ review.id }}</p> 
+                                    <p class="fw-normal mb-1">{{ review.id }}</p>
                                 </td>
                                 <td style="text-align:center">
                                     <p class="fw-normal mb-1">{{ review.paper_id }}</p>
@@ -156,32 +159,38 @@
                                     <p class="fw-normal mb-1">{{ review.reviewer_id }}</p>
                                 </td>
                                 <td style="text-align:center">
-                                    <a href = "ReviewContents.html">View Review</a>
+                                    <a href="./viewReview/{{review.id}}">View Review</a>
                                 </td>
                                 <form action="../rateReview/" method="post">
                                     {% csrf_token %}
                                     <input name="review_id" value="{{ review.id}}" style="display: none" />
                                     <input name="paper_id" value="{{ review.paper_id }}" style="display: none" />
                                     <input name="reviewer_id" value="{{ review.reviewer_id }}" style="display: none" />
-                                <td style="text-align:center">
-                                        <select class="dropdown" aria-label="Default select example" name="rating" id="rating"
-                                          style="background-color: rgb(90, 109, 112);
+                                    <td style="text-align:center">
+                                        <select class="dropdown" aria-label="Default select example" name="rating"
+                                            id="rating" style="background-color: rgb(90, 109, 112);
                                                   color: rgba(234, 238, 239, 0.959);
                                                   border-radius: 5px 5px 5px 5px;
                                                   height: 30px; text-align: center;
                                                   margin-right: 10px;">
-                                  
-                                  <option value="3" {% if review.rating == 3 %}selected{%endif%}>Strong Accept</option>
-                                  <option value="2" {% if review.rating == 2 %}selected{%endif%}>Accept</option>
-                                  <option value="1" {% if review.rating == 1 %}selected{%endif%}>Weak Accept</option>
-                                  <option value="0" {% if review.rating == 0 %}selected{%endif%}>Borderline Paper</option>
-                                  <option value="-1" {% if review.rating == -1 %}selected{%endif%}>Weak Reject</option>
-                                  <option value="-2" {% if review.rating == -2 %}selected{%endif%}>Reject</option>
-                                  <option value="-3" {% if review.rating == -3 %}selected{%endif%}>Strong Reject</option>
-                                          </select>
 
-                                    <button class = "myButton">Save</button>
-                                </td>
+                                            <option value="3" {% if review.rating == 3 %}selected{%endif%}>Strong Accept
+                                            </option>
+                                            <option value="2" {% if review.rating == 2 %}selected{%endif%}>Accept</option>
+                                            <option value="1" {% if review.rating == 1 %}selected{%endif%}>Weak Accept
+                                            </option>
+                                            <option value="0" {% if review.rating == 0 %}selected{%endif%}>Borderline
+                                                Paper</option>
+                                            <option value="-1" {% if review.rating == -1 %}selected{%endif%}>Weak Reject
+                                            </option>
+                                            <option value="-2" {% if review.rating == -2 %}selected{%endif%}>Reject
+                                            </option>
+                                            <option value="-3" {% if review.rating == -3 %}selected{%endif%}>Strong Reject
+                                            </option>
+                                        </select>
+
+                                        <input class="myButton" type="submit" value="Save" name="rate" />
+                                    </td>
                                 </form>
                             </tr>
                             {% endfor %}
@@ -191,9 +200,10 @@
             </div>
 
             <!-- View Rated Reviews -->
-            <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
-                <h3 class="text-center mx-0" style = "font-weight: bold;">
-                   View Rated Reviews
+            <div class="card rounded-5 text-black"
+                style="background: rgba(245, 243, 243,0); border: 0ch; margin-top: 30px; margin-left: 50px; margin-right: 50px;">
+                <h3 class="text-center mx-0" style="font-weight: bold;">
+                    View Rated Reviews
                     <hr>
                 </h3>
                 <div class="col-lg-12">
@@ -207,13 +217,13 @@
                                 <td style="text-align:center; font-weight: bold;">Rated by</td>
                                 <td style="text-align:center; font-weight: bold;">Rating</td>
                                 <td style="text-align:center; font-weight: bold;">Action</td>
-                            </tr>   
+                            </tr>
                         </thead>
                         <tbody>
                             {% for reviewRating in finalReviewRating_list %}
                             <tr>
                                 <td style="text-align:center">
-                                     <p class="fw-normal mb-1" >{{reviewRating.id}}</p> 
+                                    <p class="fw-normal mb-1">{{reviewRating.id}}</p>
                                 </td>
                                 <td style="text-align:center">
                                     <p class="fw-normal mb-1">{{reviewRating.review_id}}</p>
@@ -234,10 +244,10 @@
                                     <form action="./deleteReviewRating/{{reviewRating.id}}" method="post">
                                         {% csrf_token %}
                                         {% if loggedAuthor == reviewRating.author_id %}
-                                        <td><input type="Submit" value="Delete" name="Delete"></td>
-                                        {% endif %}
-                                        </form>
-                                </td>
+                                    
+                                    <input class="deleteButton" type="Submit" value="Delete" name="Delete"></td>
+                                {% endif %}
+                                </form>
                             </tr>
                             {%endfor%}
                         </tbody>
@@ -248,4 +258,5 @@
     </main>
 
 </body>
+
 </html>
