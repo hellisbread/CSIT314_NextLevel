@@ -9,3 +9,14 @@ Type py ./manage.py runserver
 
 In ur browser,
 type : http://127.0.0.1:8000
+
+
+
+
+To run unit testing
+
+Open command prompt in the base folder. Ensure that it is ./CSIT_NextLevel >
+
+Type py ./manage.py test website
+
+The unit test will begin running all test created.
