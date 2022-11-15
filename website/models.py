@@ -857,6 +857,9 @@ class ReviewRating(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE) # created by
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        db_table = 'review_rating'
+
     @classmethod
     def createReviewRating(cls, review, paper, reviewer, author, rating):
 
