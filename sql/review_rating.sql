@@ -1,4 +1,4 @@
-CREATE TABLE [IF NOT EXISTS] reviewrating (
+CREATE TABLE [IF NOT EXISTS] review_rating (
 	id INTEGER PRIMARY KEY,
 	rating INTEGER, 
 	author_id INTEGER,
@@ -20,7 +20,7 @@ CREATE TABLE [IF NOT EXISTS] reviewrating (
 );
 
 
-INSERT INTO reviewrating (id, rating, author_id, paper_id, reviewer_id, review_id) VALUES 
+INSERT INTO review_rating (id, rating, author_id, paper_id, reviewer_id, review_id) VALUES 
 (1, -1, 2, 2, 27, 1),
 (2, 0, 2, 2, 40, 2),
 (3, 3, 9, 9, 34, 5),
