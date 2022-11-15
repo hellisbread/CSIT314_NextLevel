@@ -261,6 +261,12 @@
                         </tr>
                           {% endfor %}
                     </tbody>
+                    <form action="../acceptOrReject/" method="post">
+                    {% csrf_token %}
+                    <td style="text-align:center">        
+                            <input class = "myButton" type="submit" value="Send email to all author" name="sendEmail" />
+                    </td>
+                    </form>
                 </table>
             </div>
         </div>
