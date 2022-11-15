@@ -245,7 +245,11 @@
                                 </ul>
                             </td>
                             <td style="text-align:center">
+                                {% if paper.status == "Accepted" %}
                                 <p class="fw-normal mb-1" style="color: green ;" >{{paper.status }}</p>
+                                {% else %}
+                                <p class="fw-normal mb-1" style="color: brown ;" >{{paper.status }}</p>
+                                {% endif %}
                             </td>
                             <form action="../acceptOrReject/" method="post">
                             {% csrf_token %}
