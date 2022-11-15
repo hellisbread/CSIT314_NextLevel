@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from ...forms import UploadFileForm
+from ...forms import UpdateFileForm
 from ...models import Author, Paper
 
 from django.contrib import messages
@@ -11,18 +11,26 @@ def updateSubmittedPaper(request, id):
 
     if request.method == 'POST':
         # collecting data from user input
-        form = UploadFileForm(request.POST, request.FILES)
+        form = UpdateFileForm(request.POST, request.FILES)
         new_topic = request.POST['topic']
         new_description = request.POST['description']
-        new_file = request.FILES['file']
         new_authors = request.POST.getlist('authors')
+
+        new_fileLocation = request.FILES.get('updatefile', False)
+
+        new_fileName = str(new_fileLocation)
+
+
+        if(new_fileLocation == False):
+            new_fileName = paper.fileName
+            new_fileLocation = paper.saved_file
 
         if len(new_authors) == 0:
             new_authors = paper.getAllAuthorID() 
         else:
             new_authors.append(author_id)
 
-        success = paper.updatePaper(new_topic, new_description, str(new_file), new_file, new_authors)
+        success = paper.updatePaper(new_topic, new_description, new_fileName, new_fileLocation, new_authors)
     
         if(success):
             messages.success(request, "Successfully updated Paper.")
@@ -31,7 +39,7 @@ def updateSubmittedPaper(request, id):
 
         return redirect('authorViewPaper')
     else:
-        form = UploadFileForm()
+        form = UpdateFileForm()
         authors = Author.getAllActiveAuthorWithoutLoggedAuthor(author_id)
 
         if int(logged_author) == int(author_id):

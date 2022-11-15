@@ -77,6 +77,11 @@
     .evenRow {
       background-color: rgb(197, 198, 199);
     }
+    .alert-error {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
   </style>
 </head>
 
@@ -127,7 +132,14 @@
           <hr>
         </h3>
       </div>
-
+      <!--Error Messages-->
+      {% if messages %}
+      {% for message in messages %}
+      <p class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </p>
+      {% endfor %}
+      {% endif %}
       <div class="card rounded-5 text-black" style="background: rgba(245, 243, 243,0); border: 0ch; margin-left: 50px;
                 margin-right: 50px; margin-bottom: 30px;">
         <div class="col-lg-12">

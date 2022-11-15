@@ -83,6 +83,12 @@
             color: rgb(159, 124, 124);
 
         }
+
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
     </style>
 </head>
 
@@ -135,6 +141,14 @@
                     Rate Reviews
                     <hr>
                 </h3>
+                <!--Error Messages-->
+                {% if messages %}
+                {% for message in messages %}
+                <p class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </p>
+                {% endfor %}
+                {% endif %}
                 <div class="col-lg-12">
                     <table class="table align-middle mx-0 bg-white">
                         <thead class="bg-light">
@@ -244,8 +258,9 @@
                                     <form action="./deleteReviewRating/{{reviewRating.id}}" method="post">
                                         {% csrf_token %}
                                         {% if loggedAuthor == reviewRating.author_id %}
-                                    
-                                    <input class="deleteButton" type="Submit" value="Delete" name="Delete"></td>
+
+                                        <input class="deleteButton" type="Submit" value="Delete" name="Delete">
+                                </td>
                                 {% endif %}
                                 </form>
                             </tr>

@@ -507,6 +507,7 @@ class Paper(models.Model):
     def updatePaper(self, topic, description, fileName, saved_file, authors):
         self.topic = topic
         self.description = description
+
         self.fileName = fileName
         self.saved_file = saved_file
         self.authors.clear()
@@ -584,9 +585,10 @@ class Paper(models.Model):
         return paper_list
     
     def getAllAcceptedRejectedPaper():
-        paper_list = Paper.objects.filter(~Q(status="Not Accessed"))
+        paper_list = Paper.objects.filter(status="Not Accessed")
         
         return paper_list
+
 class Bidded_Paper(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
