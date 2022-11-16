@@ -944,6 +944,20 @@ class Review(models.Model):
 
         return True
 
+    def deleteReviewByID(bid_id, id):
+
+        review = Review.getReview(id)
+
+        bidPaper = Bidded_Paper.getBiddedPaper(bid_id)
+
+        success = review.deleteReview()
+
+        if(success):
+            bidPaper.updateStatus("1")
+            return True
+        else:
+            return False
+
     def getReview(id):
         try:
             review = Review.objects.get(id = id)
@@ -1056,11 +1070,13 @@ class Comment(models.Model):
         db_table = 'comment'
 
     @classmethod
-    def createComment(cls, review_id, commenter, rating, description):
+    def createComment(cls, review_id, reviewer_id, rating, description):
+
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
 
         review = Review.getReview(review_id)
 
-        comment = cls(review = review, commenter = commenter, rating = rating, description = description)
+        comment = cls(review = review, commenter = reviewer.name, rating = rating, description = description)
         comment.save()
 
         return True
@@ -1095,6 +1111,17 @@ class Comment(models.Model):
         comments = Comment.objects.filter(review_id = id).values()
 
         return comments
+    
+    def getAllcommentPageDetails(id, reviewer_id, bid_id):
+        review = Review.getReview(id)
+
+        comments = Comment.getAllCommentByReviewID(id)
+
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+        context = {'review':review , 'comments':comments, 'reviewer':reviewer, 'bid_id':bid_id}
+
+        return context
 
 class ReviewRating(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)

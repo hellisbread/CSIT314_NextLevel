@@ -32,50 +32,36 @@ def createReview(request, id):
     else:
         return redirect('reviewPaper', id = id)
 
-def editReview(request, id):
+def editReview(request, bid_id, id):
     if(request.POST):
-
         title = request.POST['title']
         description = request.POST['description']
         rating = request.POST['rating']
 
-        bidPaper = Bidded_Paper.getBiddedPaper(id)
-
-        paper = Paper.getPaper(bidPaper.paper_id)
-
         reviewer_id = request.session['ReviewerLogged']
 
-        review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
-
-        success = Review.updateReview(review.id,rating,title,description)
+        success = Review.updateReview(id,rating,title,description)
 
         if(success):
             messages.success(request, "Successfully updated your review.")
-            return redirect('reviewPaper', id = id)
+            return redirect('reviewPaper', id = bid_id)
         else:
             messages.error(request, "There was an error updating your review.")
-            return redirect('reviewPaper', id = id)
+            return redirect('reviewPaper', id = bid_id)
 
     else:
-        return redirect('reviewPaper', id = id)
+        return redirect('reviewPaper', id = bid_id)
 
-def deleteReview(request, id):
-
+def deleteReview(request, bid_id, id):
 
     reviewer_id = request.session['ReviewerLogged']
 
-    success = Review.deleteReviewByID(id, reviewer_id)
+    success = Review.deleteReviewByID(bid_id, id)
 
-    bidPaper = Bidded_Paper.getBiddedPaper(id)
+    if(success):
 
-    review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
-
-    if(review!=None):
-        review.deleteReview()
-
-        bidPaper.updateStatus("1")
         messages.success(request, "Successfully deleted your review.")
-        return redirect('reviewPaper', id = id)
+        return redirect('reviewPaper', id = bid_id)
     else:
         messages.error(request, "An error has occured.")
-        return redirect('reviewPaper', id = id)
+        return redirect('reviewPaper', id = bid_id)
