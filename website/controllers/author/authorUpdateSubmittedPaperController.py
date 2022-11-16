@@ -34,4 +34,4 @@ def updateSubmittedPaper(request, id):
             return redirect('authorViewPaper')
         else:
             messages.error(request, "Invalid input found. Please ensure all fields are filled.")
-            return redirect('authorUpdateSubmittedPaper', id=id)
+            return redirect('authorUpdateSubmittedPaperPage', id=id)
