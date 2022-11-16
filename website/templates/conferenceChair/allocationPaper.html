@@ -217,7 +217,7 @@
                             </td>
                             <td style="text-align:center">
                                {% for r in paper.reviewer%}
-                              <form action="../allocationPaper/" method="post">
+                              <form action="../allocationPaper/unallocatePaper" method="post">
                                 {% csrf_token %}
                                 <p class="fw-normal mb-1">
                                    <input name="paper_id" value="{{ paper.paper_id }}" style="display: none" />
@@ -235,7 +235,7 @@
             </div>    
         </div>
         </div>
-          <form action="../allocationPaper/" method="post">
+          <form action="../allocationPaper/auto" method="post">
             {% csrf_token %}
            <p class="fw-normal mb-1" style="text-align:center; margin-top: 20px;">
             <input class = "allocate" type="submit" value="Allocate Automatically" name="allocateAutomatically">

@@ -6,11 +6,7 @@ from django.db.models import Q
 from django.contrib import messages
 
 def viewReview(request, id):
-    
-    reviews = Review.getAllReviewByPaperID(id)
 
-    paper = Paper.getPaper(id)
-    text = Paper.readSubmittedPaper(id)
-    context = {'reviews' : reviews, 'paper': paper, 'content':text}
+    context = Review.getAllReviewDetailsByPaperID(id)
 
     return render(request, 'conferenceChair/viewReview.html', context)

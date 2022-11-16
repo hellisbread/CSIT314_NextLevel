@@ -8,15 +8,11 @@ def bidPaper(request):
 
     reviewer_id = request.session['ReviewerLogged']
 
-    maxPaper = Reviewer.getMaxPaperByID(reviewer_id)
-
     paper_list = Paper.getAllUnbiddedPaper(reviewer_id)
 
     unassigned_list = Bidded_Paper.getAllUnassignedPaperByID(reviewer_id)
 
-    context = {'papers':paper_list, 'max_paper': maxPaper, 'unassigned_list':unassigned_list}
-
-    print(context)
+    context = {'papers':paper_list, 'unassigned_list':unassigned_list}
 
     return render(request, 'reviewer/bid_paper.html', context)
 

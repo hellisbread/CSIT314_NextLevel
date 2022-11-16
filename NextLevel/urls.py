@@ -22,7 +22,7 @@ from website.controllers.system_admin import updateAuthorController, updateAdmin
 from website.controllers.author import authorViewPaperController, authorSubmitPaperController, authorRateReviewController, authorViewReviewController, authorReadSubmittedPaperController, authorUpdateSubmittedPaperController
 
 from website.controllers.reviewer import bidController, commentController, reviewController, settingsController, viewbiddedPaperController, CurrentReviewController
-from website.controllers.conference_chair import CCviewReviewController, CCreadSubmittedPaperController, CCacceptOrRejectController, CCallocationPaperController
+from website.controllers.conference_chair import CCviewReviewController, CCreadSubmittedPaperController, CCacceptOrRejectController, CCallocationPaperController, CCallocatePaperController
 
 urlpatterns = [
     #General URL
@@ -65,9 +65,15 @@ urlpatterns = [
     path('reviewer/review/comments/edit/<int:bid_id>',commentController.editComment, name='editComment'),
     path('reviewer/review/comments/delete/<int:bid_id>/<int:id>/<int:comment_id>',commentController.deleteComment, name='deleteComment'),
     #Conference Chair URL
-    path('conferenceChair/allocationPaper/', CCallocationPaperController.allocationPaper, name ='CCallocationPaper'),
-    path('conferenceChair/allocationPaper/allocatePaper/<int:id>',   CCallocationPaperController.allocatePaper, name ='CCallocatePaper'),
+    path('conferenceChair/allocationPaper/', CCallocationPaperController.allocationPaperPage, name ='CCallocationPaper'),
+    path('conferenceChair/allocationPaper/allocatePaper/<int:id>',   CCallocatePaperController.allocatePaperPage, name ='CCallocatePaperPage'),
+    path('conferenceChair/allocationPaper/allocatePaper/allocate/<int:id>',   CCallocatePaperController.allocatePaper, name ='CCallocatePaper'),
+    path('conferenceChair/allocationPaper/unallocatePaper',   CCallocationPaperController.unallocatePaper, name ='CCunallocatePaper'),
+    path('conferenceChair/allocationPaper/auto',   CCallocationPaperController.autoAllocate, name ='CCautoAllocate'),
     path('conferenceChair/acceptOrReject/', CCacceptOrRejectController.acceptOrReject, name='CCacceptOrReject'),
+    path('conferenceChair/acceptOrReject/accept', CCacceptOrRejectController.acceptPaper, name='CCacceptPaper'),
+    path('conferenceChair/acceptOrReject/reject', CCacceptOrRejectController.rejectPaper, name='CCrejectPaper'),
+    path('conferenceChair/acceptOrReject/cancel', CCacceptOrRejectController.cancelDecision, name='CCCancelDecision'),
     path('conferenceChair/acceptOrReject/readSubmittedPaper/<int:id>', CCreadSubmittedPaperController.readSubmittedPaper, name='CCreadSubmittedPaper'),
     path('conferenceChair/acceptOrReject/viewReview/<int:id>', CCviewReviewController.viewReview, name='CCviewReview'),
     

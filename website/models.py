@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 
 from django.db.models import Q
+from django.core.mail import send_mail
 
 # Create your models here.
 class Users(models.Model):
@@ -543,9 +544,63 @@ class Paper(models.Model):
 
         return True
 
-    def updateStatus(self, status):
-        self.status = status
-        self.save()
+    def updateStatusToAccepted(id):
+        paper = Paper.getPaper(id)
+
+        paper.status = "Accepted"
+        paper.save()
+
+        author_id_list = Paper.getAllAuthorIDByPaperID(id)
+
+        for author_id in author_id_list:
+            author_email = Author.getAuthorEmail(author_id)
+            content = f'Dear Author ID {author_id}, your paper, {paper.topic} , is accepted. Thank you.'
+            
+            send_mail('Acceptation of Paper',
+            content, 
+            'nextlevelt05@gmail.com', 
+            [author_email], 
+            fail_silently=False)
+        
+        return True
+
+    def updateStatusToRejected(id):
+        paper = Paper.getPaper(id)
+
+        paper.status = "Rejected"
+        paper.save()
+
+        author_id_list = Paper.getAllAuthorIDByPaperID(id)
+
+        for author_id in author_id_list:
+            author_email = Author.getAuthorEmail(author_id)
+            content = f'Dear Author ID {author_id}, your paper, {paper.topic} , is rejected. Thank you.'
+            
+            send_mail('Rejection of Paper',
+            content, 
+            'nextlevelt05@gmail.com', 
+            [author_email], 
+            fail_silently=False)
+        
+        return True
+
+    def updateStatusToNotAccessed(id):
+        paper = Paper.getPaper(id)
+
+        paper.status = "Not Accessed"
+        paper.save()
+
+        author_id_list = Paper.getAllAuthorIDByPaperID(id)
+
+        for author_id in author_id_list:
+            author_email = Author.getAuthorEmail(author_id)
+            content = f'Dear Author ID {author_id}, the decision of your paper, {paper.topic} , has been canceled. Thank you.'
+            
+            send_mail('Cancellation of decision made',
+            content, 
+            'nextlevelt05@gmail.com', 
+            [author_email], 
+            fail_silently=False)
         
         return True
 
@@ -600,8 +655,10 @@ class Paper(models.Model):
 
         return text
 
-    def getAllAuthorID(self):
-        authors = list(self.authors.values_list('id', flat = True))
+    def getAllAuthorIDByPaperID(id):
+        paper = Paper.getPaper(id)
+
+        authors = list(paper.authors.values_list('id', flat = True))
         print(authors)
         
         return authors
@@ -651,11 +708,48 @@ class Bidded_Paper(models.Model):
         
         return True
 
+    def updateStatusToAllocated(paper_id, reviewer_id):
+        # check if number of paper < max paper
+        numOfPaperAssigned = Bidded_Paper.getNumberOfAssignedPaperByReviewerID(reviewer_id)
+        maxPaper = Reviewer.getMaxPaperByID(reviewer_id)
+
+        if numOfPaperAssigned < maxPaper:
+            bidded_papers = Bidded_Paper.getPaperByPaperIDAndReviewerID(paper_id, reviewer_id)
+            for bidded_paper in bidded_papers:
+                success = bidded_paper.updateStatus(1)
+                if(success):
+                    return "Success"
+                else:
+                    return "Error 1"
+        else:
+            return "Error 2"
+
+    def updateStatusToUnallocate(paper_id, reviewer_id):
+
+        bidded_paper = Bidded_Paper.getAssignedPaperByPaperIDAndReviewerID(paper_id, reviewer_id)
+        success = bidded_paper.updateStatus(0)
+
+        return success
+
     def updateSubmission(self, datetime):
         self.submission_date = datetime
         self.save()
 
         return True
+
+    def AutoAllocate():
+        bidded_paper = Bidded_Paper.getAllUnassignedBiddedPaper()
+        for paper in bidded_paper:
+            bid_paper = Bidded_Paper.getBiddedPaper(paper['id'])
+            reviewer_id = paper['reviewer_id']
+            paper_id = paper['paper_id']
+            maxPaper = Reviewer.getMaxPaperByID(reviewer_id)
+            numOfPaperAssigned = Bidded_Paper.getAllAssignedPaperByID(reviewer_id).count()
+
+            if numOfPaperAssigned < maxPaper:
+                success = bid_paper.updateStatus(1)
+
+        return success
 
     def getBiddedPaper(id):
         try:
@@ -738,6 +832,39 @@ class Bidded_Paper(models.Model):
 
         return bid_list
 
+    def GetAllUnassignedPapers():
+        # need to be allocated table
+        unassigned_paper_id_list = Bidded_Paper.getAllUnassignedPaperID()
+
+        for paper_id in unassigned_paper_id_list:
+            reviewer = []
+            unassigned_reviewer_id_list = Bidded_Paper.getAllUnassignedReviewerID(paper_id)
+            for reviewer_id in unassigned_reviewer_id_list:
+                reviewer.append(reviewer_id['reviewer_id'])
+            paper_id['reviewer'] = reviewer
+
+        return unassigned_paper_id_list
+
+    def getAllAssignedPapers():
+        assigned_paper_id_list = Bidded_Paper.getAllAssignedPaperID()
+
+        for paper_id in assigned_paper_id_list:
+            reviewer = []
+            assigned_reviewer_id_list = Bidded_Paper.getAllAssignedReviewerID(paper_id['paper_id'])
+            for reviewer_id in assigned_reviewer_id_list:
+                reviewer.append(reviewer_id['reviewer_id'])
+            paper_id['reviewer'] = reviewer
+
+        return assigned_paper_id_list
+
+    def getAllAllocatePaperDetails(id):
+        reviewer_id_list = Bidded_Paper.getAllReviewerIDunassignedPaper(id)
+
+        paper = Paper.getPaper(id=id)
+        context = {'paper': paper, 'reviewer_id_list': reviewer_id_list}
+
+        return context
+
     def deleteBiddedPaperByID(id):
         try:
             biddedPaper = Bidded_Paper.objects.get(id=id)
@@ -808,6 +935,16 @@ class Review(models.Model):
             return context
         except (Review.DoesNotExist, ObjectDoesNotExist):
             return None
+    
+    def getAllReviewDetailsByPaperID(id):
+        reviews = Review.getAllReviewByPaperID(id)
+
+        paper = Paper.getPaper(id)
+        text = Paper.readSubmittedPaper(id)
+
+        context = {'reviews' : reviews, 'paper': paper, 'content':text}
+
+        return context
 
     def getReviewByPaperAndReviewer(paper_id, reviewer_id):
         try:

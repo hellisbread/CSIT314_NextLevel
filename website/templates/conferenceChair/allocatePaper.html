@@ -110,8 +110,16 @@
                 Allocate Paper
                    <hr>
                </h3>
+               <!--Error Messages-->
+               {% if messages %}
+               {% for message in messages %}
+               <p class="alert alert-{{ message.tags }}">
+                   {{ message }}
+               </p>
+               {% endfor %}
+               {% endif %}
                <div>
-                <form action= "../allocatePaper/{{ paper.id }}"method="post">
+                <form action= "../allocatePaper/allocate/{{ paper.id }}"method="post">
                 {% csrf_token %}
                <span style="font-weight:bold ; font-size:larger">Topic: <span>{{ paper.topic }}</span></span>
             </br> </br>
