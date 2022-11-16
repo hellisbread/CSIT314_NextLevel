@@ -34,14 +34,9 @@ def deleteBidPaper(request, id):
 
     reviewer_id = request.session['ReviewerLogged']
 
-    bid_paper = Bidded_Paper.getBiddedPaper(id)
+    success = Bidded_Paper.deleteBiddedPaperByID(id)
 
-    if(bid_paper==None):
-        messages.error(request, "Unable to find paper - Please try again.")
-        return redirect('bidPaper')
-
-    if(bid_paper.status=="0"):
-        bid_paper.deleteBiddedPape()
+    if(success):
         messages.success(request, "You have successfully deleted your bid.")
         return redirect('bidPaper')
     else:
