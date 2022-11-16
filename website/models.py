@@ -511,19 +511,35 @@ class Paper(models.Model):
 
         return True
     
-    def updatePaper(self, topic, description, fileName, saved_file, authors):
-        self.topic = topic
-        self.description = description
+    def updatePaper(id, topic, description, saved_file, authors):
 
-        self.fileName = fileName
-        self.saved_file = saved_file
-        self.authors.clear()
+        paper = Paper.getPaper(id)
+        author_id = int(paper.uploaded_by)
+        
+        new_fileLocation = saved_file
+        new_fileName = str(new_fileLocation)
+
+        if(new_fileLocation == False):
+            new_fileName = paper.fileName
+            new_fileLocation = paper.saved_file
+
+        if len(authors) == 0:
+            authors = paper.getAllAuthorID() 
+        else:
+            authors.append(author_id)
+
+        paper.topic = topic
+        paper.description = description
+
+        paper.fileName = new_fileName
+        paper.saved_file = new_fileLocation
+        paper.authors.clear()
 
         for author_id in authors:
             author = Author.objects.get(id=author_id)
-            self.authors.add(author)
+            paper.authors.add(author)
 
-        self.save()
+        paper.save()
 
         return True
 
@@ -540,6 +556,15 @@ class Paper(models.Model):
             return paper
         except (Paper.DoesNotExist, ObjectDoesNotExist):
             return None
+
+    def getPaperContent(id):
+        text = Paper.readSubmittedPaper(id)
+
+        paper = Paper.getPaper(id)
+
+        context = {'paper':paper, 'content': text}
+
+        return context
         
         
     def getAllPaper():
@@ -558,7 +583,7 @@ class Paper(models.Model):
         return paper_list
 
     # author controller
-    def viewPaper(id):
+    def getAllPaperByAuthorID(id):
         paper_list = Paper.objects.all().filter(authors__in=[id])
 
         return paper_list
@@ -770,6 +795,20 @@ class Review(models.Model):
             return review
         except (Review.DoesNotExist, ObjectDoesNotExist):
             return None
+
+    def getReviewAndPaperInfo(id):
+        try:
+            review = Review.getReview(id)
+            paper = Paper.getPaper(review.paper_id)
+    
+            text = paper.getText()
+
+            context = {'review': review, 'paper' : paper, 'content': text}
+            
+            return context
+        except (Review.DoesNotExist, ObjectDoesNotExist):
+            return None
+
     def getReviewByPaperAndReviewer(paper_id, reviewer_id):
         try:
             review = Review.objects.get(paper_id = paper_id, reviewer_id = reviewer_id)

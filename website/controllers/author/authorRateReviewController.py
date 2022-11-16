@@ -6,7 +6,19 @@ from django.contrib import messages
 def rateReview(request):
     author_id = request.session["AuthorLogged"]
 
+    # rate review
+    final_review_list = Review.getAllUnReviewedByAuthorReviewsByAuthorID(author_id)
+
+    # view rated review
+    finalReviewRating_list = ReviewRating.getAllReviewRatingByAuthorID(author_id)
+
+    context = {'final_review_list': final_review_list, 'finalReviewRating_list': finalReviewRating_list, 'loggedAuthor': author_id}
+    
+    return render(request, 'author/rateReview.html', context)
+
+def CreateReview(request):
     if request.method == "POST":
+        author_id = request.session["AuthorLogged"]
 
         review_id = request.POST["review_id"]
         paper_id = request.POST["paper_id"]
@@ -21,16 +33,7 @@ def rateReview(request):
         else:
             messages.error(request, "There was an error submitting your rating.")
             return redirect('authorRateReview')
-    else:
-        # rate review
-        final_review_list = Review.getAllUnReviewedByAuthorReviewsByAuthorID(author_id)
 
-        # view rated review
-        finalReviewRating_list = ReviewRating.getAllReviewRatingByAuthorID(author_id)
-
-        context = {'final_review_list': final_review_list, 'finalReviewRating_list': finalReviewRating_list, 'loggedAuthor': author_id}
-        
-        return render(request, 'author/rateReview.html', context)
 
 def deleteReviewRating(request, id):
     success = ReviewRating.deleteReviewRating(id)

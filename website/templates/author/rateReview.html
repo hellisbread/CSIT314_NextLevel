@@ -175,7 +175,7 @@
                                 <td style="text-align:center">
                                     <a href="./viewReview/{{review.id}}">View Review</a>
                                 </td>
-                                <form action="../rateReview/" method="post">
+                                <form action="./create" method="post">
                                     {% csrf_token %}
                                     <input name="review_id" value="{{ review.id}}" style="display: none" />
                                     <input name="paper_id" value="{{ review.paper_id }}" style="display: none" />

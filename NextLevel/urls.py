@@ -32,12 +32,15 @@ urlpatterns = [
     #Authors URL
     path('author/', authorViewPaperController.viewPaper, name='authorViewPaper'),
     path('author/submitPaper/', authorSubmitPaperController.submitPaper, name ='authorSubmitPaper'),
+    path('author/submitPaper/create', authorSubmitPaperController.createPaper, name ='createAuthorPaper'),
     path('author/rateReview/', authorRateReviewController.rateReview, name = 'authorRateReview'),
+    path('author/rateReview/create', authorRateReviewController.CreateReview, name='createAuthorRateReview'),
     path('author/rateReview/deleteReviewRating/<int:id>', authorRateReviewController.deleteReviewRating, name = 'authorDeleteReviewRating'),
     path('author/rateReview/viewReview/<int:id>', authorViewReviewController.viewReview, name="authorViewReview"),
     path('author/viewPaper/deleteSubmittedPaper/<int:id>', authorViewPaperController.deleteSubmittedPaper, name='authorDeleteSubmittedPaper'),
     path('author/viewPaper/readSubmittedPaper/<int:id>', authorReadSubmittedPaperController.readSubmittedPaper, name = 'authorReadSubmittedPaper'),
-    path('author/viewPaper/updateSubmittedPaper/<int:id>', authorUpdateSubmittedPaperController.updateSubmittedPaper, name = 'authorUpdateSubmittedPaper'),
+    path('author/viewPaper/updateSubmittedPaper/<int:id>', authorUpdateSubmittedPaperController.updateSubmittedPaperPage, name = 'authorUpdateSubmittedPaper'),
+    path('author/viewPaper/updateSubmittedPaper/update/<int:id>', authorUpdateSubmittedPaperController.updateSubmittedPaper, name = 'authorUpdateSubmittedPaper'),
     #System Admins URL
     path('admin/', systemAdminController.systemAdminPage, name = 'systemAdminPage'),
     path('admin/create',createUserController.createNewUser, name='register'),
