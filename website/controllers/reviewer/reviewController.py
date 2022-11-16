@@ -8,43 +8,22 @@ def reviewPage(request, id):
 
     reviewer_id = request.session['ReviewerLogged']
 
-    reviewer = Reviewer.getReviewerByID(reviewer_id)
-
-    bidPaper = Bidded_Paper.getBiddedPaper(id)
-
-    paper = Paper.getPaper(bidPaper.paper_id)
-
-    review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
-
-    text = paper.getText()
-
-    context = {'paper':paper, 'bid_id':id, 'review':review, 'content': text , 'reviewer':reviewer}
-
-    print(context)
+    context = Review.getReviewPageDetails(reviewer_id, id)
 
     return render(request, 'reviewer/review_paper.html', context)
 
 def createReview(request, id):
     if(request.POST):
 
+        reviewer_id = request.session['ReviewerLogged']
+
         title = request.POST['title']
         description = request.POST['description']
         rating = request.POST['rating']
 
-        bidPaper = Bidded_Paper.getBiddedPaper(id)
-
-        paper = Paper.getPaper(bidPaper.paper_id)
-
-        reviewer_id = request.session['ReviewerLogged']
-
-        reviewer = Reviewer.getReviewerByID(reviewer_id)
-
-        success = Review.createReview(paper, reviewer, rating, title, description)
+        success = Review.createReview(id, reviewer_id, rating, title, description)
 
         if(success):
-            bidPaper.updateStatus("2")
-            bidPaper.updateSubmission(timezone.now())
-
             messages.success(request, "Successfully submitted your review. Thank you for your submission.")
             return redirect('reviewPaper', id = id)
         else:

@@ -20,16 +20,10 @@ def addBidPaper(request, id):
 
     reviewer_id = request.session['ReviewerLogged']
 
-    paper = Paper.getPaper(id)
-
-    if(paper==None):
-        messages.error(request, "Unable to find paper - Please try again.")
-        return redirect('reviewerPage')
-
-    success = Bidded_Paper.createBiddedPaper(reviewer_id, paper, "0")
+    success = Bidded_Paper.createBiddedPaper(reviewer_id, id, "0")
 
     if(success):
-        messages.success(request, "Successfully bidded for paper - "+paper.topic)
+        messages.success(request, "Successfully bidded for paper")
         return redirect('bidPaper')
     else:
         messages.error(request, "An error has occured while adding paper")

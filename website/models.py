@@ -692,9 +692,11 @@ class Bidded_Paper(models.Model):
         db_table = 'bidded_paper'
 
     @classmethod
-    def createBiddedPaper(cls, reviewer_id, paper, status):
+    def createBiddedPaper(cls, reviewer_id, paper_id, status):
 
         reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+        paper = Paper.getPaper(paper_id)
 
         bidded_paper = cls(reviewer = reviewer, paper = paper, status = status)
 
@@ -865,6 +867,17 @@ class Bidded_Paper(models.Model):
 
         return context
 
+    def getAllAssignedAndReviewedPapers(reviewer_id):
+        
+        assigned_list = Bidded_Paper.getAllAssignedPaperByID(reviewer_id)
+
+        completed_list = Bidded_Paper.getAllReviewedPaperByID(reviewer_id)
+
+        context = {'assigned_list':assigned_list,'completed_list':completed_list}
+
+        return context
+
+
     def deleteBiddedPaperByID(id):
         try:
             biddedPaper = Bidded_Paper.objects.get(id=id)
@@ -891,9 +904,19 @@ class Review(models.Model):
         db_table = 'review'
 
     @classmethod
-    def createReview(cls, paper, reviewer, rating, title, description):
+    def createReview(cls, bid_id, reviewer_id, rating, title, description):
+
+        bidPaper = Bidded_Paper.getBiddedPaper(bid_id)
+
+        paper = Paper.getPaper(bidPaper.paper_id)
+
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
+
         review = cls(paper = paper, reviewer = reviewer, rating = int(rating), title = title, description = description)
         review.save()
+
+        bidPaper.updateStatus("2")
+        bidPaper.updateSubmission(timezone.now())
 
         return True
 
@@ -923,6 +946,21 @@ class Review(models.Model):
         except (Review.DoesNotExist, ObjectDoesNotExist):
             return None
 
+    def getReviewPageDetails(reviewer_id, id):
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
+
+        bidPaper = Bidded_Paper.getBiddedPaper(id)
+
+        paper = Paper.getPaper(bidPaper.paper_id)
+
+        review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
+
+        text = paper.getText()
+
+        context = {'paper':paper, 'bid_id':id, 'review':review, 'content': text , 'reviewer':reviewer}
+
+        return context
+
     def getReviewAndPaperInfo(id):
         try:
             review = Review.getReview(id)
@@ -946,17 +984,29 @@ class Review(models.Model):
 
         return context
 
-    def getReviewByPaperAndReviewer(paper_id, reviewer_id):
+    def getReviewByPaperAndReviewer(bid_id, reviewer_id):
+
+        bidPaper = Bidded_Paper.getBiddedPaper(bid_id)
+
         try:
-            review = Review.objects.get(paper_id = paper_id, reviewer_id = reviewer_id)
+            review = Review.objects.get(paper_id = bidPaper.paper_id, reviewer_id = reviewer_id)
 
             return review
         except (Review.DoesNotExist, ObjectDoesNotExist):
             return None
 
     
-    def getOtherReviews(paper_id, reviewer_id):
-        reviews = Review.objects.filter(paper_id=paper_id).exclude(reviewer_id=reviewer_id).values()
+    def getOtherReviews(bid_id, reviewer_id):
+
+        bidPaper = Bidded_Paper.getBiddedPaper(bid_id)
+        
+        reviews = Review.objects.filter(paper_id=bidPaper.paper_id).exclude(reviewer_id=reviewer_id).values()
+
+        #Get Reviewer Name base on reviewer ID
+        for otherReview in reviews:
+            print(otherReview)
+            reviewer_name = Reviewer.getReviewerByID(otherReview.get("reviewer_id")).name
+            otherReview['reviewerName'] = reviewer_name
 
         return reviews
 
