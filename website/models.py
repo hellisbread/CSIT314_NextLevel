@@ -5,6 +5,8 @@ from django.dispatch import receiver
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 
+from django.db.models import Q
+
 # Create your models here.
 class Users(models.Model):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
@@ -243,6 +245,11 @@ class Author(Users):
         author_email = Author.objects.get(id=id).email
 
         return author_email
+
+    def getAuthorName(id):
+        author_name = Author.objects.get(id=id).name
+
+        return author_name
 
     def setStatus(self, status):
         
@@ -585,9 +592,12 @@ class Paper(models.Model):
         return paper_list
     
     def getAllAcceptedRejectedPaper():
-        paper_list = Paper.objects.filter(status="Not Accessed")
+        paper_list = Paper.objects.filter(~Q(status="Not Accessed"))
         
         return paper_list
+    
+    def getPaperStatus(self):
+        return self.status
 
 class Bidded_Paper(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
@@ -860,6 +870,9 @@ class ReviewRating(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE) # created by
     rating = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'review_rating'
 
     @classmethod
     def createReviewRating(cls, review_id, paper_id, reviewer_id, author_id, rating):

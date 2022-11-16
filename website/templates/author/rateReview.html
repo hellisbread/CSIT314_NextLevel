@@ -228,6 +228,7 @@
                                 <td style="text-align:center; font-weight: bold;">Review ID</td>
                                 <td style="text-align:center; font-weight: bold;">Paper ID</td>
                                 <td style="text-align:center; font-weight: bold;">Reviewer ID</td>
+                                <td style="text-align:center; font-weight: bold;">Review</td>
                                 <td style="text-align:center; font-weight: bold;">Rated by</td>
                                 <td style="text-align:center; font-weight: bold;">Rating</td>
                                 <td style="text-align:center; font-weight: bold;">Action</td>
@@ -247,6 +248,9 @@
                                 </td>
                                 <td style="text-align:center">
                                     <p class="fw-normal mb-1">{{reviewRating.reviewer_id}}</p>
+                                </td>
+                                <td style="text-align:center">
+                                    <a href="./viewReview/{{reviewRating.review_id}}">View Review</a>
                                 </td>
                                 <td style="text-align:center">
                                     <p class="fw-normal mb-1">Author ID {{reviewRating.author_id}}</p>

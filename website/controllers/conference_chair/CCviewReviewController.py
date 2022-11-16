@@ -15,15 +15,3 @@ def viewReview(request, id):
         context = {'reviews' : reviews, 'numberOfReview' : numberOfReview, 'paper': paper, 'content':text}
 
         return render(request, 'conferenceChair/viewReview.html', context)
-    else:
-        # accept and reject table
-        papers = Paper.getAllNotAccessedPaper()
-
-        paperWithReview_list = Review.getAllPaperID()
-        papers_decided = Paper.getAllAcceptedRejectedPaper()
-
-        messages.error(request, f"There is no review on paper ID {id} currently")
-        context = {'papers':papers, 'papers_decided':papers_decided, 'paperWithReview_list' : paperWithReview_list}
-        
-        return render(request, 'conferenceChair/acceptOrReject.html',context)
-
