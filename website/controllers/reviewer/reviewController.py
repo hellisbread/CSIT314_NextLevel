@@ -61,9 +61,12 @@ def editReview(request, id):
 
 def deleteReview(request, id):
 
-    bidPaper = Bidded_Paper.getBiddedPaper(id)
 
     reviewer_id = request.session['ReviewerLogged']
+
+    success = Review.deleteReviewByID(id, reviewer_id)
+
+    bidPaper = Bidded_Paper.getBiddedPaper(id)
 
     review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
 

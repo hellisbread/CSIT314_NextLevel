@@ -959,7 +959,7 @@ class Review(models.Model):
 
         paper = Paper.getPaper(bidPaper.paper_id)
 
-        review = Review.getReviewByPaperAndReviewer(bidPaper.paper_id, reviewer_id)
+        review = Review.getReviewByPaperAndReviewer(id, reviewer_id)
 
         text = paper.getText()
 
