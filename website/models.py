@@ -655,6 +655,12 @@ class Paper(models.Model):
 
         return text
 
+    def getAllAuthorID(self):
+        authors=list(self.authors.values_list('id', flat=True))
+        print(authors)
+        
+        return authors
+    
     def getAllAuthorIDByPaperID(id):
         paper = Paper.getPaper(id)
 
