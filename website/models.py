@@ -789,6 +789,20 @@ class Review(models.Model):
 
         return paper_list
 
+    def getAllUnReviewedByAuthorReviewsByAuthorID(author_id):
+        review_list = Review.getAllReview()
+        final_review_list = []
+        
+        for review in review_list:
+            paper = Paper.getPaper(review.paper_id)
+            author_list = paper.getAllAuthorID()
+            authorHasNotReviewed = ReviewRating.checkAuthorHasNotReviewed(review.paper_id, review.reviewer_id, author_id)
+
+            if author_id in author_list and authorHasNotReviewed:
+                final_review_list.append(review)
+
+        return final_review_list
+
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     commenter = models.CharField(max_length=255)
@@ -848,7 +862,12 @@ class ReviewRating(models.Model):
     rating = models.IntegerField(default=0)
 
     @classmethod
-    def createReviewRating(cls, review, paper, reviewer, author, rating):
+    def createReviewRating(cls, review_id, paper_id, reviewer_id, author_id, rating):
+
+        review = Review.getReview(review_id)
+        paper = Paper.getPaper(paper_id)
+        reviewer = Reviewer.getReviewerByID(reviewer_id)
+        author = Author.getAuthorByID(author_id)
 
         reviewRating = cls(review = review, paper = paper, reviewer = reviewer, author = author, rating = int(rating))
         reviewRating.save()
@@ -863,6 +882,18 @@ class ReviewRating(models.Model):
     def getReviewRatingByID(id):
         reviewRating = ReviewRating.objects.get(id=id)
         return reviewRating
+
+    def getAllReviewRatingByAuthorID(author_id):
+        reviewRating_list = ReviewRating.getAllReviewRating()
+        finalReviewRating_list = []
+
+        for reviewRating in reviewRating_list:
+            paper = Paper.getPaper(reviewRating.paper_id)
+            author_list = paper.getAllAuthorID()
+            if author_id in author_list:
+                finalReviewRating_list.append(reviewRating)
+
+        return finalReviewRating_list
 
     def deleteReviewRating(id):
         reviewRating = ReviewRating.getReviewRatingByID(id)

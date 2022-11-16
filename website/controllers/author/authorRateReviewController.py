@@ -5,13 +5,15 @@ from django.contrib import messages
 
 def rateReview(request):
     author_id = request.session["AuthorLogged"]
+
     if request.method == "POST":
-        review = Review.getReview(request.POST["review_id"])
-        paper = Paper.getPaper(request.POST["paper_id"])
-        reviewer = Reviewer.getReviewerByID(request.POST["reviewer_id"])
-        author = Author.getAuthorByID(author_id)
+
+        review_id = request.POST["review_id"]
+        paper_id = request.POST["paper_id"]
+        reviewer_id = request.POST["reviewer_id"]
         rating = request.POST["rating"]
-        success = ReviewRating.createReviewRating(review, paper, reviewer, author, rating)
+
+        success = ReviewRating.createReviewRating(review_id, paper_id, reviewer_id, author_id, rating)
         
         if(success):
             messages.success(request, "Successfully submitted your rating. Thank you for your submission.")
@@ -21,27 +23,13 @@ def rateReview(request):
             return redirect('authorRateReview')
     else:
         # rate review
-        review_list = Review.getAllReview()
-        final_review_list = []
-        
-        for review in review_list:
-            paper = Paper.getPaper(review.paper_id)
-            author_list = paper.getAllAuthorID()
-            authorHasNotReviewed = ReviewRating.checkAuthorHasNotReviewed(review.paper_id, review.reviewer_id, author_id)
+        final_review_list = Review.getAllUnReviewedByAuthorReviewsByAuthorID(author_id)
 
-            if author_id in author_list and authorHasNotReviewed:
-                final_review_list.append(review)
-            
         # view rated review
-        reviewRating_list = ReviewRating.getAllReviewRating()
-        finalReviewRating_list = []
-        for reviewRating in reviewRating_list:
-            paper = Paper.getPaper(reviewRating.paper_id)
-            author_list = paper.getAllAuthorID()
-            if author_id in author_list:
-                finalReviewRating_list.append(reviewRating)
+        finalReviewRating_list = ReviewRating.getAllReviewRatingByAuthorID(author_id)
 
         context = {'final_review_list': final_review_list, 'finalReviewRating_list': finalReviewRating_list, 'loggedAuthor': author_id}
+        
         return render(request, 'author/rateReview.html', context)
 
 def deleteReviewRating(request, id):

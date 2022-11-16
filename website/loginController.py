@@ -14,8 +14,6 @@ def checkLogin(request):
 
         selectedRole = request.POST['roleList']
 
-        print(selectedRole)
-
         username = request.POST['username']
         password = request.POST['password']
 
@@ -27,6 +25,7 @@ def checkLogin(request):
                 request.session['AuthorLogged'] = author.id
 
                 #Redirects to author index
+                messages.success(request, "Successfully Logged-in")
                 return redirect('authorViewPaper')
 
             else:
@@ -41,6 +40,7 @@ def checkLogin(request):
 
                 request.session['ReviewerLogged'] = reviewer.id
 
+                messages.success(request, "Successfully Logged-in")
                 return redirect('biddedPaper') #TOBEUPDATED
 
             else:
@@ -54,6 +54,7 @@ def checkLogin(request):
 
                 request.session['ConfLogged'] = Conf.id
 
+                messages.success(request, "Successfully Logged-in")
                 return redirect('CCallocationPaper') #TOBEUPDATED
 
             else:
