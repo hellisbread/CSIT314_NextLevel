@@ -642,6 +642,20 @@ class Paper(models.Model):
         paper_list = Paper.objects.all().filter(authors__in=[id])
 
         return paper_list
+
+    def getAllPaperAndReviews():
+        # accept and reject table
+        # papers = Paper.objects.filter(status="Not Accessed").all()
+        papers = Paper.getAllUnAccessedPaper()
+
+        # decision table
+        papers_decided = Paper.getAllAcceptedRejectedPaper()
+
+        paperWithReview_list = Review.getAllPaperID()
+
+        context = {'papers':papers, 'papers_decided':papers_decided, 'paperWithReview_list':paperWithReview_list}
+
+        return context
     
     def deleteSubmittedPaper(id):
         paper = Paper.getPaper(id)

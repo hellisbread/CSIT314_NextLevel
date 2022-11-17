@@ -5,13 +5,8 @@ from django.db.models import Q
 from django.core.mail import send_mail
 
 def acceptOrReject(request):
-    # accept and reject table
-    # papers = Paper.objects.filter(status="Not Accessed").all()
-    papers = Paper.getAllUnAccessedPaper()
 
-    # decision table
-    papers_decided = Paper.getAllAcceptedRejectedPaper()
-    context = {'papers':papers, 'papers_decided':papers_decided}
+    context = Paper.getAllPaperAndReviews()
 
     return render(request, 'conferenceChair/acceptOrReject.html', context)
 
