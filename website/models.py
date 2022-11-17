@@ -907,11 +907,6 @@ class Bidded_Paper(models.Model):
         except(Bidded_Paper.DoesNotExist, ObjectDoesNotExist):
 
             return False
-    
-    def deleteBiddedPape(self):
-        self.delete()
-
-        return True
            
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
